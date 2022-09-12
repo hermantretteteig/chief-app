@@ -48,7 +48,7 @@ const Mainpage = (e) => {
             return;
         }
 
-        onSVGButton();
+        getImageURL();
     }, [convertSVG])
 
     const mockExtraOptions = {
@@ -63,7 +63,7 @@ const Mainpage = (e) => {
 
     const getImageURL = async () => {
         //return "hri"
-        console.log("print")
+        //console.log("print")
         //setMessage("Svg is loading..")
         
         //const res = createVisualizationMock.visualization.getSVGForExport();
@@ -78,9 +78,10 @@ const Mainpage = (e) => {
         let imgUrl = "";
 
         
-        const host = "https://play.dhis2.org/dev"
-        //const host = "http://localhost:9999"
-        const res = await fetch(host+"/api/38/svg.png",
+        //const host = "https://play.dhis2.org/dev"
+        const host = "http://localhost:9999"
+        /*const res = await */
+        fetch(host+"/api/38/svg.png",
         {
             method: "post",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
@@ -96,8 +97,8 @@ const Mainpage = (e) => {
             console.log(imgUrl)
             //return "ooko"
             //return imgUrl
-            //setImageURL(imgUrl);
-            //setMessage("finish");
+            setImageURL(imgUrl);
+            setMessage("finish");
         });
         console.log(res)
         
@@ -122,10 +123,7 @@ const Mainpage = (e) => {
     const props = {
         style: { height: 400, width : 300 },
         id: 1,
-        onChartGenerated: async () => {
-            console.log(await getImageURL())
-            //setImageURL((() => getImageURL(
-        },//onSVGButton(),
+        onChartGenerated: () => setConvertSVG(true),//onSVGButton(),
         responses: [],
         extraOptions: mockExtraOptions,
         legendSets: [],
