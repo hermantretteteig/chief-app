@@ -11,6 +11,7 @@ import "./overview-styles/overview.css"
 
 interface OverviewProps {
     layers : ILayer[],
+    //swapIndex : (swapFirstId : string, swapSecondId : string ) => void;
     setLayers : any;
 }
 
@@ -19,6 +20,8 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
     const navigate = useNavigate();
 
     const [viewType, setViewType] = useState<string>("summery")
+
+
 
  
 
@@ -39,11 +42,6 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 
         <div className='main-container'>
 
-   
-
-
-     
-
         {
             {
             'summery': <Summery layers={layers} setLayers={setLayers}/>,
@@ -53,7 +51,7 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
        
        <div className='center-button-margin'>
        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
-            Add new chart
+            Add new chart/text
        </Button>
        </div>
        

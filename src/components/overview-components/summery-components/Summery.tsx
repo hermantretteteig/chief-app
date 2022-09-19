@@ -5,22 +5,27 @@ import SummeryLayer from './SummeryLayer';
 
 interface SummeryProps {
   layers : ILayer[],
-  setLayers : any
+  setLayers : any,
+  //swapIndex : (swapFirstId : string, swapSecondId : string ) => void;
 }
 
 
 const Summery = ({layers} : SummeryProps) => {
 
-  layers = fake_layers;
+
+
+
 
   return (
     <div>
- 
       {
-      layers.map((layer : ILayer) => (
-          <SummeryLayer layer={layer}/>
-      ))
-  }</div>
+        layers.map((layer : ILayer, index) => (
+          <div key={index}>
+            <SummeryLayer index={index} layer={layer}/>
+          </div>
+        ))
+      }
+    </div>
   )
 }
 

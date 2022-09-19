@@ -6,15 +6,21 @@ import { DropdownButton, Button } from "@dhis2/ui"
 import MoreOptions from './MoreOptions';
 
 interface SummerLayerProps {
-    layer : ILayer
+    layer : ILayer,
+    index : number
 }
 
-const SummeryLayer = ({layer} : SummerLayerProps) => {
+const SummeryLayer = ({layer, index} : SummerLayerProps) => {
 
     const [showMore, setShowMore] = useState<boolean>(false);
+    const [key, setClicked] = useState(0)
 
+    //used to reload button, so it
+    const increaseKey = () => {
+        setClicked(key+1)
 
-
+    
+    }
 
   return (
     <div className='layer-container'>
@@ -24,11 +30,18 @@ const SummeryLayer = ({layer} : SummerLayerProps) => {
                 <span style={{fontSize : "13px"}}><br/>{layer.timePeriod}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType} <a href="javascript:void(f1())" onClick={() => setShowMore(!showMore)}><br/>({(showMore) ? "show less" : "show more" })</a></span>
             </span>
             
+
+    
             <DropdownButton
+            
+                id={"layer-btn-"+index}
+                key={key}
                 icon={<IconMore24/>}
-                component={<MoreOptions/>} 
+                component={<MoreOptions increaseKey={increaseKey} index={index}/>} 
                 name="Icon small button"
-                value="default"/>
+                value="default"
+            />
+   
       
             
         </div>
