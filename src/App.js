@@ -5,6 +5,7 @@ import classes from './App.module.css'
 import { Button } from '@dhis2/ui'
 
 import Mainpage from './Mainpage';
+import PageContainer from './pages/PageContainer';
 
 const query = {
     me: {
@@ -79,19 +80,21 @@ const MyApp = () => {
 
     
     <div className={classes.container}>
-        <DataQuery query={query}>
+        {/*<DataQuery query={query}>
             
             {({ error, loading, data }) => {
                 if (error) return <span>ERROR</span>
                 if (loading) return <span>...</span>
                 return (
                     <>
-                      <Mainpage/>
-                      {/* <Button onClick={redirect}>Send on whatsapp!</Button>*/}
+                      
+                      {/* <Button onClick={redirect}>Send on whatsapp!</Button>}
                     </>
                 )
             }}
-        </DataQuery>
+        </DataQuery>*/}
+        <PageContainer/>
+        
     </div>
 )
         }

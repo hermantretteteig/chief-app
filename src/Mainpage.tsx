@@ -2,6 +2,8 @@ import * as analytics from '@dhis2/analytics'
 import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import ChartPlugin from "@dhis2/data-visualizer-plugin"
+
+import { SelectDimensions } from './components/old-demo/SelectDimensions'
 //import { useSelector } from 'react-redux'
 //import { sGetChart } from './chart.js'
 import { useDataMutation } from '@dhis2/app-runtime'
@@ -10,6 +12,10 @@ const Mainpage = (e) => {
     const [imageURL, setImageURL] = useState("https:example.com") 
     const [convertSVG, setConvertSVG] = useState(false);
     const [message, setMessage] = useState("Not loading...");
+    
+    const [dx, setdx] = useState("cYeuwXTCPkU");
+    const [pe, setpe] = useState("LAST_12_MONTHS");
+    const [ou, setou] = useState("at6UHUQatSo");
 
     //const chart = useSelector(sGetChart)
 
@@ -68,20 +74,20 @@ const Mainpage = (e) => {
         
         //const res = createVisualizationMock.visualization.getSVGForExport();
         //console.log(res);
-        const element = document.getElementById("234").children[0].children[0].children[0].children[0].innerHTML//.children[0];
+        const element = document.getElementById("234")?.children[0].children[0].children[0].children[0].innerHTML//.children[0];
         //console.log(element)
 
         let formData = new URLSearchParams();
         formData.append('filename', 'png-image');
-        formData.append('svg', element);
+        formData.append('svg', element as string);
 
         let imgUrl = "";
 
         
-        //const host = "https://play.dhis2.org/dev"
-        const host = "http://localhost:9999"
+        const host = "https://play.dhis2.org/dev"
+        //const host = "http://localhost:9999"
         /*const res = await */
-        fetch(host+"/api/38/svg.png",
+        fetch(host+"/api/svg.png",
         {
             method: "post",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
@@ -89,7 +95,7 @@ const Mainpage = (e) => {
         }).then(response => response.blob()).catch(error => {
             //setMessage(error.message)
         })
-        .then(imageBlob => {
+        .then((imageBlob : any)=> {
             // Then create a local URL for that image and print it 
             const imageObjectURL = URL.createObjectURL(imageBlob);
             imgUrl = imageObjectURL;
@@ -100,7 +106,7 @@ const Mainpage = (e) => {
             setImageURL(imgUrl);
             setMessage("finish");
         });
-        console.log(res)
+        //console.log(res)
         
 
     }
@@ -138,13 +144,14 @@ const Mainpage = (e) => {
 
   return (
     <>
-    <div id="234">
+        <SelectDimensions dx={dx} ou={ou} pe={pe} setDx={setdx} setPe={setpe} setOu={setou}/>
+        <ShowChart data={props}/>
 
-        <ChartPlugin {...props}/>
+       
        
        {/* <ChartPlugin {...advancedProps}/>*/}
      
-    </div>
+
 
     
       
