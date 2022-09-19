@@ -29,9 +29,9 @@ export const fake_layers : ILayer[] = [
       customText : null
     },
     {
-      mainTitle : "Note",
+      mainTitle : "My personal note",
       imageBlobUrl : "",
-      chartType : "",
+      chartType : "Note",
       orgUnit : "Boa",
       dataElement : "",
       timePeriod : "",
