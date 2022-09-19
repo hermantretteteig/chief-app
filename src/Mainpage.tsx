@@ -145,7 +145,7 @@ const Mainpage = (e) => {
   return (
     <>
         <SelectDimensions dx={dx} ou={ou} pe={pe} setDx={setdx} setPe={setpe} setOu={setou}/>
-        <ShowChart data={props}/>
+
 
        
        
