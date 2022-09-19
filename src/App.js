@@ -80,6 +80,7 @@ const MyApp = () => {
 
     
     <div className={classes.container}>
+
         {/*<DataQuery query={query}>
             
             {({ error, loading, data }) => {
@@ -94,6 +95,7 @@ const MyApp = () => {
             }}
         </DataQuery>*/}
         <PageContainer/>
+   
         
     </div>
 )
