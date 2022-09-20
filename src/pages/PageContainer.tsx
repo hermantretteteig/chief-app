@@ -3,19 +3,23 @@ import AddChart from './add-chart/AddChart'
 import { ILayer } from '../interfaces/Layer'
 import Overview from './overview/Overview'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
+import { LayerContext } from '../contexts/LayerContext'
+import { fake_layers } from '../components/overview-components/summery-components/FakeData'
 
 
 const PageContainer = () => {
-    const [layers, setLayers] = useState<ILayer[]>([]);
+    const [layers, setLayers] = useState<ILayer[]>(fake_layers);
 
     return (
     <div>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Overview layers={layers} setLayers={setLayers}/>}/>
-                <Route path="/add-chart" element={<AddChart setLayers={layers}/>} />
-            </Routes>
-        </BrowserRouter>
+        <LayerContext.Provider value={{layers, setLayers}}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Overview layers={layers} setLayers={setLayers}/>}/>
+                    <Route path="/add-chart" element={<AddChart setLayers={layers}/>} />
+                </Routes>
+            </BrowserRouter>
+        </LayerContext.Provider>
       
 
         

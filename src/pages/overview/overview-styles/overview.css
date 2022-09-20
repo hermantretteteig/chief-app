@@ -1,0 +1,22 @@
+.menu{
+    display : flex;
+    
+    justify-content: center;
+    
+
+}
+
+.main-container{
+    margin:5px;
+
+}
+
+.center-menu{
+    float: center
+}
+
+.center-button{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
