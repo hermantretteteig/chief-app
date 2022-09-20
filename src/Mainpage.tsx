@@ -1,5 +1,5 @@
 import * as analytics from '@dhis2/analytics'
-import React, {useState, useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ChartPlugin from "@dhis2/data-visualizer-plugin"
 
@@ -9,13 +9,14 @@ import { SelectDimensions } from './components/old-demo/SelectDimensions'
 import { useDataMutation } from '@dhis2/app-runtime'
 const Mainpage = (e) => {
 
-    const [imageURL, setImageURL] = useState("https:example.com") 
+
+    const [imageURL, setImageURL] = useState("https:example.com")
     const [convertSVG, setConvertSVG] = useState(false);
     const [message, setMessage] = useState("Not loading...");
-    
-    const [dx, setdx] = useState("cYeuwXTCPkU");
-    const [pe, setpe] = useState("LAST_12_MONTHS");
-    const [ou, setou] = useState("at6UHUQatSo");
+
+    const [dx, setdx] = useState("");
+    const [pe, setpe] = useState("");
+    const [ou, setou] = useState("");
 
     //const chart = useSelector(sGetChart)
 
@@ -26,6 +27,19 @@ const Mainpage = (e) => {
             {
                 id: 'cYeuwXTCPkU',
             },
+            {
+                id: 'ECYnLIh3IdU'
+            },
+            {
+                id: 'aY4kB8kS521'
+            }
+            ,
+            {
+                id: 'YtbsuPPo010'
+            },
+            {
+                id: 'U3jd8zVFKxY'
+            }
         ],
     }
 
@@ -37,12 +51,18 @@ const Mainpage = (e) => {
             }
         ],
     }
-    
+
     const ouMock = {
         dimension: 'ou',
         items: [
             {
                 id: 'at6UHUQatSo',
+            },
+            {
+                id: 'ImspTQPwCqd',
+            },
+            {
+                id: 'A3Fh37HWBWE'
             }
         ],
     }
@@ -65,13 +85,13 @@ const Mainpage = (e) => {
     }
 
 
-    
+
 
     const getImageURL = async () => {
         //return "hri"
         //console.log("print")
         //setMessage("Svg is loading..")
-        
+
         //const res = createVisualizationMock.visualization.getSVGForExport();
         //console.log(res);
         const element = document.getElementById("234")?.children[0].children[0].children[0].children[0].innerHTML//.children[0];
@@ -83,31 +103,31 @@ const Mainpage = (e) => {
 
         let imgUrl = "";
 
-        
+
         const host = "https://play.dhis2.org/dev"
         //const host = "http://localhost:9999"
         /*const res = await */
-        fetch(host+"/api/svg.png",
-        {
-            method: "post",
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
-            body: formData
-        }).then(response => response.blob()).catch(error => {
-            //setMessage(error.message)
-        })
-        .then((imageBlob : any)=> {
-            // Then create a local URL for that image and print it 
-            const imageObjectURL = URL.createObjectURL(imageBlob);
-            imgUrl = imageObjectURL;
-            console.log("URL")
-            console.log(imgUrl)
-            //return "ooko"
-            //return imgUrl
-            setImageURL(imgUrl);
-            setMessage("finish");
-        });
+        fetch(host + "/api/svg.png",
+            {
+                method: "post",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            }).then(response => response.blob()).catch(error => {
+                //setMessage(error.message)
+            })
+            .then((imageBlob: any) => {
+                // Then create a local URL for that image and print it 
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                imgUrl = imageObjectURL;
+                console.log("URL")
+                console.log(imgUrl)
+                //return "ooko"
+                //return imgUrl
+                setImageURL(imgUrl);
+                setMessage("finish");
+            });
         //console.log(res)
-        
+
 
     }
 
@@ -119,22 +139,22 @@ const Mainpage = (e) => {
             getSVGForExport: () => '<svg />',
         },
         config: {
-            getConfig: () => {},
+            getConfig: () => { },
         },
     }
 
- 
-    
+
+
 
     const props = {
-        style: { height: 400, width : 300 },
+        style: { height: 400, width: 300 },
         id: 1,
         onChartGenerated: () => setConvertSVG(true),//onSVGButton(),
         responses: [],
         extraOptions: mockExtraOptions,
         legendSets: [],
-        forDashboard : true,
-        visualization : {
+        forDashboard: true,
+        visualization: {
             type: analytics.VIS_TYPE_BAR,
             columns: [dxMock],
             rows: [peMock],
@@ -142,30 +162,30 @@ const Mainpage = (e) => {
         }//something
     }
 
-  return (
-    <>
-        <SelectDimensions dx={dx} ou={ou} pe={pe} setDx={setdx} setPe={setpe} setOu={setou}/>
+    return (
+        <>
+            <SelectDimensions dx={dx} ou={ou} pe={pe} setDx={setdx} setPe={setpe} setOu={setou} />
 
 
-       
-       
-       {/* <ChartPlugin {...advancedProps}/>*/}
-     
 
 
-    
-      
-        <p>{imageURL}<br/></p>
-      <ol type="1">
-        <li><a href={imageURL} download>Save image to your phone</a></li>
-        <li><a href="https://wa.me/+4746802013?text=Here is your report:">Open whatsapp!</a></li>
-        <li>Send a message, togheter with the image</li>
-        </ol> 
+            {/* <ChartPlugin {...advancedProps}/>*/}
 
-    
-      {/*<img src={imageURL}/>*/}
-      </>
-  )
+
+
+
+
+            <p>{imageURL}<br /></p>
+            <ol type="1">
+                <li><a href={imageURL} download>Save image to your phone</a></li>
+                <li><a href="https://wa.me/+4746802013?text=Here is your report:">Open whatsapp!</a></li>
+                <li>Send a message, togheter with the image</li>
+            </ol>
+
+
+            {/*<img src={imageURL}/>*/}
+        </>
+    )
 }
 
 Mainpage.propTypes = {}
