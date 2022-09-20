@@ -6,15 +6,10 @@ import SummeryLayer from './SummeryLayer';
 interface SummeryProps {
   layers : ILayer[],
   setLayers : any,
-  //swapIndex : (swapFirstId : string, swapSecondId : string ) => void;
 }
 
 
 const Summery = ({layers} : SummeryProps) => {
-
-
-
-
 
   return (
     <div>
