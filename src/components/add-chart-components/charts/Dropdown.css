@@ -1,0 +1,11 @@
+.container {
+    margin: 0%;
+
+}
+.dropdown {
+    padding: 2%;
+}
+
+.row {
+    justify-content: space-between;
+}
