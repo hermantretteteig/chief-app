@@ -4,11 +4,8 @@
 }
 .dropdown {
     padding: 2%;
-    border-radius: 4px;
-    border-color: black;
-
 }
-.arrow {
-    color: #BFBFBF;
 
+.row {
+    justify-content: space-between;
 }
