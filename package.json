@@ -18,6 +18,7 @@
     "@dhis2/app-runtime": "^3.4.4",
     "@dhis2/data-visualizer-plugin": "^39.2.8",
     "@dhis2/ui-icons": "^8.4.15",
+    "html2canvas": "^1.4.1",
     "react-router-dom": "^6.4.0"
   }
 }

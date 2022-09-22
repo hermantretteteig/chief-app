@@ -4,7 +4,7 @@ export const fake_layers : ILayer[] = [
     {
       mainTitle : "ANC checkup",
       id : "345",
-      imageBlobUrl : "",
+      imageBlobUrl : "https://www.microsoft.com/en-us/microsoft-365/blog/uploads/sites/2/2012/06/Excel-charts-11.png",
       chartType : "Linear",
       orgUnit : "Boa",
       dataElement : "ANC 1st visit",
@@ -15,7 +15,7 @@ export const fake_layers : ILayer[] = [
     {
       mainTitle : "Malaria cases",
       id : "3",
-      imageBlobUrl : "",
+      imageBlobUrl : "https://www.microsoft.com/en-us/microsoft-365/blog/uploads/sites/2/2012/06/Excel-charts-11.png",
       chartType : "Barchart",
       orgUnit : "Boa",
       dataElement : "Malari cases",
@@ -26,7 +26,7 @@ export const fake_layers : ILayer[] = [
     {
       mainTitle : "TB cases",
       id : "5",
-      imageBlobUrl : "",
+      imageBlobUrl : "https://www.microsoft.com/en-us/microsoft-365/blog/uploads/sites/2/2012/06/Excel-charts-11.png",
       chartType : "Barchart",
       orgUnit : "Boa",
       dataElement : "TB-caes detected",
@@ -37,7 +37,7 @@ export const fake_layers : ILayer[] = [
     {
       mainTitle : "My personal note",
       id : "16",
-      imageBlobUrl : "",
+      imageBlobUrl : "https://www.microsoft.com/en-us/microsoft-365/blog/uploads/sites/2/2012/06/Excel-charts-11.png",
       chartType : "Note",
       orgUnit : "Boa",
       dataElement : "",
