@@ -3,9 +3,16 @@
 
 }
 .dropdown {
-    padding: 2%;
+    padding: 0.5%;
 }
 
 .row {
     justify-content: space-between;
 }
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }

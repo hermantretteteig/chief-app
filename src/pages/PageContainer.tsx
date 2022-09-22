@@ -18,7 +18,7 @@ const PageContainer = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Overview layers={layers} setLayers={setLayers}/>}/>
-                    <Route path="/add-chart" element={<AddChart setLayers={layers}/>} />
+                    <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
                 </Routes>
             </BrowserRouter>
         </LayerContext.Provider>

@@ -2,25 +2,27 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import AddNewChart from '../../components/add-chart-components/charts/AddNewChart'
 import {Button} from '@dhis2-ui/button'
-interface AddChartProps {
-  setLayers: any
-}
+import { IconAdd24 } from "@dhis2/ui-icons"
+import { ILayer } from '../../interfaces/Layer';
 
-const AddChart = ({ setLayers }: AddChartProps) => {
+interface AddChartProps {
+  layers : ILayer[],
+  setLayers : any;
+}
+const AddChart = ({ layers, setLayers }: AddChartProps) => {
   return (
     <div>
       <h1>
         Add new chart to report
       </h1>
-      <AddNewChart />
+      <AddNewChart layers={layers} setLayers={setLayers}/>
       <div>
         <h3>
           Preview
         </h3>
-        <Button name="add" primary value="default">
-          Add to report
-        </Button>
-        <br /> <Link to={"/overview"}>Go to report</Link>
+        <Button secondary icon={<IconAdd24/>}>
+            Add chart to report
+       </Button>
         <br /> <Link to={"/"}>Back</Link>
       </div>
     </div>
