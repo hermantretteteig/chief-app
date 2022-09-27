@@ -3,9 +3,15 @@
 
 }
 .dropdown {
-    padding: 2%;
+    padding: 0.5%;
 }
 
-.row {
-    justify-content: space-between;
+.chartBtn {
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+.chart {
+    justify-content: center;
+    padding-bottom: 2%;
 }

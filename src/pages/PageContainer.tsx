@@ -5,6 +5,7 @@ import Overview from './overview/Overview'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 import { LayerContext } from '../contexts/LayerContext'
 import { fake_layers } from '../components/overview-components/summery-components/FakeData'
+import Mainpage from '../Mainpage'
 
 
 const PageContainer = () => {
@@ -18,7 +19,8 @@ const PageContainer = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Overview layers={layers} setLayers={setLayers}/>}/>
-                    <Route path="/add-chart" element={<AddChart setLayers={layers}/>} />
+                    <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
+                    <Route path="/main-page" element={<Mainpage/>}/>
                 </Routes>
             </BrowserRouter>
         </LayerContext.Provider>
