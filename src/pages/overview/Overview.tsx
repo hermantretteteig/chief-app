@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
 import Summery from '../../components/overview-components/summery-components/Summery';
@@ -19,10 +19,10 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 
     const navigate = useNavigate();
 
-    const [viewType, setViewType] = useState<string>("summery")
+    const [viewType, setViewType] = useState<string>("preview")
 
 
-
+    const childRef = useRef();
  
 
     const changeView = (type : string) => {
@@ -45,15 +45,19 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
         {
             {
             'summery': <Summery layers={layers} setLayers={setLayers}/>,
-            'preview': <Preview layers={layers}/>,
+            'preview': <Preview layers={layers} reft={childRef}/>,
             }[viewType]
         }
        
        <div className='center-button-margin'>
-       <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
-            Add new chart/text
-       </Button>
+        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
+                Add new chart/text
+        </Button>
        </div>
+
+       <Button onClick={() => (childRef.current as any).getAlert()}>
+            Share
+       </Button>
        
         
 
@@ -64,3 +68,4 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 }
 
 export default Overview
+
