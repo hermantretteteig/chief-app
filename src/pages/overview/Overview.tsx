@@ -19,7 +19,7 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 
     const navigate = useNavigate();
 
-    const [viewType, setViewType] = useState<string>("preview")
+    const [viewType, setViewType] = useState<string>("summery")
 
 
     const childRef = useRef();
@@ -55,9 +55,19 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
         </Button>
        </div>
 
-       <Button onClick={() => (childRef.current as any).getAlert()}>
-            Share
-       </Button>
+
+        <div className="bottom-button-container">
+            <div className="bottom-flex-container">
+                <div className="button-bottom">
+                    <Button large="true" primary="true" onClick={() => (childRef.current as any).getAlert()}>
+                        Share report!
+                    </Button>
+                </div>
+               
+            </div>
+          
+        </div>
+  
        
         
 
