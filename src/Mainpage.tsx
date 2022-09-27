@@ -169,7 +169,7 @@ const Mainpage = (e) => {
 
 
 
-            {/* <ChartPlugin {...advancedProps}/>*/}
+            <ChartPlugin {...props}/>
 
 
 

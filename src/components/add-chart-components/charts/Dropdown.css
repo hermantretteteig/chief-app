@@ -6,13 +6,12 @@
     padding: 0.5%;
 }
 
-.row {
-    justify-content: space-between;
+.chartBtn {
+    margin-top: 35px;
+    margin-bottom: 20px;
 }
-.app {
-    display: flex;
-    flex-direction: column;
+
+.chart {
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+    padding-bottom: 2%;
+}
