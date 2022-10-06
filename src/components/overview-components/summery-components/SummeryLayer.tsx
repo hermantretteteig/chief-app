@@ -37,7 +37,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
                 id={"layer-btn-"+index}
                 key={key}
                 icon={<IconMore24/>}
-                component={<MoreOptions increaseKey={increaseKey} index={index}/>} 
+                component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={index}/>} 
                 name="Icon small button"
                 value="default"
             />
