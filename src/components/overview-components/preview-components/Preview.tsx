@@ -52,15 +52,13 @@ const Preview = ({layers, reft} : PreviewProps) => {
   return (
     <div>
         <div id="capturereport" style={{maxWidth : "400px"}}> 
-        <span>hei</span>   
-        <span>Last month has not been tracked due to technial issus.</span>
-        
+
 
         {
             layers.map((layer : ILayer, i) => (
                 <div key={i}>
                     <span>{layer.mainTitle}</span>
-                    <img style={{maxWidth : "450px", textAlign : "center"}} src={"./chart.svg"}/>
+                    <img style={{maxWidth : "450px", textAlign : "center"}} src={layer.imageBlobUrl}/>
                 </div>
             ))
         }

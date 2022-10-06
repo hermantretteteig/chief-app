@@ -9,7 +9,7 @@ import Mainpage from '../Mainpage'
 
 
 const PageContainer = () => {
-    const [layers, setLayers] = useState<ILayer[]>(fake_layers);
+    const [layers, setLayers] = useState<ILayer[]>([/*fake_layers*/]);
 
     return (
     <div>

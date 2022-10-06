@@ -52,12 +52,17 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   }
   const setPropsLayers = () => {
 
+    const svgElement: any = document.getElementById("the-generated-chart")?.children[0].children[0].children[0].children[0].innerHTML//.children[0];
+    const blob = new Blob([svgElement], {type: 'image/svg+xml'});
+    const imageObjectURL = URL.createObjectURL(blob);
+
+
     let all_layers = [...layers];
 
     const new_layer: ILayer = {
-      id: '2',
+      id: (all_layers.length + 1).toString(),
       mainTitle: dataName[1],
-      imageBlobUrl: "",
+      imageBlobUrl: imageObjectURL,
       chartType: selectedChart,
       orgUnit: orgName[1],
       dataElement: dataName[1],
@@ -261,10 +266,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
               (
                 <><h2>
                   {dataSets.map((set) => (
-                    orgnUnits.map((org) => (
+          
+                    orgnUnits.map((org, index) => (
                       (org.value == selectedOrgU && set.value == selectedData) ?
                         (
-                          <div>{set.text} in {org.text}</div>
+                          <div key={index}>{set.text} in {org.text}</div>
                         )
                         : (
                           <div></div>
