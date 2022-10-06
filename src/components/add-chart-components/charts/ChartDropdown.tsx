@@ -3,8 +3,9 @@ import { SingleSelect, SingleSelectOption } from '@dhis2-ui/select'
 import { Button } from '@dhis2-ui/button'
 import { TextArea } from '@dhis2/ui'
 import "./Dropdown.css"
+import { useNavigate } from "react-router-dom";
 import { IconVisualizationPie16, IconDataString16, IconVisualizationColumn16, IconVisualizationBar16, IconVisualizationLine16, IconVisualizationAreaStacked16, IconVisualizationPivotTable16 } from "@dhis2/ui-icons"
-import { IconAdd24 } from "@dhis2/ui-icons"
+import { IconAdd24, IconArrowLeft24 } from "@dhis2/ui-icons"
 import { ILayer } from '../../../interfaces/Layer'
 import { IChartElement, IITems } from '../../../interfaces/ChartElement'
 import ShowVisualization from './ShowVisualization'
@@ -15,6 +16,9 @@ interface DropdownProps {
   setLayers: any
 }
 const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
+
+
+    const navigate = useNavigate();
 
   const options = [
     { value: 'Text', text: (<><IconDataString16 />&nbsp;&nbsp;&nbsp;Text</>) },
@@ -45,7 +49,8 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const checkValues = () => {
     if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
       setPropsLayers();
-      setIsShown(true)
+      setIsShown(true);
+      navigate("/");
     }
     else {
     }
@@ -87,6 +92,12 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [buttonNotClicked, setbuttonNotClicked] = useState(true);
 
   const [selectedText, setSelectedtext] = useState<string>('');
+
+  useEffect(() => {
+    if(selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
+        onButtonGenerate();
+  }, [selectedChart, selectedOrgU, selectedData, selectedPeriod])
+  
 
   const onButtonGenerate = () => {
     { setIsShown(false) }
@@ -251,9 +262,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                 *All fields needs to be selected.
               </div>
             )}
-            <Button className='chartBtn' onClick={onButtonGenerate}>
-              Generate chart
-            </Button>
+
           </div>
 
 
@@ -292,10 +301,16 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
           }
 
+        <div className="button-container">
 
-          <Button secondary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
+        <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
+            Go back
+          </Button>
+          <Button primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
             Add chart to report
           </Button>
+          
+        </div>
           {isShown && (
             <div>
               The chart was added to your report.

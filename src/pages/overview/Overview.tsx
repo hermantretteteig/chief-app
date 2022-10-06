@@ -50,7 +50,7 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
         }
        
        <div className='center-button-margin'>
-        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
+        <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
                 Add new chart/text
         </Button>
        </div>
