@@ -142,7 +142,6 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     const [textInput, setTextInput] = useState("");
     const onChangeInput = useCallback(
       (e) => {
-        console.log(e)
         setTextInput(e.value);
       },
       [textInput]
@@ -155,9 +154,10 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         onChange={onChangeInput}
         value={textInput}
       />
+      
     );
-  }
 
+  }
   const orgName = orgnUnits.map((org) => (
     (org.value == selectedOrgU) ?
       (
@@ -209,89 +209,94 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
           ))}
         </SingleSelect>
       </div>
-
-      <div className='dropdown'>
-        <SingleSelect className='select'
-          placeholder="Select organisation unit" value={selectedOrgU} selected={selectedOrgU} onChange={(e: string) => handleOrgU(e)}>
-          {orgnUnits.map((orgunit, index) => (
-            <SingleSelectOption key={index} label={orgunit.text} value={orgunit.value} />
-          ))
-          }
-        </SingleSelect>
-      </div>
-      <div className='dropdown'>
-        <SingleSelect selected={selectedData} className='select' placeholder="Select data element" value={selectedData} onChange={(e: string) => handleData(e)}>
-          {dataSets.map((dataEl, index) => (
-            <SingleSelectOption key={index} label={dataEl.text} value={dataEl.value} />
-          ))
-          }
-        </SingleSelect>
-      </div>
-      <div className='dropdown'>
-        <SingleSelect selected={selectedPeriod} className='select'
-          placeholder="Select time period" value={selectedPeriod} onChange={(e: string) => handlePeriod(e)}>
-          {periode.map((pe, index) => (
-            <SingleSelectOption key={index} label={pe.text} value={pe.value} />
-          ))
-          }
-        </SingleSelect>
-        {!buttonNotClicked && (selectedChart != '' || 'Text') && (
-          <div style={{ color: 'red', fontSize: 'small' }}>
-            *All fields needs to be selected.
-          </div>
+      <div>
+        {selectedChart == 'Text' && (
+          <AddText selectedChart />
         )}
-        <Button className='chartBtn' onClick={onButtonGenerate}>
-          Generate chart
-        </Button>
       </div>
-
-
-      {
-        (showChart === false) ?
-          (
-            <div></div>
-          )
-          :
-          (
-            <><h2>
-              {dataSets.map((set) => (
-                orgnUnits.map((org) => (
-                  (org.value == selectedOrgU && set.value == selectedData) ?
-                    (
-                      <div>{set.text} in {org.text}</div>
-                    )
-                    : (
-                      <div></div>
-                    )
-                ))))}
-
-            </h2>
-              <div className='flex-container'>
-                <div>
-                  <ShowVisualization props={props} />
-                </div>
-
-                <div className='area'>
-                  <TextInput />
-                </div>
-
-              </div>
-            </>
-          )
-
-      }
-
-
-      <Button secondary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
-        Add chart to report
-      </Button>
-      {isShown && (
+      {selectedChart != 'Text' && (
         <div>
-          The chart was added to your report.
-        </div>
+          <div className='dropdown'>
+            <SingleSelect className='select'
+              placeholder="Select organisation unit" value={selectedOrgU} selected={selectedOrgU} onChange={(e: string) => handleOrgU(e)}>
+              {orgnUnits.map((orgunit, index) => (
+                <SingleSelectOption key={index} label={orgunit.text} value={orgunit.value} />
+              ))
+              }
+            </SingleSelect>
+          </div>
+          <div className='dropdown'>
+            <SingleSelect selected={selectedData} className='select' placeholder="Select data element" value={selectedData} onChange={(e: string) => handleData(e)}>
+              {dataSets.map((dataEl, index) => (
+                <SingleSelectOption key={index} label={dataEl.text} value={dataEl.value} />
+              ))
+              }
+            </SingleSelect>
+          </div>
+          <div className='dropdown'>
+            <SingleSelect selected={selectedPeriod} className='select'
+              placeholder="Select time period" value={selectedPeriod} onChange={(e: string) => handlePeriod(e)}>
+              {periode.map((pe, index) => (
+                <SingleSelectOption key={index} label={pe.text} value={pe.value} />
+              ))
+              }
+            </SingleSelect>
+            {!buttonNotClicked && (selectedChart != '' || 'Text') && (
+              <div style={{ color: 'red', fontSize: 'small' }}>
+                *All fields needs to be selected.
+              </div>
+            )}
+            <Button className='chartBtn' onClick={onButtonGenerate}>
+              Generate chart
+            </Button>
+          </div>
 
-      )}
 
+          {
+            (showChart === false) ?
+              (
+                <div></div>
+              )
+              :
+              (
+                <><h2>
+                  {dataSets.map((set) => (
+                    orgnUnits.map((org) => (
+                      (org.value == selectedOrgU && set.value == selectedData) ?
+                        (
+                          <div>{set.text} in {org.text}</div>
+                        )
+                        : (
+                          <div></div>
+                        )
+                    ))))}
+
+                </h2>
+                  <div className='flex-container'>
+                    <div>
+                      <ShowVisualization props={props} />
+                    </div>
+
+                    <div className='area'>
+                      <TextInput />
+                    </div>
+                  </div>
+                </>
+              )
+
+          }
+
+
+          <Button secondary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
+            Add chart to report
+          </Button>
+          {isShown && (
+            <div>
+              The chart was added to your report.
+            </div>
+
+          )}
+        </div>)}
 
     </div>
   )
