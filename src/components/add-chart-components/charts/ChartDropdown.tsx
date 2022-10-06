@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { SingleSelect, SingleSelectOption } from '@dhis2-ui/select'
 import { Button } from '@dhis2-ui/button'
 import { TextArea } from '@dhis2/ui'
@@ -86,10 +85,10 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
   const onButtonGenerate = () => {
     { setIsShown(false) }
-    {setbuttonNotClicked(false)}
+    { setbuttonNotClicked(false) }
     {
       if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
-        {setbuttonNotClicked(true)}
+        { setbuttonNotClicked(true) }
         const _dataElementMock: IChartElement = {
           dimension: "dx",
           items: [
@@ -138,8 +137,25 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     setshowChart(false);
     setSelectedPeriod(e.selected)
   }
-  const handleText = (e: any) => {
-    setSelectedtext(e.value)
+
+  const TextInput = () => {
+    const [textInput, setTextInput] = useState("");
+    const onChangeInput = useCallback(
+      (e) => {
+        console.log(e)
+        setTextInput(e.value);
+      },
+      [textInput]
+    );
+    return (
+      <TextArea
+        id='textArea'
+        name='textArea'
+        placeholder='Write a comment...'
+        onChange={onChangeInput}
+        value={textInput}
+      />
+    );
   }
 
   const orgName = orgnUnits.map((org) => (
@@ -182,7 +198,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
       filters: [orgUnitMock],
     }
   }
-  const navigate = useNavigate();
+
   return (
     <div className='container'>
       <div className='dropdown'>
@@ -219,11 +235,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
           ))
           }
         </SingleSelect>
-        {!buttonNotClicked &&  (selectedChart!= '' || 'Text') && (
-            <div style={{ color: 'red', fontSize: 'small' }}>
-              *All fields needs to be selected.
-            </div>
-          )}
+        {!buttonNotClicked && (selectedChart != '' || 'Text') && (
+          <div style={{ color: 'red', fontSize: 'small' }}>
+            *All fields needs to be selected.
+          </div>
+        )}
         <Button className='chartBtn' onClick={onButtonGenerate}>
           Generate chart
         </Button>
@@ -254,9 +270,9 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                 <div>
                   <ShowVisualization props={props} />
                 </div>
+
                 <div className='area'>
-                  <TextArea id='textArea' name='textArea' placeholder='Write a comment...'
-                    value={selectedText} onChange={(e: string) => handleText(e)} />
+                  <TextInput />
                 </div>
 
               </div>
