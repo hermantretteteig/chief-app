@@ -3,8 +3,9 @@ import { SingleSelect, SingleSelectOption } from '@dhis2-ui/select'
 import { Button } from '@dhis2-ui/button'
 import { TextArea } from '@dhis2/ui'
 import "./Dropdown.css"
+import { useNavigate } from "react-router-dom";
 import { IconVisualizationPie16, IconDataString16, IconVisualizationColumn16, IconVisualizationBar16, IconVisualizationLine16, IconVisualizationAreaStacked16, IconVisualizationPivotTable16 } from "@dhis2/ui-icons"
-import { IconAdd24 } from "@dhis2/ui-icons"
+import { IconAdd24, IconArrowLeft24 } from "@dhis2/ui-icons"
 import { ILayer } from '../../../interfaces/Layer'
 import { IChartElement, IITems } from '../../../interfaces/ChartElement'
 import ShowVisualization from './ShowVisualization'
@@ -15,6 +16,9 @@ interface DropdownProps {
   setLayers: any
 }
 const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
+
+
+    const navigate = useNavigate();
 
   const options = [
     { value: 'Text', text: (<><IconDataString16 />&nbsp;&nbsp;&nbsp;Text</>) },
@@ -27,13 +31,13 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
   const orgnUnits = [
     { value: 'at6UHUQatSo', text: ("Boa") },
-    { value: 'ImspTQPwCqd', text: ("Sierra Leone") },
+    { value: 'Rp268JB6Ne4', text: ("Adonkia CHP") },
   ];
 
   const dataSets = [
-    { value: 'lyLU2wR22tC', text: ("ART monthly summary") },
+    { value: 'pEOVd4Z3TAS', text: ("ART monthly summary") },
     { value: 'cYeuwXTCPkU', text: ("Child Health") },
-    { value: 'vc6nF5yZsPR', text: ("HIV Care Monthly") }
+    { value: 'qw2sIef52Fu', text: ("HIV Care Monthly") }
 
   ];
 
@@ -45,24 +49,29 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const checkValues = () => {
     if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
       setPropsLayers();
-      setIsShown(true)
+      setIsShown(true);
+      navigate("/");
     }
     else {
     }
   }
   const setPropsLayers = () => {
 
+    const svgElement: any = document.getElementById("the-generated-chart")?.children[0].children[0].children[0].children[0].innerHTML//.children[0];
+    const blob = new Blob([svgElement], {type: 'image/svg+xml'});
+    const imageObjectURL = URL.createObjectURL(blob);
+
+
     let all_layers = [...layers];
 
     const new_layer: ILayer = {
-      id: '2',
+      id: (all_layers.length).toString(),
       mainTitle: dataName[1],
-      imageBlobUrl: "",
+      imageBlobUrl: imageObjectURL,
       chartType: selectedChart,
       orgUnit: orgName[1],
       dataElement: dataName[1],
       timePeriod: selectedPeriod,
-      index: all_layers.length - 1,
       customText: selectedText
     }
     all_layers.push(new_layer)
@@ -82,6 +91,12 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [buttonNotClicked, setbuttonNotClicked] = useState(true);
 
   const [selectedText, setSelectedtext] = useState<string>('');
+
+  useEffect(() => {
+    if(selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
+        onButtonGenerate();
+  }, [selectedChart, selectedOrgU, selectedData, selectedPeriod])
+  
 
   const onButtonGenerate = () => {
     { setIsShown(false) }
@@ -205,7 +220,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         <SingleSelect className='select' selected={selectedChart} placeholder={"Select chart type"} clearText="Clear" clearable
           value={selectedChart} onChange={handleChange}>
           {options.map((option, index) => (
-            <SingleSelectOption key={index} value={option.value.toString()} label={option.text} />
+            <SingleSelectOption label={option.text} key={index} value={option.value.toString()} />
           ))}
         </SingleSelect>
       </div>
@@ -246,9 +261,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                 *All fields needs to be selected.
               </div>
             )}
-            <Button className='chartBtn' onClick={onButtonGenerate}>
-              Generate chart
-            </Button>
+
           </div>
 
 
@@ -261,23 +274,26 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
               (
                 <><h2>
                   {dataSets.map((set) => (
-                    orgnUnits.map((org) => (
+          
+                    orgnUnits.map((org, index) => (
                       (org.value == selectedOrgU && set.value == selectedData) ?
                         (
-                          <div>{set.text} in {org.text}</div>
+                          <div key={index}>{set.text} in {org.text}</div>
                         )
                         : (
-                          <div></div>
+                          <div key={index}></div>
                         )
                     ))))}
 
                 </h2>
                   <div className='flex-container'>
                     <div>
+                        <h4>Chart preview:</h4>
                       <ShowVisualization props={props} />
                     </div>
 
                     <div className='area'>
+                        <h4>Add a comment</h4>
                       <TextInput />
                     </div>
                   </div>
@@ -286,10 +302,16 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
           }
 
+        <div className="button-container">
 
-          <Button secondary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
+        <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
+            Go back
+          </Button>
+          <Button primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
             Add chart to report
           </Button>
+          
+        </div>
           {isShown && (
             <div>
               The chart was added to your report.

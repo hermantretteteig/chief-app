@@ -19,10 +19,18 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 
     const navigate = useNavigate();
 
-    const [viewType, setViewType] = useState<string>("preview")
+    const [viewType, setViewType] = useState<string>("summery")
 
 
     const childRef = useRef();
+
+    const downloadImage = () => {
+        setViewType("preview");
+        setTimeout(() => {
+            (childRef.current as any).getAlert();
+        }, 150);
+        
+    } 
  
 
     const changeView = (type : string) => {
@@ -50,14 +58,24 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
         }
        
        <div className='center-button-margin'>
-        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
+        <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24/>}>
                 Add new chart/text
         </Button>
        </div>
 
-       <Button onClick={() => (childRef.current as any).getAlert()}>
-            Share
-       </Button>
+
+        <div className="bottom-button-container">
+            <div className="bottom-flex-container">
+                <div className="button-bottom">
+                    <Button large={true} primary onClick={downloadImage}>
+                        Share report!
+                    </Button>
+                </div>
+               
+            </div>
+          
+        </div>
+  
        
         
 

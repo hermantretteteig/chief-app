@@ -7,7 +7,7 @@ interface ShowVisualizationProps {
 
 const ShowVisualization = ({props} : ShowVisualizationProps) => {
   return (
-    <div id="234"> 
+    <div id="the-generated-chart"> 
         <ChartPlugin {...props}/>
     </div>
   )

@@ -6,6 +6,5 @@ export interface ILayer {
     orgUnit : string,
     dataElement : string,
     timePeriod : string,
-    index : number,
     customText : string | null
 }

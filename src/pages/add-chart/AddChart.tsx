@@ -14,9 +14,7 @@ const AddChart = ({ layers, setLayers }: AddChartProps) => {
         Add new chart to report
       </h1>
       <AddNewChart layers={layers} setLayers={setLayers}/>
-      <div>
-        <br /> <Link to={"/"}>Back</Link>
-      </div>
+
     </div>
 
   )

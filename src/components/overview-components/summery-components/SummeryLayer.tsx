@@ -27,6 +27,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
         <div className='layer-innter-container'>
             <span>
                 <b>{layer.mainTitle}</b>
+                <span>{index}</span>
                 <span style={{fontSize : "13px"}}><br/>{layer.timePeriod}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType} <a href="javascript:void(f1())" onClick={() => setShowMore(!showMore)}><br/>({(showMore) ? "show less" : "show more" })</a></span>
             </span>
             
@@ -37,7 +38,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
                 id={"layer-btn-"+index}
                 key={key}
                 icon={<IconMore24/>}
-                component={<MoreOptions increaseKey={increaseKey} index={index}/>} 
+                component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={index}/>} 
                 name="Icon small button"
                 value="default"
             />
