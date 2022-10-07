@@ -31,13 +31,13 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
   const orgnUnits = [
     { value: 'at6UHUQatSo', text: ("Boa") },
-    { value: 'ImspTQPwCqd', text: ("Sierra Leone") },
+    { value: 'Rp268JB6Ne4', text: ("Adonkia CHP") },
   ];
 
   const dataSets = [
-    { value: 'lyLU2wR22tC', text: ("ART monthly summary") },
+    { value: 'pEOVd4Z3TAS', text: ("ART monthly summary") },
     { value: 'cYeuwXTCPkU', text: ("Child Health") },
-    { value: 'vc6nF5yZsPR', text: ("HIV Care Monthly") }
+    { value: 'qw2sIef52Fu', text: ("HIV Care Monthly") }
 
   ];
 
@@ -65,14 +65,13 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     let all_layers = [...layers];
 
     const new_layer: ILayer = {
-      id: (all_layers.length + 1).toString(),
+      id: (all_layers.length).toString(),
       mainTitle: dataName[1],
       imageBlobUrl: imageObjectURL,
       chartType: selectedChart,
       orgUnit: orgName[1],
       dataElement: dataName[1],
       timePeriod: selectedPeriod,
-      index: all_layers.length - 1,
       customText: selectedText
     }
     all_layers.push(new_layer)
@@ -221,7 +220,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         <SingleSelect className='select' selected={selectedChart} placeholder={"Select chart type"} clearText="Clear" clearable
           value={selectedChart} onChange={handleChange}>
           {options.map((option, index) => (
-            <SingleSelectOption key={index} value={option.value.toString()} label={option.text} />
+            <SingleSelectOption label={option.text} key={index} value={option.value.toString()} />
           ))}
         </SingleSelect>
       </div>
@@ -282,17 +281,19 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                           <div key={index}>{set.text} in {org.text}</div>
                         )
                         : (
-                          <div></div>
+                          <div key={index}></div>
                         )
                     ))))}
 
                 </h2>
                   <div className='flex-container'>
                     <div>
+                        <h4>Chart preview:</h4>
                       <ShowVisualization props={props} />
                     </div>
 
                     <div className='area'>
+                        <h4>Add a comment</h4>
                       <TextInput />
                     </div>
                   </div>

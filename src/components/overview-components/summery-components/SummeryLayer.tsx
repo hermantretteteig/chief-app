@@ -27,6 +27,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
         <div className='layer-innter-container'>
             <span>
                 <b>{layer.mainTitle}</b>
+                <span>{index}</span>
                 <span style={{fontSize : "13px"}}><br/>{layer.timePeriod}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType} <a href="javascript:void(f1())" onClick={() => setShowMore(!showMore)}><br/>({(showMore) ? "show less" : "show more" })</a></span>
             </span>
             

@@ -22,12 +22,20 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
     //const [index_loc, setindex] = useState(index)
 
     const onDeleteItem = () => {
-        const newItems = layers.filter((obj : ILayer) => {
-            return obj.index !== index;
+        console.log(layers);
+        const newItems = [...layers].filter((obj : ILayer, i) => {
+            console.log(index);
+            return i !== index;
         })
+        console.log(newItems);
 
         setLayers(newItems);
         increaseKey();
+    }
+
+    const openDialog = () => {
+        console.log("open..");
+        setModalOpen(true);
     }
 
     const swapLayers = (direction : string) => {
@@ -58,7 +66,7 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
         <FlyoutMenu dense={false}>
             <MenuItem disabled={index === 0} onClick={() => swapLayers("up")} label="Move up" icon={<IconArrowUp24/>}/>
             <MenuItem disabled={index === layers.length-1}  onClick={() => swapLayers("down")} label="Move down" icon={<IconArrowDown24/>}/>
-            <MenuItem onClick={onDeleteItem} label="Delete chart" icon={<IconDelete24/>}/>
+            <MenuItem onClick={openDialog} label="Delete chart" icon={<IconDelete24/>}/>
         </FlyoutMenu>
 
         <AreYouSureModal layerName={layerName} setOpen={setModalOpen} open={modalOpen} onDelete={onDeleteItem}/>

@@ -23,6 +23,14 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
 
 
     const childRef = useRef();
+
+    const downloadImage = () => {
+        setViewType("preview");
+        setTimeout(() => {
+            (childRef.current as any).getAlert();
+        }, 150);
+        
+    } 
  
 
     const changeView = (type : string) => {
@@ -59,7 +67,7 @@ const Overview = ({layers, setLayers} : OverviewProps) => {
         <div className="bottom-button-container">
             <div className="bottom-flex-container">
                 <div className="button-bottom">
-                    <Button large="true" primary="true" onClick={() => (childRef.current as any).getAlert()}>
+                    <Button large={true} primary onClick={downloadImage}>
                         Share report!
                     </Button>
                 </div>
