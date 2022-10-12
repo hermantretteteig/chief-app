@@ -4,6 +4,7 @@ import "./summery-layer-styles.css"
 import { IconMore24 } from "@dhis2/ui-icons";
 import { DropdownButton, Button } from "@dhis2/ui"
 import MoreOptions from './MoreOptions';
+import {convertText, convertToIcon} from "./ConvertHelper";
 
 interface SummerLayerProps {
     layer : ILayer,
@@ -12,7 +13,7 @@ interface SummerLayerProps {
 
 const SummeryLayer = ({layer, index} : SummerLayerProps) => {
 
-    const [showMore, setShowMore] = useState<boolean>(false);
+    const [showMore, setShowMore] = useState<boolean>(!false);
     const [key, setClicked] = useState(0)
 
     //used to reload button, so it
@@ -25,11 +26,24 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
   return (
     <div className='layer-container'>
         <div className='layer-innter-container'>
-            <span>
-                <b>{layer.mainTitle}</b>
-                <span>{index}</span>
-                <span style={{fontSize : "13px"}}><br/>{layer.timePeriod}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType} <a href="javascript:void(f1())" onClick={() => setShowMore(!showMore)}><br/>({(showMore) ? "show less" : "show more" })</a></span>
-            </span>
+            <div>
+                <span className='main-title'>
+                    <span>
+                        {layer.mainTitle}
+                    </span>
+                </span>
+                <div className='under-titles'>
+                    {convertText(layer.timePeriod)}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType.toLowerCase()}&nbsp;
+                    <span>{convertToIcon(layer.chartType)} </span>
+                    <br/>
+                    {layer.orgUnit}
+                </div>
+                {/*<div className='show-more-button'>
+                    <Button small onClick={() => setShowMore(!showMore)}>{(showMore) ? "show less" : "show more" }</Button>
+                  
+  </div>*/}
+               
+            </div>
             
 
     
@@ -37,46 +51,40 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
             
                 id={"layer-btn-"+index}
                 key={key}
-                icon={<IconMore24/>}
+                /*icon={<IconMore24/>}*/
                 component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={index}/>} 
                 name="Icon small button"
                 value="default"
-            />
+            >options
+            </DropdownButton>
    
       
             
         </div>
 
-        {
+        {/*
             (showMore) ?
             (
            <div>
-                 <hr/>
-                <table>
-                    <tr>
+        
+                <table  className='more-info'>
+                    <tr >
                         <td>
-                            <b>Organization unit:</b>
+                            Organization unit:
                         </td>
                         <td>
-                            {layer.orgUnit}
+                            
                         </td>
                     </tr>
                     <tr>
                         <td>
-                        <b>Data element:</b>
+                            Data element:
                         </td>
                         <td>
                             {layer.dataElement}
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                        <b>Time periode:</b>
-                        </td>
-                        <td>
-                            {layer.timePeriod}
-                        </td>
-                    </tr>
+                 
                 </table>
    
                 </div>
@@ -85,7 +93,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
             (
                 <span></span>
             )
-        }
+            */}
        
         
 
