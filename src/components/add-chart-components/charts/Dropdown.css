@@ -34,3 +34,11 @@
     display : flex;
     justify-content: space-between;
 }
+.btn-place {
+    justify-content: right;
+    display: flex;
+}
+.titleChart {
+    padding: 0.5%;
+    margin-top: 5%;
+}
