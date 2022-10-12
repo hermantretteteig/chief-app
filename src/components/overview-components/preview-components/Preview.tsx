@@ -2,6 +2,7 @@ import React, {useImperativeHandle, forwardRef, useRef} from 'react'
 import { ILayer } from '../../../interfaces/Layer'
 import html2canvas from 'html2canvas';
 import "./preview-styles.css";
+import { PreviewText } from '../../add-chart-components/text/PreviewText';
 
 interface PreviewProps{
 	layers : ILayer[],
@@ -57,10 +58,10 @@ const Preview = ({layers, reft} : PreviewProps) => {
                 layers.map((layer : ILayer, i) => (
                     <div key={i}>
                     {
-                        (layer.imageBlobUrl === null) ?
+                        (layer.imageBlobUrl === "") ?
                         (
-                            <div>
-                                
+                            <div className='preview-style'>
+                                <PreviewText mainTitle={layer.mainTitle} customText={layer.customText as string} theme={layer.theme as string} />
                             </div>
                         )
                         :

@@ -1,0 +1,35 @@
+.title-container{
+    display: flex;
+    margin : 0.5%;
+    justify-content:baseline;
+}
+
+.title-around{
+    width: 100%;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.title-change{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 9px;
+    margin-left: 3.8px;
+
+
+}
+
+.button-edit{
+    margin-top: 8px;
+
+
+}
+
+.inputfield{
+    width: 100%;
+    margin-top: 0px;
+    height: 36px;
+    font-size: 16px;
+    font-weight: 600;
+}

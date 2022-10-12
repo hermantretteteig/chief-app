@@ -6,5 +6,6 @@ export interface ILayer {
     orgUnit : string,
     dataElement : string,
     timePeriod : string,
-    customText : string | null
+    customText : string | null,
+    theme? : string | "DANGER" | "STANDARD"
 }

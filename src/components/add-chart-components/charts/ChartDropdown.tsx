@@ -10,6 +10,7 @@ import { ILayer } from '../../../interfaces/Layer'
 import { IChartElement, IITems } from '../../../interfaces/ChartElement'
 import ShowVisualization from './ShowVisualization'
 import AddText from '../../add-chart-components/text/AddText'
+import ChangeTitle from './ChangeTitle'
 
 interface DropdownProps {
   layers: ILayer[],
@@ -37,9 +38,9 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const dataSets = [
     { value: 'muC1tI7maoo', text: ("CSC-SP HIV Status Acceptance and negligence") },
     { value: 'j88kFFP79QG', text: ("CSC-SU Beliefs in other medicines like herbs") },
-    {value : "gWG8giHx8G2", text : "Community Health Quarterly - percentage Households with basic latrines"},
+    { value : "gWG8giHx8G2", text : "Community Health Quarterly - percentage Households with basic latrines"},
     { value : "E5R7rBWWc8N", text : "HR percentage of Households with water treated with 1 % stock solution"},
-    {value : "ldXIFF81l1e", text  : "Community Health Quarterly - percentage of Infested households sprayed with insecticides"}
+    { value : "ldXIFF81l1e", text  : "Community Health Quarterly - percentage of Infested households sprayed with insecticides"}
     
     
 
@@ -73,11 +74,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
     const new_layer: ILayer = {
       id: (all_layers.length).toString(),
-      mainTitle: dataName[1],
+      mainTitle: title,
       imageBlobUrl: imageObjectURL,
       chartType: selectedChart,
-      orgUnit: orgName[1],
-      dataElement: dataName[1],
+      orgUnit: orgName(),
+      dataElement: dataName(),
       timePeriod: selectedPeriod,
       customText: selectedText
     }
@@ -100,20 +101,44 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [buttonNotClicked, setbuttonNotClicked] = useState(true);
 
   const [selectedText, setSelectedtext] = useState<string>('');
-  const [titleInput, setTitleInput] = useState("");
+  const [title, setTitle] = useState("");
   const onChangeIn = (e: any) => {
-    setTitleInput(e.value)
+    setTitle(e.value)
   }
  
   useEffect(() => {
     if (selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
-      onButtonGenerate();
+      generateNewChart();
   }, [selectedChart, selectedOrgU, selectedData, selectedPeriod])
 
 
-  const onButtonGenerate = () => {
+
+    const orgName = () => {
+        return (orgnUnits.filter((dataEl : any) => {
+            return dataEl.value === selectedOrgU;
+        }))[0].text
+    }
+
+    const dataName = () => {
+        return (dataSets.filter((dataEl : any) => {
+            return dataEl.value === selectedData;
+        }))[0].text
+    }
+
+    const periodeName = () => {
+        return (periode.filter((dataEl : any) => {
+            return dataEl.value === selectedPeriod;
+        }))[0].text
+    }
+
+  
+
+
+  const generateNewChart = () => {
     { setIsShown(false) }
     { setbuttonNotClicked(false) }
+    console.log(dataName());
+    setTitle(periodeName()+": "+dataName())
     {
       if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
         { setbuttonNotClicked(true) }
@@ -167,47 +192,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     setSelectedPeriod(e.selected)
   }
 
-  const orgName = orgnUnits.map((org) => (
-    (org.value == selectedOrgU) ?
-      (
-        org.text
-      )
-      : (
-        ''
-      )
-  ))
+  
 
-  const dataName = dataSets.map((dataEl) => (
-    (dataEl.value == selectedData) ?
-      (
-        dataEl.text
-      )
-      : (
-        ''
-      )
-  ))
 
-  const mockExtraOptions = {
-    dashboard: false,
-    noData: {
-      text: 'No data',
-    },
-  }
 
-  const props = {
-    style: { maxHeight: 600, maxWidth: 550, width: "100vw" },
-    id: 1,
-    responses: [],
-    extraOptions: mockExtraOptions,
-    legendSets: [],
-    forDashboard: true,
-    visualization: {
-      type: selectedChart,
-      columns: [dataElementMock],
-      rows: [periodeMock],
-      filters: [orgUnitMock],
-    }
-  }
+
 
   return (
     <div className='container'>
@@ -220,11 +209,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         </SingleSelect>
       </div>
       <div>
-        {selectedChart == 'Text' && (
-          <AddText />
+        {selectedChart === 'Text' && (
+          <AddText setLayers={setLayers} layers={layers}/>
         )}
       </div>
-      {selectedChart != 'Text' && (
+      {selectedChart !== 'Text' && (
         <div>
           <div className='dropdown'>
             <SingleSelect className='select'
@@ -251,7 +240,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
               ))
               }
             </SingleSelect>
-            {!buttonNotClicked && (selectedChart != '' || 'Text') && (
+            {!buttonNotClicked && (selectedChart !== '' || 'Text') && (
               <div style={{ color: 'red', fontSize: 'small' }}>
                 *All fields needs to be selected.
               </div>
@@ -269,20 +258,10 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
               (
                 <>
 
-                  <div className='titleChart'>
-                    <InputField
-                      label='Title:'
-                      id='Title'
-                      name='Title'
-                      initialValue='1'
-                      onChange={onChangeIn}
-                      value={titleInput}
-                    />
-                  </div>
+                  <ChangeTitle setTitle={setTitle} title={title}/>
                   <div className='flex-container'>
                     <div>
-                      <h4>Chart preview:</h4>
-                      <ShowVisualization props={props} />
+                      <ShowVisualization periodeMock={periodeMock} orgUnitMock={orgUnitMock} dataElementMock={dataElementMock} selectedChart={selectedChart}/>
                     </div>
                   </div>
                 </>

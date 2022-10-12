@@ -33,10 +33,22 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
                     </span>
                 </span>
                 <div className='under-titles'>
-                    {convertText(layer.timePeriod)}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType.toLowerCase()}&nbsp;
-                    <span>{convertToIcon(layer.chartType)} </span>
-                    <br/>
-                    {layer.orgUnit}
+                    {
+                        (layer.imageBlobUrl === "") ?
+                        (
+                            <span>{layer.customText}</span>
+                        )
+                        :
+                        (
+                            <>
+                            {convertText(layer.timePeriod)}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType.toLowerCase()}&nbsp;
+                            <span>{convertToIcon(layer.chartType)} </span>
+                            <br/>
+                            {layer.orgUnit}
+                            </>
+                        )
+                    }
+                    
                 </div>
                 {/*<div className='show-more-button'>
                     <Button small onClick={() => setShowMore(!showMore)}>{(showMore) ? "show less" : "show more" }</Button>
