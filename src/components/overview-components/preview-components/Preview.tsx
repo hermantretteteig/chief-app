@@ -1,6 +1,7 @@
 import React, {useImperativeHandle, forwardRef, useRef} from 'react'
 import { ILayer } from '../../../interfaces/Layer'
 import html2canvas from 'html2canvas';
+import "./preview-styles.css";
 
 interface PreviewProps{
 	layers : ILayer[],
@@ -51,19 +52,31 @@ const Preview = ({layers, reft} : PreviewProps) => {
 
   return (
     <div>
-        <div id="capturereport" style={{maxWidth : "400px"}}> 
-
-
-        {
-            layers.map((layer : ILayer, i) => (
-                <div key={i}>
-                    <span>{layer.mainTitle}</span>
-                    <img style={{maxWidth : "450px", textAlign : "center"}} src={layer.imageBlobUrl}/>
-                </div>
-            ))
-        }
-           </div>
-           </div>
+        <div id="capturereport" > 
+            {
+                layers.map((layer : ILayer, i) => (
+                    <div key={i}>
+                    {
+                        (layer.imageBlobUrl === null) ?
+                        (
+                            <div>
+                                
+                            </div>
+                        )
+                        :
+                        (
+                            <div className="chart-container">
+                                <p className="chart-title">{layer.mainTitle}</p>
+                                <img className='chart-size' src={layer.imageBlobUrl}/>
+                            </div>
+                        )
+                    }
+                    </div>  
+                ))
+            }
+        </div>
+        <hr/>    
+    </div>
        
 
  

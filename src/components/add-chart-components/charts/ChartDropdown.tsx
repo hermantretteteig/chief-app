@@ -30,20 +30,27 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   ];
 
   const orgnUnits = [
-    { value: 'at6UHUQatSo', text: ("Boa") },
-    { value: 'Rp268JB6Ne4', text: ("Adonkia CHP") },
+    { value: 'QWwg51OvU0a', text: ("Kasungo-DHO") },
+    { value: 'PbfmrMdVBs3', text: ("Mtunthama Health Centre") }
   ];
 
   const dataSets = [
-    { value: 'pEOVd4Z3TAS', text: ("ART monthly summary") },
-    { value: 'cYeuwXTCPkU', text: ("Child Health") },
-    { value: 'qw2sIef52Fu', text: ("HIV Care Monthly") }
+    { value: 'muC1tI7maoo', text: ("CSC-SP HIV Status Acceptance and negligence") },
+    { value: 'j88kFFP79QG', text: ("CSC-SU Beliefs in other medicines like herbs") },
+    {value : "gWG8giHx8G2", text : "Community Health Quarterly - percentage Households with basic latrines"},
+    { value : "E5R7rBWWc8N", text : "HR percentage of Households with water treated with 1 % stock solution"},
+    {value : "ldXIFF81l1e", text  : "Community Health Quarterly - percentage of Infested households sprayed with insecticides"}
+    
+    
 
   ];
 
   const periode = [
+    { value: 'LAST_MONTH', text: ("Last month") },
+    { value: 'LAST_3_MONTHS', text: ("Last 3 months") },
     { value: 'LAST_12_MONTHS', text: ("Last 12 months") },
-    { value: 'LAST_MONTH', text: ("Last months") },
+    
+    
   ];
 
   const checkValues = () => {
