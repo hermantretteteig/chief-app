@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { SingleSelect, SingleSelectOption } from '@dhis2-ui/select'
 import { Button } from '@dhis2-ui/button'
-import { TextArea } from '@dhis2/ui'
+import { TextArea, InputField } from '@dhis2/ui'
 import "./Dropdown.css"
 import { useNavigate } from "react-router-dom";
 import { IconVisualizationPie16, IconDataString16, IconVisualizationColumn16, IconVisualizationBar16, IconVisualizationLine16, IconVisualizationAreaStacked16, IconVisualizationPivotTable16 } from "@dhis2/ui-icons"
@@ -18,7 +18,7 @@ interface DropdownProps {
 const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const options = [
     { value: 'Text', text: (<><IconDataString16 />&nbsp;&nbsp;&nbsp;Text</>) },
@@ -65,7 +65,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const setPropsLayers = () => {
 
     const svgElement: any = document.getElementById("the-generated-chart")?.children[0].children[0].children[0].children[0].innerHTML//.children[0];
-    const blob = new Blob([svgElement], {type: 'image/svg+xml'});
+    const blob = new Blob([svgElement], { type: 'image/svg+xml' });
     const imageObjectURL = URL.createObjectURL(blob);
 
 
@@ -89,6 +89,8 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [selectedOrgU, setSelectedOrgU] = useState<string>('');
   const [selectedData, setSelectedData] = useState<string>('');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
+  const [selectedOrgName, setOrgName] = useState<string>('');
+  const [selectedDataName, setDataName] = useState<string>('');
 
   const [dataElementMock, setDxMock] = useState<IChartElement>()
   const [periodeMock, setPeMock] = useState<IChartElement>()
@@ -98,12 +100,16 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [buttonNotClicked, setbuttonNotClicked] = useState(true);
 
   const [selectedText, setSelectedtext] = useState<string>('');
-
+  const [titleInput, setTitleInput] = useState("");
+  const onChangeIn = (e: any) => {
+    setTitleInput(e.value)
+  }
+ 
   useEffect(() => {
-    if(selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
-        onButtonGenerate();
+    if (selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
+      onButtonGenerate();
   }, [selectedChart, selectedOrgU, selectedData, selectedPeriod])
-  
+
 
   const onButtonGenerate = () => {
     { setIsShown(false) }
@@ -150,6 +156,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const handleOrgU = (e: any) => {
     setshowChart(false);
     setSelectedOrgU(e.selected)
+
   }
   const handleData = (e: any) => {
     setshowChart(false);
@@ -160,26 +167,6 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     setSelectedPeriod(e.selected)
   }
 
-  const TextInput = () => {
-    const [textInput, setTextInput] = useState("");
-    const onChangeInput = useCallback(
-      (e) => {
-        setTextInput(e.value);
-      },
-      [textInput]
-    );
-    return (
-      <TextArea
-        id='textArea'
-        name='textArea'
-        placeholder='Write a comment...'
-        onChange={onChangeInput}
-        value={textInput}
-      />
-      
-    );
-
-  }
   const orgName = orgnUnits.map((org) => (
     (org.value == selectedOrgU) ?
       (
@@ -189,6 +176,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         ''
       )
   ))
+
   const dataName = dataSets.map((dataEl) => (
     (dataEl.value == selectedData) ?
       (
@@ -224,7 +212,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   return (
     <div className='container'>
       <div className='dropdown'>
-        <SingleSelect className='select' selected={selectedChart} placeholder={"Select chart type"} clearText="Clear" clearable
+        <SingleSelect className='select' selected={selectedChart} placeholder={"Select chart type"}
           value={selectedChart} onChange={handleChange}>
           {options.map((option, index) => (
             <SingleSelectOption label={option.text} key={index} value={option.value.toString()} />
@@ -233,7 +221,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
       </div>
       <div>
         {selectedChart == 'Text' && (
-          <AddText selectedChart />
+          <AddText />
         )}
       </div>
       {selectedChart != 'Text' && (
@@ -279,29 +267,22 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
               )
               :
               (
-                <><h2>
-                  {dataSets.map((set) => (
-          
-                    orgnUnits.map((org, index) => (
-                      (org.value == selectedOrgU && set.value == selectedData) ?
-                        (
-                          <div key={index}>{set.text} in {org.text}</div>
-                        )
-                        : (
-                          <div key={index}></div>
-                        )
-                    ))))}
+                <>
 
-                </h2>
+                  <div className='titleChart'>
+                    <InputField
+                      label='Title:'
+                      id='Title'
+                      name='Title'
+                      initialValue='1'
+                      onChange={onChangeIn}
+                      value={titleInput}
+                    />
+                  </div>
                   <div className='flex-container'>
                     <div>
-                        <h4>Chart preview:</h4>
+                      <h4>Chart preview:</h4>
                       <ShowVisualization props={props} />
-                    </div>
-
-                    <div className='area'>
-                        <h4>Add a comment</h4>
-                      <TextInput />
                     </div>
                   </div>
                 </>
@@ -309,16 +290,16 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
           }
 
-        <div className="button-container">
+          <div className="button-container">
 
-        <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
-            Go back
-          </Button>
-          <Button primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
-            Add chart to report
-          </Button>
-          
-        </div>
+            <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
+              Go back
+            </Button>
+            <Button primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
+              Add chart to report
+            </Button>
+
+          </div>
           {isShown && (
             <div>
               The chart was added to your report.
