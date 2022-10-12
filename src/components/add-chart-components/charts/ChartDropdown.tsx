@@ -82,6 +82,8 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [selectedOrgU, setSelectedOrgU] = useState<string>('');
   const [selectedData, setSelectedData] = useState<string>('');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
+  const [selectedOrgName, setOrgName] = useState<string>('');
+  const [selectedDataName, setDataName] = useState<string>('');
 
   const [dataElementMock, setDxMock] = useState<IChartElement>()
   const [periodeMock, setPeMock] = useState<IChartElement>()
@@ -92,10 +94,10 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
   const [selectedText, setSelectedtext] = useState<string>('');
   const [titleInput, setTitleInput] = useState("");
-  const onchangeIn = (e: any) => {
+  const onChangeIn = (e: any) => {
     setTitleInput(e.value)
   }
-
+ 
   useEffect(() => {
     if (selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
       onButtonGenerate();
@@ -147,6 +149,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const handleOrgU = (e: any) => {
     setshowChart(false);
     setSelectedOrgU(e.selected)
+
   }
   const handleData = (e: any) => {
     setshowChart(false);
@@ -166,6 +169,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         ''
       )
   ))
+
   const dataName = dataSets.map((dataEl) => (
     (dataEl.value == selectedData) ?
       (
@@ -260,9 +264,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
                   <div className='titleChart'>
                     <InputField
+                      label='Title:'
                       id='Title'
                       name='Title'
-                      onChange={onchangeIn}
+                      initialValue='1'
+                      onChange={onChangeIn}
                       value={titleInput}
                     />
                   </div>
@@ -299,29 +305,3 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   )
 }
 export default ChartDropdown
-
-/*
-  const TextInput = () => {
-    const [textInput, setTextInput] = useState("");
-    const onChangeInput = useCallback(
-      (e) => {
-        setTextInput(e.value);
-      },
-      [textInput]
-    );
-    return (
-      <TextArea
-        id='textArea'
-        name='textArea'
-        placeholder='Write a comment...'
-        onChange={onChangeInput}
-        value={textInput}
-      />
-    );
-
-  }
-                    <div className='area'>
-                        <h4>Add a comment</h4>
-                      <TextInput />
-                    </div>
-*/
