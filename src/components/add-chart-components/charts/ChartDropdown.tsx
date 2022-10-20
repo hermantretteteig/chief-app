@@ -41,9 +41,6 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     { value : "gWG8giHx8G2", text : "Community Health Quarterly - percentage Households with basic latrines"},
     { value : "E5R7rBWWc8N", text : "HR percentage of Households with water treated with 1 % stock solution"},
     { value : "ldXIFF81l1e", text  : "Community Health Quarterly - percentage of Infested households sprayed with insecticides"}
-    
-    
-
   ];
 
   const periode = [
@@ -90,8 +87,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [selectedOrgU, setSelectedOrgU] = useState<string>('');
   const [selectedData, setSelectedData] = useState<string>('');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
-  const [selectedOrgName, setOrgName] = useState<string>('');
-  const [selectedDataName, setDataName] = useState<string>('');
+  const [svg, setsvg] = useState('')
 
   const [dataElementMock, setDxMock] = useState<IChartElement>()
   const [periodeMock, setPeMock] = useState<IChartElement>()
@@ -102,9 +98,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
   const [selectedText, setSelectedtext] = useState<string>('');
   const [title, setTitle] = useState("");
-  const onChangeIn = (e: any) => {
-    setTitle(e.value)
-  }
+ 
  
   useEffect(() => {
     if (selectedChart !== "" && selectedOrgU !== "" && selectedData !== "" && selectedPeriod !== "")
@@ -131,13 +125,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
         }))[0].text
     }
 
-  
 
 
   const generateNewChart = () => {
     { setIsShown(false) }
     { setbuttonNotClicked(false) }
-    console.log(dataName());
     setTitle(periodeName()+": "+dataName())
     {
       if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
@@ -193,10 +185,6 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   }
 
   
-
-
-
-
 
   return (
     <div className='container'>
@@ -261,7 +249,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                   <ChangeTitle setTitle={setTitle} title={title}/>
                   <div className='flex-container'>
                     <div>
-                      <ShowVisualization periodeMock={periodeMock} orgUnitMock={orgUnitMock} dataElementMock={dataElementMock} selectedChart={selectedChart}/>
+                      <ShowVisualization setDefaultSVGel={setsvg} periodeMock={periodeMock} orgUnitMock={orgUnitMock} dataElementMock={dataElementMock} selectedChart={selectedChart}/>
                     </div>
                   </div>
                 </>

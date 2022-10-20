@@ -20,7 +20,7 @@ const AreYouSureModal = ({onDelete, open, setOpen, layerName} : AreYouSureModalP
     
             <Modal small hide={!open}>
                 <ModalTitle>
-                    Are you sureyou want to delete the {layerName}-chart?
+                    Are you sure you want to delete the {layerName}-chart?
                 </ModalTitle>
                 
                 <ModalActions>

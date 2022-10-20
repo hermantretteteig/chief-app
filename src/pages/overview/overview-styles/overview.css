@@ -37,4 +37,6 @@
     padding : 12px;
 }
 
-
+.showChart {
+    display: none;
+}
