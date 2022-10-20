@@ -10,7 +10,7 @@ export const fake_layers : ILayer[] = [
       dataElement : "ANC 1st visit",
       timePeriod : "LAST_MONTH",
       customText : null,
-      index : 0,
+      //index : 0,
     },
     {
       mainTitle : "Malaria cases",
@@ -21,7 +21,7 @@ export const fake_layers : ILayer[] = [
       dataElement : "Malari cases",
       timePeriod : "LAST_12_MONTHS",
       customText : null,
-      index : 1
+      //index : 1
     },
     {
       mainTitle : "TB cases",
@@ -32,7 +32,7 @@ export const fake_layers : ILayer[] = [
       dataElement : "TB-caes detected",
       timePeriod : "LAST_MONTH",
       customText : null,
-      index : 2
+      //index : 2
     },
     {
       mainTitle : "My personal note",
@@ -43,6 +43,6 @@ export const fake_layers : ILayer[] = [
       dataElement : "",
       timePeriod : "",
       customText : "The  TB-caes from last month was not tracked, due to technical problems.",
-      index : 3
+      //index : 3
     }
 ]

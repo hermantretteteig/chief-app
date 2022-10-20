@@ -12,7 +12,7 @@ const AddNewChart = ({layers, setLayers}) => {
 
 return(
   <div>
-  <ChartDropdown layers={layers} setLayers={setLayers}/>
+    <ChartDropdown layers={layers} setLayers={setLayers}/>
   </div>
 
 )
