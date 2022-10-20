@@ -7,10 +7,11 @@ interface ShowVisualizationProps {
     selectedChart : string,
     dataElementMock : IChartElement | undefined,
     periodeMock : IChartElement | undefined,
-    orgUnitMock : IChartElement | undefined
+    orgUnitMock : IChartElement | undefined,
+    setDefaultSVGel : (el : string) => void;
 }
 
-const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnitMock} : ShowVisualizationProps) => {
+const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnitMock, setDefaultSVGel} : ShowVisualizationProps) => {
 
 
     const mockExtraOptions = {
@@ -19,6 +20,8 @@ const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnit
           text: 'No data',
         },
       }
+
+     
 
   const [chartProps] = useState({
     style: { maxHeight: 600, maxWidth: 550, width: "100vw" },
@@ -32,7 +35,9 @@ const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnit
       columns: [dataElementMock],
       rows: [periodeMock],
       filters: [orgUnitMock],
-    }
+    },
+    onChartGenerated : () => {setDefaultSVGel(document.getElementById("the-generated-chart")?.children[0].children[0].children[0].children[0].innerHTML as string)}
+
   })
 
   return (
