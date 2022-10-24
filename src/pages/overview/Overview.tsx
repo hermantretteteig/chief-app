@@ -10,19 +10,25 @@ import DefaultReport from './DefaultReport';
 
 
 import "./overview-styles/overview.css"
+import { useDataQuery } from '@dhis2/app-runtime';
 
 
 interface OverviewProps {
     layers: ILayer[],
     //swapIndex : (swapFirstId : string, swapSecondId : string ) => void;
-    setLayers: any;
-    report: string
+    setLayers: any,
+    report: string,
+    userId : string,
     reportType: (report: string) => void
 }
 
-const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
+
+
+const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProps) => {
     const [modalOpen, setModalOpen] = useState(false)
     const navigate = useNavigate();
+
+
 
     const [viewType, setViewType] = useState<string>("summery")
 
@@ -33,7 +39,6 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
         setTimeout(() => {
             (childRef.current as any).getAlert();
         }, 150);
-
     }
 
     const changeView = (type: string) => {
@@ -44,8 +49,8 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
     return (
         <div>
             <div>
-            {!modalOpen && report == '' &&
-                <ReportOptions setSelectedType={setModalOpen} selectedType={modalOpen} setReportType={reportType} selectedReport={report}/>
+            {!modalOpen && report === '' && 
+                <ReportOptions userId={userId} setSelectedType={setModalOpen} selectedType={modalOpen} setReportType={reportType} selectedReport={report}/>
             }
             </div>
             <div className="menu">

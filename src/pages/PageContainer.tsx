@@ -14,24 +14,15 @@ interface IOrgUnits {
     name : string
 }
 
-const myQuery = {
+const meQuery = {
     results: {
         resource: 'me',
         params: {
-            
-            fields: ['dataViewOrganisationUnits'],
+            fields: ['dataViewOrganisationUnits','id'],
         },
     },
 }
 
-const orgUntitsQuery = {
-    results: {
-        resource: 'organisationUnits',
-        params: {
-            fields: ['dataViewOrganisationUnits'],
-        },
-    },
-}
 
 interface pagecontainerprops {
     layers: ILayer[],
@@ -42,31 +33,36 @@ const PageContainer = () => {
     const [layers, setLayers] = useState<ILayer[]>([/*fake_layers*/]);
     const [reportType, setreportType] = useState('')
 
-    const [usersOrgUnits, setusersOrgUnits] = useState<IOrgUnits[]>([]);
+    const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(meQuery)
 
-    const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(myQuery)
-    const { loading : loadingOrgUnits, error : errorOrgUnits, data : dataOrgUnits, refetch : refetchOrgUnits } = useDataQuery(myQuery)
-  
-    if (loadingMe || loadingOrgUnits) {
+    console.log(layers);
+    
+    if (loadingMe) {
         return <span>Loading...</span>
     }
+
+ 
     
     else{
-        let orgUnits: string[] = [];
 
-        ((dataMe?.results as any).dataViewOrganisationUnits as any[]).forEach((obj : any) => {
-            orgUnits.push(obj.id)
-        });
+        console.log((dataMe?.results as any).id as string);
+   /*      }
+
+    if(lastUsedData !== null){
+        console.log(lastUsedData);
+    
+    */
+
+
 
        // setusersOrgUnits(orgUnits);
-        console.log(orgUnits);
-
+   
         return (
             <div>
                 <LayerContext.Provider value={{layers, setLayers}}>
                     <Router>
                         <Routes>
-                            <Route path="/" element={<Overview layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
+                            <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
                             <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
                             <Route path="/main-page" element={<Mainpage/>}/>
                                 
@@ -76,8 +72,7 @@ const PageContainer = () => {
                 </LayerContext.Provider>
             </div>
         )
-    }
-    
+    }   
 }
 
 export default PageContainer

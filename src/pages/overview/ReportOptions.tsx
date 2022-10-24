@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from 'react'
 import { Button, ButtonStrip, Modal, ModalTitle, ModalContent, ModalActions } from "@dhis2/ui";
 import DefaultReport from './DefaultReport';
+import { useDataQuery } from '@dhis2/app-runtime';
+import { UsePrevious } from '../../components/add-chart-components/use-previous/UsePrevious';
+import { IPreviousReport } from '../../interfaces/PreviousReport';
 
 interface reportProps {
-    selectedType: boolean
+    selectedType: boolean,
+    userId : string,
     setSelectedType: (selectedType: boolean) => void
     setReportType: (selectedReport: string) => void
     selectedReport: string
 }
 
+const lastUsedFromDataStore = (userId : string) => {
+    return {
+        results: {
+            resource: 'dataStore/chief-app/'+userId,
+            params: {
+                fields: ['dataViewOrganisationUnits'],
+            },
+        }
+    }
+}
 
-const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReportType}: reportProps) => {
+
+const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReportType, userId}: reportProps) => {
     const [] = useState<string>('');
     const [stage, setStage] = useState("options")
+
+    const [nonePreviousReports, setnonePreviousReports] = useState<boolean>(true);
+
+    const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
+   
+
 
     const newReport = () => {
         {setSelectedType(true)}
@@ -24,6 +45,8 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
     const lastReport = () => {
         setStage('use-previous')
     }
+
+        
 
     return (
         <div>
@@ -51,9 +74,19 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                             </ModalActions>
                         </>,
                         "use-previous" : 
-                        <>
-
-                        </>,
+                            <>
+                            {
+                                (errorLastUsed || loadingLastUsed) ?
+                                (
+                                    <div>There is none previous reports? Make a new one?</div>
+                                )
+                                    :
+                                (
+                                    <UsePrevious reports={(dataLastUsed?.results as any).reports as IPreviousReport[]}/>
+                                )
+                            }
+                            </>,
+                          
                         "default-report" : 
                         <>
                             <DefaultReport generatedChart={selectedType} setGeneratedChart={setSelectedType} setReportType={setReportType}/>
@@ -65,6 +98,8 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
 
     )
 }
+
+
 
 
 

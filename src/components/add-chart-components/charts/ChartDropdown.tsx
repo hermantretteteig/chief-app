@@ -110,19 +110,19 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
     const orgName = () => {
         return (orgnUnits.filter((dataEl : any) => {
             return dataEl.value === selectedOrgU;
-        }))[0].text
+        }))[0].value
     }
 
     const dataName = () => {
         return (dataSets.filter((dataEl : any) => {
             return dataEl.value === selectedData;
-        }))[0].text
+        }))[0].value
     }
 
     const periodeName = () => {
         return (periode.filter((dataEl : any) => {
             return dataEl.value === selectedPeriod;
-        }))[0].text
+        }))[0].value
     }
 
 
