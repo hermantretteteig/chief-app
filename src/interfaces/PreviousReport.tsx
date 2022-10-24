@@ -2,6 +2,6 @@ import { ILayer } from "./Layer";
 
 export interface IPreviousReport {
     dateCreated : Date,
-    layers : ILayer,
+    layers : ILayer[],
     reportTitle : string
 }

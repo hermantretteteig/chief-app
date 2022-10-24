@@ -4,13 +4,15 @@ import DefaultReport from './DefaultReport';
 import { useDataQuery } from '@dhis2/app-runtime';
 import { UsePrevious } from '../../components/add-chart-components/use-previous/UsePrevious';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
+import { IconArrowLeft24 } from "@dhis2/ui-icons";
 
 interface reportProps {
     selectedType: boolean,
     userId : string,
     setSelectedType: (selectedType: boolean) => void
     setReportType: (selectedReport: string) => void
-    selectedReport: string
+    selectedReport: string,
+    setModalOpen : (open : boolean) => void
 }
 
 const lastUsedFromDataStore = (userId : string) => {
@@ -25,7 +27,7 @@ const lastUsedFromDataStore = (userId : string) => {
 }
 
 
-const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReportType, userId}: reportProps) => {
+const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReportType, userId, setModalOpen}: reportProps) => {
     const [] = useState<string>('');
     const [stage, setStage] = useState("options")
 
@@ -75,6 +77,7 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                         </>,
                         "use-previous" : 
                             <>
+                           
                             {
                                 (errorLastUsed || loadingLastUsed) ?
                                 (
@@ -82,9 +85,13 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                                 )
                                     :
                                 (
-                                    <UsePrevious reports={(dataLastUsed?.results as any).reports as IPreviousReport[]}/>
+                                    <UsePrevious setModalOpen={setModalOpen} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]}/>
                                 )
-                            }
+                        }       
+                            <div style={{marginTop : "15px"}}>
+                                <Button style={{maxWidth : "25px"}} icon={<IconArrowLeft24/>} onClick={() => setStage("options")}>Go back</Button>
+                            </div>
+                                 
                             </>,
                           
                         "default-report" : 

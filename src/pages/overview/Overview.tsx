@@ -25,7 +25,7 @@ interface OverviewProps {
 
 
 const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProps) => {
-    const [modalOpen, setModalOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(true)
     const navigate = useNavigate();
 
 
@@ -49,8 +49,8 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
     return (
         <div>
             <div>
-            {!modalOpen && report === '' && 
-                <ReportOptions userId={userId} setSelectedType={setModalOpen} selectedType={modalOpen} setReportType={reportType} selectedReport={report}/>
+            {modalOpen && report === '' && 
+                <ReportOptions setModalOpen={setModalOpen} userId={userId} setSelectedType={setModalOpen} selectedType={modalOpen} setReportType={reportType} selectedReport={report}/>
             }
             </div>
             <div className="menu">

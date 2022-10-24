@@ -69,14 +69,25 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
     let all_layers = [...layers];
 
+    const orgUnit = getOrgUnit();
+    const dataElement = getDataElement();
+    const periode = getPeriode();
+
     const new_layer: ILayer = {
       id: (all_layers.length).toString(),
       mainTitle: title,
       imageBlobUrl: imageObjectURL,
       chartType: selectedChart,
-      orgUnit: orgName(),
-      dataElement: dataName(),
-      timePeriod: selectedPeriod,
+
+      orgUnitId: orgUnit.value,
+      orgUnitName : orgUnit.text,
+
+      dataElementId: dataElement.value,
+      dataElementName: dataElement.text,
+
+      timePeriodId: periode.value,
+      timePeriodeName : periode.text,
+
       customText: selectedText
     }
     all_layers.push(new_layer)
@@ -88,6 +99,11 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const [selectedData, setSelectedData] = useState<string>('');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
   const [svg, setsvg] = useState('')
+
+
+    const setSvgElement = (el : string, id : string) => {
+        setsvg(el)
+    }
 
   const [dataElementMock, setDxMock] = useState<IChartElement>()
   const [periodeMock, setPeMock] = useState<IChartElement>()
@@ -107,22 +123,22 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
 
 
 
-    const orgName = () => {
+    const getOrgUnit = () => {
         return (orgnUnits.filter((dataEl : any) => {
             return dataEl.value === selectedOrgU;
-        }))[0].value
+        }))[0]
     }
 
-    const dataName = () => {
+    const getDataElement = () => {
         return (dataSets.filter((dataEl : any) => {
             return dataEl.value === selectedData;
-        }))[0].value
+        }))[0]
     }
 
-    const periodeName = () => {
+    const getPeriode = () => {
         return (periode.filter((dataEl : any) => {
             return dataEl.value === selectedPeriod;
-        }))[0].value
+        }))[0]
     }
 
 
@@ -130,7 +146,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
   const generateNewChart = () => {
     { setIsShown(false) }
     { setbuttonNotClicked(false) }
-    setTitle(periodeName()+": "+dataName())
+    setTitle(getPeriode().text+": "+getDataElement().text)
     {
       if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
         { setbuttonNotClicked(true) }
@@ -249,7 +265,7 @@ const ChartDropdown = ({ layers, setLayers }: DropdownProps) => {
                   <ChangeTitle setTitle={setTitle} title={title}/>
                   <div className='flex-container'>
                     <div>
-                      <ShowVisualization setDefaultSVGel={setsvg} periodeMock={periodeMock} orgUnitMock={orgUnitMock} dataElementMock={dataElementMock} selectedChart={selectedChart}/>
+                      <ShowVisualization finishTrigger={setSvgElement} periodeMock={periodeMock} orgUnitMock={orgUnitMock} dataElementMock={dataElementMock} selectedChart={selectedChart} id={(layers.length).toString()}/>
                     </div>
                   </div>
                 </>

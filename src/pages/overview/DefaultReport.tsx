@@ -75,9 +75,9 @@ const DefaultReport = ({ setGeneratedChart, generatedChart, setReportType }: Def
             mainTitle: title,
             imageBlobUrl: imageObjectURL,
             chartType: chart,
-            orgUnit: "Mtunthama Health Centre",
-            dataElement: title,
-            timePeriod: selectedPeriod,
+            orgUnitName: "Mtunthama Health Centre",
+            dataElementName: title,
+            timePeriodeName: selectedPeriod,
             customText: ''
         }
         console.log(new_layer)
@@ -93,13 +93,13 @@ const DefaultReport = ({ setGeneratedChart, generatedChart, setReportType }: Def
         <div>
             <CircularLoader />
             <div className='showChart'>
-                <ShowVisualization setDefaultSVGel={setelement} selectedChart='COLUMN' dataElementMock={defaultDataEl} periodeMock={defaultPeriod} orgUnitMock={defaultOrgUnit} />
+                <ShowVisualization finishTrigger={setelement} selectedChart='COLUMN' dataElementMock={defaultDataEl} periodeMock={defaultPeriod} orgUnitMock={defaultOrgUnit} />
             </div>
             <div className='showChart'>
-                <ShowVisualization setDefaultSVGel={setelement} selectedChart='BAR' dataElementMock={defaultDataEl1} periodeMock={defaultPeriod1} orgUnitMock={defaultOrgUnit1} />
+                <ShowVisualization finishTrigger={setelement} selectedChart='BAR' dataElementMock={defaultDataEl1} periodeMock={defaultPeriod1} orgUnitMock={defaultOrgUnit1} />
             </div>
             <div className='showChart'>
-                <ShowVisualization setDefaultSVGel={setelement} selectedChart='COLUMN' dataElementMock={defaultDataEl2} periodeMock={defaultPeriod2} orgUnitMock={defaultOrgUnit2} />
+                <ShowVisualization finishTrigger={setelement} selectedChart='COLUMN' dataElementMock={defaultDataEl2} periodeMock={defaultPeriod2} orgUnitMock={defaultOrgUnit2} />
             </div>
         </div>
     )
