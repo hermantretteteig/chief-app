@@ -36,6 +36,12 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
     const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
    
 
+    useEffect(() => {
+        const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
+   
+    }, [])
+    
+
 
     const newReport = () => {
         {setSelectedType(true)}
@@ -81,7 +87,10 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                             {
                                 (errorLastUsed || loadingLastUsed) ?
                                 (
-                                    <div>There is none previous reports? Make a new one?</div>
+                                    <div>There is none previous reports created by you.
+                                        <Button onClick={newReport}>Create new report</Button>    
+                                        
+                                    </div>
                                 )
                                     :
                                 (
