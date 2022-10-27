@@ -5,6 +5,7 @@ import { useDataQuery } from '@dhis2/app-runtime';
 import { UsePrevious } from '../../components/add-chart-components/use-previous/UsePrevious';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
 import { IconArrowLeft24 } from "@dhis2/ui-icons";
+import { usePreviousContext } from '../../contexts/PreviousContext';
 
 interface reportProps {
     selectedType: boolean,
@@ -31,15 +32,21 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
     const [] = useState<string>('');
     const [stage, setStage] = useState("options")
 
+    const { previousReports, setPreviousReports } = usePreviousContext();
+
     const [nonePreviousReports, setnonePreviousReports] = useState<boolean>(true);
 
     const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
    
-
-    useEffect(() => {
-        const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
    
-    }, [])
+    //setting the last used reports
+    useEffect(() => {
+        if(!loadingLastUsed && !errorLastUsed){
+            setPreviousReports((dataLastUsed as any).results.reports as IPreviousReport[]);
+        }
+    }, [loadingLastUsed])
+    
+ 
     
 
 
@@ -67,16 +74,13 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                             </ModalTitle>
 
                             <ModalActions>
-                                <ButtonStrip end
-                                >
+                                <ButtonStrip middle>
                                     <Button secondary onClick={newReport}>
                                         Create new report
                                     </Button>
-                                    <Button secondary onClick={defaultReport}>
-                                        Default report
-                                    </Button>
+
                                     <Button secondary onClick={lastReport}>
-                                        Last used report
+                                        Create based on previous reports
                                     </Button>
                                 </ButtonStrip>
                             </ModalActions>
@@ -101,12 +105,7 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                                 <Button style={{maxWidth : "25px"}} icon={<IconArrowLeft24/>} onClick={() => setStage("options")}>Go back</Button>
                             </div>
                                  
-                            </>,
-                          
-                        "default-report" : 
-                        <>
-                            <DefaultReport generatedChart={selectedType} setGeneratedChart={setSelectedType} setReportType={setReportType}/>
-                        </>
+                            </>
                     }
                 [stage]}
             </Modal>

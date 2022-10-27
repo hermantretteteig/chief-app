@@ -8,6 +8,8 @@ import { fake_layers } from '../components/overview-components/summery-component
 import Mainpage from '../Mainpage'
 import DefaultReport from '../pages/overview/DefaultReport'
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
+import { PreviousContext } from '../contexts/PreviousContext'
+import { IPreviousReport } from "../interfaces/PreviousReport"
 
 interface IOrgUnits {
     id : string,
@@ -30,7 +32,9 @@ interface pagecontainerprops {
 }
 
 const PageContainer = () => {
-    const [layers, setLayers] = useState<ILayer[]>([/*fake_layers*/]);
+    const [layers, setLayers] = useState<ILayer[]>([]);
+    const [previousReports, setPreviousReports] = useState<IPreviousReport[]>([])
+
     const [reportType, setreportType] = useState('')
 
     const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(meQuery)
@@ -46,29 +50,22 @@ const PageContainer = () => {
     else{
 
         console.log((dataMe?.results as any).id as string);
-   /*      }
 
-    if(lastUsedData !== null){
-        console.log(lastUsedData);
-    
-    */
-
-
-
-       // setusersOrgUnits(orgUnits);
    
         return (
             <div>
                 <LayerContext.Provider value={{layers, setLayers}}>
-                    <Router>
-                        <Routes>
-                            <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
-                            <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
-                            <Route path="/main-page" element={<Mainpage/>}/>
-                                
-                            {/*} <Route path="/" element={<Mainpage/>}/> */}
-                        </Routes>
-                    </Router>
+                    <PreviousContext.Provider value={{previousReports, setPreviousReports}}>
+                        <Router>
+                            <Routes>
+                                <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
+                                <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
+                                <Route path="/main-page" element={<Mainpage/>}/>
+                                    
+                                {/*} <Route path="/" element={<Mainpage/>}/> */}
+                            </Routes>
+                        </Router>
+                    </PreviousContext.Provider>
                 </LayerContext.Provider>
             </div>
         )

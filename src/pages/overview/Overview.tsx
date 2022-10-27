@@ -7,7 +7,7 @@ import { Menu, MenuItem, Button } from "@dhis2/ui";
 import { IconAdd24 } from "@dhis2/ui-icons"
 import ReportOptions from './ReportOptions'
 import DefaultReport from './DefaultReport';
-import { useDataMutation } from '@dhis2/app-runtime'
+
 
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
@@ -23,29 +23,6 @@ interface OverviewProps {
     reportType: (report: string) => void
 }
 
-const updatePreviousReports = (method : string, data : any) => {
-    return {
-        resource: 'dataStore/chief-app',
-        type: method,
-        data: data,
-        id : "e"
-    }
-}
-
-const myMutation = {
-    resource: 'programs',
-    type: 'create',
-    id : "er",
-    data: {
-        name: 'A new Program',
-        shortName: 'A new Program',
-        programType: 'WITH_REGISTRATION',
-    },
-}
-
-
-
-
 const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProps) => {
     const [modalOpen, setModalOpen] = useState(true)
 
@@ -53,7 +30,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
     const [method, setmethod] = useState("update");
     const [previouData, setpreviouData] = useState<IPreviousReport>();
 
-    const [mutate, { loading }] = useDataMutation(myMutation)
+
     const navigate = useNavigate();
 
 
@@ -93,11 +70,11 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
                 {
                     {
                         'summery': <Summery layers={layers} setLayers={setLayers} />,
-                        'preview': <Preview layers={layers} reft={childRef} />,
+                        'preview': <Preview userId={userId} layers={layers} reference={childRef} />,
                     }[viewType]
                 }
 
-                <div className='center-button-margin'>
+                <div className='center-button-margin' >
                     <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                         Add new chart/text
                     </Button>
