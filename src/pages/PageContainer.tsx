@@ -6,7 +6,6 @@ import { BrowserRouter, Route, HashRouter as Router, Routes } from 'react-router
 import { LayerContext } from '../contexts/LayerContext'
 import { fake_layers } from '../components/overview-components/summery-components/FakeData'
 import Mainpage from '../Mainpage'
-import DefaultReport from '../pages/overview/DefaultReport'
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
 import { PreviousContext } from '../contexts/PreviousContext'
 import { IPreviousReport } from "../interfaces/PreviousReport"
@@ -20,7 +19,7 @@ const meQuery = {
     results: {
         resource: 'me',
         params: {
-            fields: ['dataViewOrganisationUnits','id'],
+            fields: ['organisationUnits[id,name]','id'],
         },
     },
 }
@@ -59,7 +58,7 @@ const PageContainer = () => {
                         <Router>
                             <Routes>
                                 <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
-                                <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
+                                <Route path="/add-chart" element={<AddChart orgUnits={(dataMe?.results as any).organisationUnits} layers={layers} setLayers={setLayers}/>} />
                                 <Route path="/main-page" element={<Mainpage/>}/>
                                     
                                 {/*} <Route path="/" element={<Mainpage/>}/> */}

@@ -15,11 +15,6 @@ const query = {
 }
 
 
-const redirect = () => {
-    const message = "Hello!\nHere is you report for Kasungo district.\n\nhttps://vg.no".replace(" ", "%20")
-    window.location.replace("https://wa.me/+4746802013?text=" + message);
-}
-
 const MyApp = () => {
 
     useEffect(() => {

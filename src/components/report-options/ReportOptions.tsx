@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, ButtonStrip, Modal, ModalTitle, ModalContent, ModalActions } from "@dhis2/ui";
-import DefaultReport from './DefaultReport';
 import { useDataQuery } from '@dhis2/app-runtime';
-import { UsePrevious } from '../../components/add-chart-components/use-previous/UsePrevious';
+import { UsePrevious } from '../add-chart-components/use-previous/UsePrevious';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
 import { IconArrowLeft24 } from "@dhis2/ui-icons";
 import { usePreviousContext } from '../../contexts/PreviousContext';

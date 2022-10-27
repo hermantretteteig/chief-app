@@ -5,8 +5,7 @@ import Summery from '../../components/overview-components/summery-components/Sum
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Button } from "@dhis2/ui";
 import { IconAdd24 } from "@dhis2/ui-icons"
-import ReportOptions from './ReportOptions'
-import DefaultReport from './DefaultReport';
+import ReportOptions from '../../components/report-options/ReportOptions'
 
 
 import "./overview-styles/overview.css"
@@ -61,7 +60,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
             <div className="menu">
                 <MenuItem style={{ maxWidth: "200px" }} active={viewType === "summery"} label="Summery" onClick={() => changeView("summery")} />
                 <MenuItem active={viewType === "preview"} label="Preview" onClick={() => changeView("preview")} />
-                </div>
+            </div>
 
             <hr />
 
