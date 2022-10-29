@@ -9,6 +9,7 @@ import Mainpage from '../Mainpage'
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
 import { PreviousContext } from '../contexts/PreviousContext'
 import { IPreviousReport } from "../interfaces/PreviousReport"
+import ReportOptions from '../components/report-options/ReportOptions'
 
 interface IOrgUnits {
     id : string,
@@ -37,33 +38,33 @@ const PageContainer = () => {
     const [reportType, setreportType] = useState('')
 
     const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(meQuery)
+    const [modalOpen, setModalOpen] = useState(true)
 
     console.log(layers);
     
     if (loadingMe) {
-        return <span>Loading...</span>
+        return <h2 style={{textAlign : "center"}}>Loading...</h2>
     }
 
  
     
     else{
-
-        console.log((dataMe?.results as any).id as string);
-
-   
         return (
             <div>
                 <LayerContext.Provider value={{layers, setLayers}}>
                     <PreviousContext.Provider value={{previousReports, setPreviousReports}}>
+                        {modalOpen ?
+                            <ReportOptions setModal={setModalOpen} userId={(dataMe?.results as any).id}/>
+                        :
                         <Router>
                             <Routes>
                                 <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
                                 <Route path="/add-chart" element={<AddChart orgUnits={(dataMe?.results as any).organisationUnits} layers={layers} setLayers={setLayers}/>} />
                                 <Route path="/main-page" element={<Mainpage/>}/>
-                                    
-                                {/*} <Route path="/" element={<Mainpage/>}/> */}
                             </Routes>
                         </Router>
+                        }
+                       
                     </PreviousContext.Provider>
                 </LayerContext.Provider>
             </div>

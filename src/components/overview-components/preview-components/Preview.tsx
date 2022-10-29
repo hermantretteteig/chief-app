@@ -5,7 +5,7 @@ import "./preview-styles.css";
 import { PreviewText } from '../../add-chart-components/text/PreviewText';
 import { usePreviousContext } from '../../../contexts/PreviousContext';
 import { IPreviousReport } from '../../../interfaces/PreviousReport';
-import { useDataMutation } from '@dhis2/app-runtime'
+import { useDataMutation } from '@dhis2/app-runtime';
 
 const myMutation = (type : string, userId : string) => {
     return {
@@ -29,7 +29,8 @@ const myMutation = (type : string, userId : string) => {
 interface PreviewProps{
 	layers : ILayer[],
     reference : any,
-    userId : string
+    userId : string,
+    reportTitle : string
 }
 
 const updateOrCreate = (previousReports : IPreviousReport[]) => {
@@ -40,7 +41,7 @@ const updateOrCreate = (previousReports : IPreviousReport[]) => {
     return "update"
 }
 
-const Preview = ({layers, reference: ref, userId} : PreviewProps) => {
+const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) => {
 
     const { previousReports, setPreviousReports } = usePreviousContext();
     const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(previousReports), userId) as any)
@@ -62,7 +63,7 @@ const Preview = ({layers, reference: ref, userId} : PreviewProps) => {
 
         const addReport: IPreviousReport = {
             dateCreated : new Date(),
-            reportTitle : "A title",
+            reportTitle : reportTitle,
             layers : layers
         }
 
@@ -124,6 +125,7 @@ const Preview = ({layers, reference: ref, userId} : PreviewProps) => {
   return (
     <div>
         <div id="capturereport" style={{padding : "6px"}}> 
+            <h3 style={{textAlign : "center"}}>{reportTitle}</h3>
             {
                 layers.map((layer : ILayer, i) => (
                     <div key={i}>

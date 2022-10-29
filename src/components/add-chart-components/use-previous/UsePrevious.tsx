@@ -31,6 +31,8 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
         }
     }
 
+    
+
  
 
     const onCreatedChart = (blobUrl : string, id : string) => {
@@ -109,7 +111,7 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
             </thead>
             <tbody>
                 {
-                    reports.map((obj : IPreviousReport, i) => (
+                    reports.sort(function(a,b){return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()}).map((obj : IPreviousReport, i) => (
                         <tr key={i}>
                             <td className='use-prev-cells'>{obj.reportTitle}</td>
                             <td className='use-prev-cells'>{obj.dateCreated.toString().slice(0,10)}</td>

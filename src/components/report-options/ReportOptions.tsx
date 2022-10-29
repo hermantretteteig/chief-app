@@ -5,14 +5,15 @@ import { UsePrevious } from '../add-chart-components/use-previous/UsePrevious';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
 import { IconArrowLeft24 } from "@dhis2/ui-icons";
 import { usePreviousContext } from '../../contexts/PreviousContext';
+import { useNavigate } from 'react-router-dom';
 
 interface reportProps {
-    selectedType: boolean,
+    //selectedType: boolean,
     userId : string,
-    setSelectedType: (selectedType: boolean) => void
-    setReportType: (selectedReport: string) => void
-    selectedReport: string,
-    setModalOpen : (open : boolean) => void
+    //setSelectedType: (selectedType: boolean) => void
+    //setReportType: (selectedReport: string) => void
+    //selectedReport: string,
+    setModal : (open : boolean) => void
 }
 
 const lastUsedFromDataStore = (userId : string) => {
@@ -27,7 +28,7 @@ const lastUsedFromDataStore = (userId : string) => {
 }
 
 
-const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReportType, userId, setModalOpen}: reportProps) => {
+const ReportOptions = ({/*setSelectedType, selectedType, selectedReport, setReportType,*/setModal, userId/* setModalOpen*/}: reportProps) => {
     const [] = useState<string>('');
     const [stage, setStage] = useState("options")
 
@@ -46,12 +47,15 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
     }, [loadingLastUsed])
     
  
+
     
 
 
     const newReport = () => {
-        {setSelectedType(true)}
-        setReportType('new')
+       // {setSelectedType(true)}
+       //navigate("/");
+       setModal(false);
+       // setReportType('new')
     }
     const defaultReport = () => {
         setStage("default-report")
@@ -97,7 +101,7 @@ const ReportOptions = ({setSelectedType, selectedType, selectedReport, setReport
                                 )
                                     :
                                 (
-                                    <UsePrevious setModalOpen={setModalOpen} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]}/>
+                                    <UsePrevious setModalOpen={setModal} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]}/>
                                 )
                         }       
                             <div style={{marginTop : "15px"}}>

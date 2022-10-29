@@ -282,6 +282,8 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
             </Button>
 
           </div>
+ <div style={{height : "50px"}}></div>
+
           {isShown && (
             <div>
               The chart was added to your report.
