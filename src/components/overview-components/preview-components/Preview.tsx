@@ -91,7 +91,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
                     document.body.appendChild(link);
                     link.download = "html_image.jpg";
                     link.href = canvas.toDataURL();
-                    //link.target = '_blank';
+                    link.target = '_blank';
                     link.click();
                 });
         
