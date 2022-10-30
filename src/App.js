@@ -8,18 +8,6 @@ import Mainpage from './Mainpage';
 import PageContainer from './pages/PageContainer';
 
 
-const query = {
-    me: {
-        resource: 'me',
-    },
-}
-
-
-const redirect = () => {
-    const message = "Hello!\nHere is you report for Kasungo district.\n\nhttps://vg.no".replace(" ", "%20")
-    window.location.replace("https://wa.me/+4746802013?text=" + message);
-}
-
 const MyApp = () => {
 
     useEffect(() => {
@@ -33,24 +21,9 @@ const MyApp = () => {
 
 
     return (
-
-
         <div className={classes.container}>
-
-            {/*<DataQuery query={query}>
-            
-            {({ error, loading, data }) => {
-                if (error) return <span>ERROR</span>
-                if (loading) return <span>...</span>
-                return (
-                    <>
-                      
-                      {/* <Button onClick={redirect}>Send on whatsapp!</Button>}
-                    </>
-                )
-            }}
-        </DataQuery>*/}
-        <PageContainer />
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+            <PageContainer />
         </div>
     )
 }

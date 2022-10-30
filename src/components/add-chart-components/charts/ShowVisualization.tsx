@@ -5,14 +5,17 @@ import { IChartElement } from '../../../interfaces/ChartElement'
 interface ShowVisualizationProps {
     //mockExtraOptions : any,
     selectedChart : string,
+    id : string,
     dataElementMock : IChartElement | undefined,
     periodeMock : IChartElement | undefined,
     orgUnitMock : IChartElement | undefined,
-    setDefaultSVGel : (el : string) => void;
+    finishTrigger : (el : string, id : string) => void;
 }
 
-const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnitMock, setDefaultSVGel} : ShowVisualizationProps) => {
+const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnitMock, finishTrigger, id} : ShowVisualizationProps) => {
 
+
+    console.log("show vis loading...");
 
     const mockExtraOptions = {
         dashboard: false,
@@ -36,12 +39,18 @@ const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnit
       rows: [periodeMock],
       filters: [orgUnitMock],
     },
-    onChartGenerated : () => {setDefaultSVGel(document.getElementById("the-generated-chart")?.children[0].children[0].children[0].children[0].innerHTML as string)}
+
+    
+    onChartGenerated : () => {
+        setTimeout(() => {
+            finishTrigger(document.getElementById("the-generated-chart-"+id)?.children[0].children[0].children[0].children[0].innerHTML as string, id)
+        }, 200);        
+    }
 
   })
 
   return (
-    <div id="the-generated-chart"> 
+    <div id={"the-generated-chart-"+id}> 
         <ChartPlugin {...chartProps}/>
     </div>
   )

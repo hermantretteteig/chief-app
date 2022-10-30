@@ -6,32 +6,25 @@ import { BrowserRouter, Route, HashRouter as Router, Routes } from 'react-router
 import { LayerContext } from '../contexts/LayerContext'
 import { fake_layers } from '../components/overview-components/summery-components/FakeData'
 import Mainpage from '../Mainpage'
-import DefaultReport from '../pages/overview/DefaultReport'
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
+import { PreviousContext } from '../contexts/PreviousContext'
+import { IPreviousReport } from "../interfaces/PreviousReport"
+import ReportOptions from '../components/report-options/ReportOptions'
 
 interface IOrgUnits {
     id : string,
     name : string
 }
 
-const myQuery = {
+const meQuery = {
     results: {
         resource: 'me',
         params: {
-            
-            fields: ['dataViewOrganisationUnits'],
+            fields: ['organisationUnits[id,name]','id'],
         },
     },
 }
 
-const orgUntitsQuery = {
-    results: {
-        resource: 'organisationUnits',
-        params: {
-            fields: ['dataViewOrganisationUnits'],
-        },
-    },
-}
 
 interface pagecontainerprops {
     layers: ILayer[],
@@ -39,45 +32,44 @@ interface pagecontainerprops {
 }
 
 const PageContainer = () => {
-    const [layers, setLayers] = useState<ILayer[]>([/*fake_layers*/]);
+    const [layers, setLayers] = useState<ILayer[]>([]);
+    const [previousReports, setPreviousReports] = useState<IPreviousReport[]>([])
+
     const [reportType, setreportType] = useState('')
 
-    const [usersOrgUnits, setusersOrgUnits] = useState<IOrgUnits[]>([]);
+    const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(meQuery)
+    const [modalOpen, setModalOpen] = useState(true)
 
-    const { loading : loadingMe, error : errorMe, data : dataMe, refetch : refetchMe } = useDataQuery(myQuery)
-    const { loading : loadingOrgUnits, error : errorOrgUnits, data : dataOrgUnits, refetch : refetchOrgUnits } = useDataQuery(myQuery)
-  
-    if (loadingMe || loadingOrgUnits) {
-        return <span>Loading...</span>
+    console.log(layers);
+    
+    if (loadingMe) {
+        return <h2 style={{textAlign : "center"}}>Loading...</h2>
     }
+
+ 
     
     else{
-        let orgUnits: string[] = [];
-
-        ((dataMe?.results as any).dataViewOrganisationUnits as any[]).forEach((obj : any) => {
-            orgUnits.push(obj.id)
-        });
-
-       // setusersOrgUnits(orgUnits);
-        console.log(orgUnits);
-
         return (
             <div>
                 <LayerContext.Provider value={{layers, setLayers}}>
-                    <Router>
-                        <Routes>
-                            <Route path="/" element={<Overview layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
-                            <Route path="/add-chart" element={<AddChart layers={layers} setLayers={setLayers}/>} />
-                            <Route path="/main-page" element={<Mainpage/>}/>
-                                
-                            {/*} <Route path="/" element={<Mainpage/>}/> */}
-                        </Routes>
-                    </Router>
+                    <PreviousContext.Provider value={{previousReports, setPreviousReports}}>
+                        {modalOpen ?
+                            <ReportOptions setModal={setModalOpen} userId={(dataMe?.results as any).id}/>
+                        :
+                        <Router>
+                            <Routes>
+                                <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
+                                <Route path="/add-chart" element={<AddChart orgUnits={(dataMe?.results as any).organisationUnits} layers={layers} setLayers={setLayers}/>} />
+                                <Route path="/main-page" element={<Mainpage/>}/>
+                            </Routes>
+                        </Router>
+                        }
+                       
+                    </PreviousContext.Provider>
                 </LayerContext.Provider>
             </div>
         )
-    }
-    
+    }   
 }
 
 export default PageContainer

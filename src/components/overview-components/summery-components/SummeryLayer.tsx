@@ -41,10 +41,10 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
                         :
                         (
                             <>
-                            {convertText(layer.timePeriod)}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType.toLowerCase()}&nbsp;
+                            {layer.timePeriodeName}&nbsp;&nbsp;|&nbsp;&nbsp;{layer.chartType.toLowerCase()}&nbsp;
                             <span>{convertToIcon(layer.chartType)} </span>
                             <br/>
-                            {layer.orgUnit}
+                            {layer.orgUnitName}
                             </>
                         )
                     }

@@ -3,26 +3,46 @@ import { useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
 import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
-import { Menu, MenuItem, Button } from "@dhis2/ui";
-import { IconAdd24 } from "@dhis2/ui-icons"
-import ReportOptions from './ReportOptions'
-import DefaultReport from './DefaultReport';
-
+import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
+import { IconAdd24, IconDownload24 } from "@dhis2/ui-icons"
+import ReportOptions from '../../components/report-options/ReportOptions'
 
 import "./overview-styles/overview.css"
+import { useDataQuery } from '@dhis2/app-runtime';
+import { IPreviousReport } from '../../interfaces/PreviousReport';
 
 
 interface OverviewProps {
     layers: ILayer[],
     //swapIndex : (swapFirstId : string, swapSecondId : string ) => void;
-    setLayers: any;
-    report: string
+    setLayers: any,
+    report: string,
+    userId : string,
     reportType: (report: string) => void
 }
 
-const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
-    const [modalOpen, setModalOpen] = useState(false)
+const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProps) => {
+
+
+    const [shareModal, setshareModal] = useState<boolean>(false)
+    const [method, setmethod] = useState("update");
+    const [previouData, setpreviouData] = useState<IPreviousReport>();
+    const [finishDownload, setfinishDownload] = useState(false)
+
+    const [title, settitle] = useState("");
+
+
     const navigate = useNavigate();
+
+
+    const onShareClick = () => {
+        setshareModal(true);
+    }
+
+    const onChangeTitle = (e : any) => {
+        settitle(e.value);
+    }
+
 
     const [viewType, setViewType] = useState<string>("summery")
 
@@ -33,7 +53,7 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
         setTimeout(() => {
             (childRef.current as any).getAlert();
         }, 150);
-
+        setfinishDownload(true);
     }
 
     const changeView = (type: string) => {
@@ -44,14 +64,12 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
     return (
         <div>
             <div>
-            {!modalOpen && report == '' &&
-                <ReportOptions setSelectedType={setModalOpen} selectedType={modalOpen} setReportType={reportType} selectedReport={report}/>
-            }
+            
             </div>
             <div className="menu">
                 <MenuItem style={{ maxWidth: "200px" }} active={viewType === "summery"} label="Summery" onClick={() => changeView("summery")} />
                 <MenuItem active={viewType === "preview"} label="Preview" onClick={() => changeView("preview")} />
-                </div>
+            </div>
 
             <hr />
 
@@ -60,11 +78,11 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
                 {
                     {
                         'summery': <Summery layers={layers} setLayers={setLayers} />,
-                        'preview': <Preview layers={layers} reft={childRef} />,
+                        'preview': <Preview reportTitle={title} userId={userId} layers={layers} reference={childRef} />,
                     }[viewType]
                 }
 
-                <div className='center-button-margin'>
+                <div className='center-button-margin' >
                     <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                         Add new chart/text
                     </Button>
@@ -75,13 +93,46 @@ const Overview = ({ layers, setLayers, reportType, report}: OverviewProps) => {
                 <div className="bottom-button-container">
                     <div className="bottom-flex-container">
                         <div className="button-bottom">
-                            <Button large={true} primary onClick={downloadImage}>
+                            <Button large={true} primary onClick={onShareClick}>
                                 Share report!
                             </Button>
                         </div>
                     </div>
 
                 </div>
+
+                {
+                    shareModal &&
+                
+                    <Modal small>
+                        {
+                            (finishDownload) ?
+                                <h2 className="report-is-ready">Your report is downloaded!</h2>
+                            :
+                            <div>
+                             <ModalTitle>
+                                Type in a title for the report
+                            </ModalTitle>
+
+                            <ModalContent>
+                                <InputField value={title} onChange={onChangeTitle} label="Report title:"/>
+                           
+
+                            <div className='button-download-container'>
+                                <Button disabled={title.length < 2} primary large icon={<IconDownload24/>} secondary onClick={downloadImage}>
+                                    Download
+                                </Button>
+                            </div>
+
+                            </ModalContent>
+                            </div>
+                        }
+
+                           
+
+                   
+                    </Modal>
+                }
             </div>
         </div>
     )

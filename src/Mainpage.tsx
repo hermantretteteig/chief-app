@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ChartPlugin from "@dhis2/data-visualizer-plugin"
 
-import { SelectDimensions } from './components/old-demo/SelectDimensions'
+
 //import { useSelector } from 'react-redux'
 //import { sGetChart } from './chart.js'
 import { useDataMutation } from '@dhis2/app-runtime'
@@ -164,8 +164,6 @@ const Mainpage = (e) => {
 
     return (
         <>
-            <SelectDimensions dx={dx} ou={ou} pe={pe} setDx={setdx} setPe={setpe} setOu={setou} />
-
 
 
 
