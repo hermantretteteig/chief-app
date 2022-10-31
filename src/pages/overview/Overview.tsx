@@ -31,8 +31,6 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
     const [finishDownload, setfinishDownload] = useState(false)
 
     const [title, settitle] = useState("");
-
-    const [modalOpen, setModalOpen] = useState(false)
     const [helpModalOpen, setHelpModalOpen] = useState(false)
 
     const navigate = useNavigate();
