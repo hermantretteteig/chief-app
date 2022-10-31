@@ -8,6 +8,7 @@ import { ILayer } from '../../../interfaces/Layer';
 import { IChartElement } from '../../../interfaces/ChartElement';
 import { LayerContext, useLayerContext } from '../../../contexts/LayerContext';
 import { useNavigate } from 'react-router-dom';
+import { PreviewText } from '../text/PreviewText';
 
 interface UsePreviousProps {
     reports : IPreviousReport[];
@@ -19,7 +20,7 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
     const [layersToGenerate, setLayersToGenerate] = useState<ILayer[]>([]);
     const [numOfChartGenerated, setnumOfChartGenerated] = useState(0);
 
-    const { layers, setLayers } = useLayerContext()
+    const { setLayers } = useLayerContext()
     
     const makeIChartElement = (dim : string, idToItem : string) : IChartElement => {
         return {
@@ -38,6 +39,8 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
     const onCreatedChart = (blobUrl : string, id : string) => {
 
         let layersToChange = [...layersToGenerate];
+
+        console.log("on create");
 
         for(let i = 0; layersToChange.length > i; i++){
             console.log("running for-loop...")
@@ -61,17 +64,19 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
             isInitialMount.current = false;
             return;
         }
-        console.log(numOfChartGenerated)
-        if(numOfChartGenerated===layersToGenerate.length){
+        console.log(layersToGenerate)
+
+        let layersThatAreImage = 0;
+        layersToGenerate.forEach((lay : ILayer) => {
+            if(lay.imageBlobUrl !== "")
+                layersThatAreImage++
+        })
+
+        if(numOfChartGenerated===layersThatAreImage){
            
-            console.log("run")
 
-        
                 setLayers(layersToGenerate)
-                setModalOpen(false);
-
-
-            
+                setModalOpen(false);        
         }
   
       
@@ -81,6 +86,9 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
 
     const onSelectPrevReport = (report : IPreviousReport) => {
         console.log(report.layers);
+
+
+        
         setLayersToGenerate(report.layers);
     }
 
@@ -131,10 +139,21 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
                 {
              
                     layersToGenerate.map((obj : ILayer, i) => (
-                        <div key={i} style={{opacity : 0}}>
-                            <ShowVisualization finishTrigger={onCreatedChart} selectedChart={obj.chartType} dataElementMock={makeIChartElement("dx", obj.dataElementId)} periodeMock={makeIChartElement("pe", obj.timePeriodId)} orgUnitMock={makeIChartElement("ou", obj.orgUnitId)} id={obj.id} />
-                        </div>
-                    ))
+
+                        
+                            (obj.imageBlobUrl !== "") ? (
+                                <div key={i} style={{opacity : 0, maxHeight : "0px"}}>
+                                     <ShowVisualization finishTrigger={onCreatedChart} selectedChart={obj.chartType} dataElementMock={makeIChartElement("dx", obj.dataElementId)} periodeMock={makeIChartElement("pe", obj.timePeriodId)} orgUnitMock={makeIChartElement("ou", obj.orgUnitId)} id={obj.id} />
+                                 </div>
+                             ) :
+                            (<div key={i}></div>)
+                              
+                           
+                               
+
+                        
+                    ) )
+                    
                 }
                 </>
     
