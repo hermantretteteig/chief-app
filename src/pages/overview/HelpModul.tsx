@@ -19,7 +19,7 @@ const HelpModul = ({ open, setOpen }: helpProps) => {
 
                 <ModalActions>
                     <div className="modalContainer">
-                            <img className='img-description' src="instructions.png" />
+                        <img className='img-description' src="instructions.png" />
                         <div className='modalBtn'>
                             <Button secondary onClick={() => setOpen(false)}>
                                 Cancel
