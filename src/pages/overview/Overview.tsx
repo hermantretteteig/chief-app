@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
 import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
 import { IconAdd24, IconDownload24 } from "@dhis2/ui-icons"
 import ReportOptions from '../../components/report-options/ReportOptions'
-
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
+import HelpModul from './HelpModul';
+import ChangeTitle from '../../components/add-chart-components/charts/ChangeTitle';
 
 
 interface OverviewProps {
@@ -31,6 +32,8 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
     const [title, settitle] = useState("");
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const [helpModalOpen, setHelpModalOpen] = useState(false)
 
     const navigate = useNavigate();
 
@@ -58,6 +61,9 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
     const changeView = (type: string) => {
         setViewType(type);
+    }
+    const changeStatus = () => {
+        setHelpModalOpen(true);
     }
 
 
@@ -97,6 +103,12 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
                                 Share report!
                             </Button>
                         </div>
+                        <div>
+                            <Button className="button-bottom2" onClick={changeStatus}>
+                                Help
+                            </Button>
+                        </div>
+                        <HelpModul open={helpModalOpen} setOpen={setHelpModalOpen}/>
                     </div>
 
                 </div>
