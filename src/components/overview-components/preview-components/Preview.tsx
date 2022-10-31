@@ -89,7 +89,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
 
                     var link = document.createElement("a");
                     document.body.appendChild(link);
-                    link.download = (reportTitle.trim().replace(/ /g, '-')+".png");
+                    link.download = (reportTitle.trim().replace(/ /g, '-')+".jpg");
                     link.href = canvas.toDataURL();
                     link.target = '_blank';
                     link.click();
@@ -123,8 +123,8 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
 
 
   return (
-    <div>
-        <div id="capturereport" style={{padding : "6px"}}> 
+    <div className='report-container'>
+        <div id="capturereport"> 
             <h3 style={{textAlign : "center"}}>{reportTitle}</h3>
             {
                 layers.map((layer : ILayer, i) => (
