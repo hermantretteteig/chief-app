@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Button, ButtonStrip, Modal, ModalTitle, ModalContent, ModalActions } from "@dhis2/ui";
-import instructions from "./instructions.png";
 import "./overview-styles/overview.css"
 
 interface helpProps {
@@ -21,7 +20,7 @@ const HelpModul = ({ open, setOpen }: helpProps) => {
                 <ModalActions>
                     <div className = "modalContainer">
                     <div>
-                        <img src={instructions} />
+                        <img src="instructions.png" />
                     </div>
 <div className='modalBtn'>
                     <Button  secondary onClick={() => setOpen(false)}>
