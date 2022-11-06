@@ -43,9 +43,7 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
   const periode: Option[] = [
     { id: 'LAST_MONTH', name: "Last month" },
     { id: 'LAST_3_MONTHS', name: "Last 3 months" },
-    { id: 'LAST_12_MONTHS', name: "Last 12 months" },
-
-    
+    { id: 'LAST_12_MONTHS', name: "Last 12 months" }
   ];
 
   const checkValues = () => {
@@ -97,11 +95,12 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
   const [selectedOrgU, setSelectedOrgU] = useState<string>('');
   const [selectedData, setSelectedData] = useState<string>('');
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
-  const [svg, setsvg] = useState('')
+  const [svg, setsvg] = useState<string | any>('')
 
 
     const setSvgElement = (el : string, id : string) => {
         setsvg(el)
+        setfetchingData(false);
     }
 
   const [dataElementMock, setDxMock] = useState<IChartElement>()
@@ -113,6 +112,8 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
 
   const [selectedText, setSelectedtext] = useState<string>('');
   const [title, setTitle] = useState("");
+
+  const [fetchingData, setfetchingData] = useState<boolean>(false)
  
  
   useEffect(() => {
@@ -143,8 +144,8 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
 
 
   const generateNewChart = () => {
-    { setIsShown(false) }
-    { setbuttonNotClicked(false) }
+    setIsShown(false)
+    setbuttonNotClicked(false)
     setTitle(getPeriode().name+": "+getDataElement().name)
     {
       if (selectedChart && selectedData && selectedOrgU && selectedPeriod) {
@@ -173,10 +174,10 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
         setPeMock(_periodeMock);
         setOuMock(_orgUnitMock);
         setshowChart(true);
+        setfetchingData(true);
       }
       else {
-        <div>
-        </div>
+        <div></div>
       }
     }
   }
@@ -251,7 +252,6 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
 
           </div>
 
-
           {
             (showChart === false) ?
               (
@@ -272,12 +272,19 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
 
           }
 
+{
+            (fetchingData === true) ? 
+                (<div className='data-is-loading'>Loading..</div>) :
+                (<div></div>)
+          }
+
+
           <div className="button-container">
 
             <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
               Go back
             </Button>
-            <Button primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
+            <Button disabled={svg === ""} primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
               Add chart to report
             </Button>
 

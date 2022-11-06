@@ -40,9 +40,12 @@ const AddText = ({layers, setLayers} : AddTextProps) => {
       mainTitle: titleInput,
       imageBlobUrl: "",
       chartType: "",
-      orgUnit: "",
-      dataElement: "",
-      timePeriod: "",
+      orgUnitName: "",
+      orgUnitId : "",
+      dataElementId : "",
+      dataElementName: "",
+      timePeriodId: "",
+      timePeriodeName : "",
       theme : theme,
       customText: textInput
     }

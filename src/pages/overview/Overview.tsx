@@ -4,13 +4,14 @@ import Preview from '../../components/overview-components/preview-components/Pre
 import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
-import { IconAdd24, IconDownload24 } from "@dhis2/ui-icons"
+import { IconAdd24, IconBlock24, IconDownload24, IconTextBold24 } from "@dhis2/ui-icons"
 import ReportOptions from '../../components/report-options/ReportOptions'
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
 import HelpModul from './HelpModul';
 import ChangeTitle from '../../components/add-chart-components/charts/ChangeTitle';
+
 
 
 interface OverviewProps {
@@ -32,10 +33,18 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
     const [title, settitle] = useState("");
 
-    const [modalOpen, setModalOpen] = useState(false)
     const [helpModalOpen, setHelpModalOpen] = useState(false)
 
     const navigate = useNavigate();
+
+
+    const createNewReport = () => {
+        location.reload();
+        //settitle("");
+        //setLayers([]);
+        //setshareModal(false);
+
+    }
 
 
     const onShareClick = () => {
@@ -98,46 +107,69 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
                 <div className="bottom-button-container">
                     <div className="bottom-flex-container">
-                        <div className="button-bottom">
+                        <div className="help-button-ove">
+                            
+                        </div>
+                        <div className="share-button-ove">
                             <Button large={true} primary onClick={onShareClick}>
                                 Share report!
                             </Button>
                         </div>
-                        <div>
-                            <Button className="button-bottom2" onClick={changeStatus}>
+                        <div className="help-button-ove">
+                            <Button  onClick={changeStatus}>
                                 Help
                             </Button>
                         </div>
-                        <HelpModul open={helpModalOpen} setOpen={setHelpModalOpen}/>
+                       
                     </div>
 
                 </div>
+                <HelpModul open={helpModalOpen} setOpen={setHelpModalOpen}/>
 
                 {
                     shareModal &&
                 
                     <Modal small>
+                        <div className='close-button-container'>
+                          
+                        </div>
+                        
                         {
                             (finishDownload) ?
-                                <h2 className="report-is-ready">Your report is downloaded!</h2>
-                            :
+                            <div style={{textAlign : "center"}}>
+                                <h2 className="report-is-ready">Your report is beeing downloaded..</h2>
+                                <span>How to save:</span>
+                                <img className='simple-instruction' src="instructions-simple.png"/>
+                                <hr/>
+                                <br/>
+                            
+                                <Button onClick={createNewReport} icon={<IconAdd24/>} small>Create new report</Button>
+                            </div>
+                             :
                             <div>
-                             <ModalTitle>
-                                Type in a title for the report
-                            </ModalTitle>
+                                <div className='close-button-container'>
+                                    <span className='share-modal-main-title'>
+                                        Type in a title for the report
+                                    </span>
+                                <div className='close-button-inner-container'>
+                                    <Button onClick={() => setshareModal(false)} destructive icon={<IconBlock24/>} small></Button>
+                                </div>
+                            </div>
+                            
 
                             <ModalContent>
                                 <InputField value={title} onChange={onChangeTitle} label="Report title:"/>
-                           
+                        
 
                             <div className='button-download-container'>
-                                <Button disabled={title.length < 2} primary large icon={<IconDownload24/>} secondary onClick={downloadImage}>
+                                <Button disabled={title.length < 2} primary large icon={<IconDownload24/>} onClick={downloadImage}>
                                     Download
                                 </Button>
                             </div>
 
                             </ModalContent>
                             </div>
+                         
                         }
 
                            

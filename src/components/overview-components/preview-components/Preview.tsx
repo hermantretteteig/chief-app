@@ -68,7 +68,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
         }
 
         if(_previousReports.length < 3){
-            console.log("len in zero")
+            console.log("len is smaler than tree, need to add.")
             _previousReports.push(addReport)
         }
         else{
