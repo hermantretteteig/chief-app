@@ -14,7 +14,7 @@ const HelpModul = ({ open, setOpen }: helpProps) => {
             <Modal hide={!open}>
 
                 <ModalTitle>
-                    How to download and share:
+                    How to share the report:
                 </ModalTitle>
 
                 <ModalActions>
@@ -22,7 +22,7 @@ const HelpModul = ({ open, setOpen }: helpProps) => {
                         <img className='img-description' src="instructions.png" />
                         <div className='modalBtn'>
                             <Button secondary onClick={() => setOpen(false)}>
-                                Cancel
+                                Close
                             </Button>
                         </div>
                     </div>
