@@ -26,19 +26,19 @@ const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
   const options: Option[] = [
     { id: 'Text', name: (<><IconDataString16 />&nbsp;&nbsp;&nbsp;Text</>) },
     { id: 'COLUMN', name: (<><IconVisualizationColumn16 />&nbsp;&nbsp;&nbsp; Column</>) },
-    { id: 'BAR', name: (<><IconVisualizationBar16 />&nbsp;&nbsp;&nbsp; Bar</>) },
+    //{ id: 'BAR', name: (<><IconVisualizationBar16 />&nbsp;&nbsp;&nbsp; Bar</>) },
     { id: 'LINE', name: (<><IconVisualizationLine16 />&nbsp;&nbsp;&nbsp; Line  </>) },
-    { id: 'AREA', name: (<><IconVisualizationAreaStacked16 />&nbsp;&nbsp;&nbsp; Area</>) },
-    { id: 'PIE', name: (<><IconVisualizationPie16 />&nbsp;&nbsp;&nbsp; Pie</>) }
+    //{ id: 'AREA', name: (<><IconVisualizationAreaStacked16 />&nbsp;&nbsp;&nbsp; Area</>) },
+    //{ id: 'PIE', name: (<><IconVisualizationPie16 />&nbsp;&nbsp;&nbsp; Pie</>) }
   ];
 
   const dataSets: Option[] = [
-    { id: 'muC1tI7maoo', name: "CSC-SP HIV Status Acceptance and negligence" },
-    { id: 'j88kFFP79QG', name: "CSC-SU Beliefs in other medicines like herbs" },
-    { id : "gWG8giHx8G2", name : "Community Health Quarterly - percentage Households with basic latrines"},
-    { id : "E5R7rBWWc8N", name : "HR percentage of Households with water treated with 1 % stock solution"},
-    { id : "ldXIFF81l1e", name  : "Community Health Quarterly - percentage of Infested households sprayed with insecticides"}
-  ];
+    { id: 'D8XkZuxMnpp', name: "CR-IM-AG-Number of children under-1 of age that received the last dose (third dose) of pentavalent vaccine according to the recommended national schedule of vaccination" },
+    { id: "BD1AoZbS7Yc", name: "CR-ANC-AG-Number of under 1-year-old children protected at birth from Tetanus-diphtheria (Td)"},
+    { id: "a0z7vwBOz6k", name: "CR-ANC-AG-Number of under 1-year-old children who received all doses of Penta."},
+    { id: "SMknRS6QO5M", name: "CR-ANC-AG-Number of pregnant women who received at least two home visits during pregnancy by HSA"},
+    { id: "tPPrQAHdPof", name: "CR-ANC-AG-Number of pregnant women with one or more danger signs referred to health facility by an HSA"}
+];
 
   const periode: Option[] = [
     { id: 'LAST_MONTH', name: "Last month" },
