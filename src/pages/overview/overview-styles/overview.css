@@ -42,6 +42,14 @@
     font-weight: 500;
 }
 
+.nothing-added-yet{
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    font-weight: 500;
+    color: dimgray;
+}
+
 .simple-instruction{
     max-width: 100%;
 }

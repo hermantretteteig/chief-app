@@ -28,7 +28,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
     const [shareModal, setshareModal] = useState<boolean>(false)
     const [method, setmethod] = useState("update");
-    const [previouData, setpreviouData] = useState<IPreviousReport>();
+
     const [finishDownload, setfinishDownload] = useState(false)
 
     const [title, settitle] = useState("");
@@ -90,14 +90,22 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
 
             <div className='main-container'>
 
+                
                 {
+                    (layers.length === 0) ?
+                    (<div className='nothing-added-yet'>Nothing added yet, click "Add new chart/text" to get started.</div>)
+                    :
+                  
+               
+                
+             
                     {
                         'summery': <Summery layers={layers} setLayers={setLayers} />,
                         'preview': <Preview reportTitle={title} userId={userId} layers={layers} reference={childRef} />,
                     }[viewType]
                 }
 
-                <div className='center-button-margin' >
+                <div className='center-button-margin'>
                     <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                         Add new chart/text
                     </Button>
@@ -111,7 +119,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId}: OverviewProp
                             
                         </div>
                         <div className="share-button-ove">
-                            <Button large={true} primary onClick={onShareClick}>
+                            <Button disabled={layers.length === 0} large={true} primary onClick={onShareClick}>
                                 Share report!
                             </Button>
                         </div>

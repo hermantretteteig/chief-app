@@ -134,7 +134,7 @@ export const UsePrevious = ({reports, setModalOpen} : UsePreviousProps) => {
             :
             (
                 <>              
-                <p>Laster...</p>
+                <p>Loading...</p>
                
                 {
              

@@ -123,8 +123,8 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
 
 
   return (
-    <div className='report-container'>
-        <div id="capturereport"> 
+    <div id="capturereport" className='report-container'>
+        <div> 
             <h3 style={{textAlign : "center"}}>{reportTitle}</h3>
             {
                 layers.map((layer : ILayer, i) => (
