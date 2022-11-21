@@ -18,8 +18,13 @@ interface DropdownProps {
   setLayers: any,
   orgUnits : Option[]
 }
-const ChartDropdown = ({ layers, setLayers, orgUnits }: DropdownProps) => {
+const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
 
+
+    const orgUnits: Option[] = [
+        { id: 'lNsSSuNKbIP', name: "Chamba Health Centre (Machinga)" },
+    ];
+    
 
   const navigate = useNavigate();
 
