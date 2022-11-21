@@ -1,9 +1,5 @@
 .menu{
     display : flex;
-    
-    justify-content: center;
-    
-
 }
 
 .main-container{
@@ -93,4 +89,11 @@
 
 .modalBtn{
     padding-left: 85%;
+}
+.sidebar {
+display: flex;
+  }
+
+.title {
+    text-align: center;
 }
