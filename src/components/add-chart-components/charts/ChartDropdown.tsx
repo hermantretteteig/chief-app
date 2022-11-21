@@ -286,7 +286,7 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
 
           <div className="button-container">
 
-            <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
+            <Button destructive icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
                 Go back
             </Button>
             <Button disabled={svg === ""} primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
