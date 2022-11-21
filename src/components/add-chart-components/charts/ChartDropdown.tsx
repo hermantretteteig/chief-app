@@ -294,7 +294,6 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
             </Button>
 
           </div>
- <div style={{height : "50px"}}></div>
 
           {isShown && (
             <div>
