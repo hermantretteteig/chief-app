@@ -30,6 +30,7 @@
 
 .report-container{
     /*margin: auto;*/
+    padding-top: 10px;
     max-width: 650px;
     margin: auto;
 }
