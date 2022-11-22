@@ -121,7 +121,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 >
                     <div className='main-container'>
                         <h2 className = 'title'>
-                            {reportName} report
+                            {reportName}
                         </h2>
                         <Preview reportTitle={title} userId={userId} layers={layers} reference={childRef} />
                         <div className='center-button-margin'>

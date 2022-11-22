@@ -9,6 +9,19 @@ export const allStandard: IStandard[] = [
         layers: [
             {
                 id : "1",
+                mainTitle : "Number of households with access to a protected water source",
+                imageBlobUrl : "blob",
+                chartType : "COLUMN",
+                orgUnitId : "o7sh3DOqth2",
+                orgUnitName : "Machinga-DHO",
+                dataElementId : "xMnO0IEfKUg",
+                dataElementName : "CR-WTR-AG-Number of households with access to a protected water source",
+                timePeriodId : "LAST_12_MONTHS",
+                timePeriodeName : "Last 12 months",
+                customText : null
+            },
+            {
+                id : "1111",
                 mainTitle : "HPV vaccination",
                 imageBlobUrl : "blob",
                 chartType : "COLUMN",
@@ -22,6 +35,7 @@ export const allStandard: IStandard[] = [
             }
         ]
     },
+    
     {
         standardName: "Volunteers",
         layers: [
@@ -32,7 +46,7 @@ export const allStandard: IStandard[] = [
                 chartType : "COLUMN",
                 orgUnitId : "o7sh3DOqth2",
                 orgUnitName : "Machinga-DHO",
-                dataElementId : "d0QW5UhASw3",
+                dataElementId : "LVvsjJYCEBZ",
                 dataElementName : "CR-PN-AG-Number of households with a postnatal mother",
                 timePeriodId : "LAST_12_MONTHS",
                 timePeriodeName : "Last 12 months",
@@ -64,39 +78,93 @@ export const allStandard: IStandard[] = [
                 timePeriodId : "LAST_3_MONTHS",
                 timePeriodeName : "Last 3 months",
                 customText : null
+            },
+            {
+                id : "2321",
+                mainTitle : "Number of Family planning clients",
+                imageBlobUrl : "blob",
+                chartType : "COLUMN",
+                orgUnitId : "o7sh3DOqth2",
+                orgUnitName : "Machinga-DHO",
+                dataElementId : "B9dmNJJ2tzo",
+                dataElementName : "CR-FPC-AG-Total Number of Family planning clients",
+                timePeriodId : "LAST_12_MONTHS",
+                timePeriodeName : "Last 12 months",
+                customText : null
             }
         ]
+
     },
     {
         standardName: "Religious leaders",
         layers: [
             {
-                id : "3",
-                mainTitle : "Religious leaders",
+                id : "55",
+                mainTitle : "Number of people who wash hands with soap",
                 imageBlobUrl : "blob",
                 chartType : "COLUMN",
                 orgUnitId : "o7sh3DOqth2",
                 orgUnitName : "Machinga-DHO",
-                dataElementId : "p6WlfnfMOPW",
-                dataElementName : "CR-IM-AG-Number of 9-14 year-old girls that received the second dose of HPV vaccine according to the recommended national schedule of vaccination",
+                dataElementId : "TkP9Aik0RA6",
+                dataElementName : "CR-HW-AG-Number of people who wash hands with soap",
+                timePeriodId : "LAST_12_MONTHS",
+                timePeriodeName : "Last 12 months",
+                customText : null
+            },
+            {
+                id : "5",
+                mainTitle : "Home deliveries",
+                imageBlobUrl : "blob",
+                chartType : "COLUMN",
+                orgUnitId : "o7sh3DOqth2",
+                orgUnitName : "Machinga-DHO",
+                dataElementId : "gH9zUUFg9rW",
+                dataElementName : "CR-PN-AG-Home deliveries",
                 timePeriodId : "LAST_12_MONTHS",
                 timePeriodeName : "Last 12 months",
                 customText : null
             }
         ]
     },
+    
     {
         standardName: "Chiefs",
         layers: [
             {
                 id : "41",
-                mainTitle : "CR-TB-AG-Number of TB cases identified through house to house screening",
+                mainTitle : "Number of TB cases identified through house to house screening",
                 imageBlobUrl : "blob",
                 chartType : "COLUMN",
                 orgUnitId : "o7sh3DOqth2",
                 orgUnitName : "Machinga-DHO",
                 dataElementId : "sE7cemjlp69",
                 dataElementName : "CR-TB-AG-Number of TB cases identified through house to house screening",
+                timePeriodId : "LAST_12_MONTHS",
+                timePeriodeName : "Last 12 months",
+                customText : null
+            },
+            {
+                id : "411",
+                mainTitle : "Number of home deliveries registered by the HSA",
+                imageBlobUrl : "blob",
+                chartType : "COLUMN",
+                orgUnitId : "o7sh3DOqth2",
+                orgUnitName : "Machinga-DHO",
+                dataElementId : "QvPFjEugZ07",
+                dataElementName : "CR-PN-AG-Number of home deliveries registered by the HSA",
+                timePeriodId : "LAST_12_MONTHS",
+                timePeriodeName : "Last 12 months",
+                customText : null
+            },
+            {
+                id : "4111",
+                mainTitle : "Number of villages affected by outbreak",
+                imageBlobUrl : "blob",
+                chartType : "LINE",
+                orgUnitId : "o7sh3DOqth2",
+                orgUnitName : "Machinga-DHO",
+                dataElementId : "jQqCPrUzogJ",
+                dataElementName : "CR-VD-AG-Number of villages affected by outbreak",
                 timePeriodId : "LAST_12_MONTHS",
                 timePeriodeName : "Last 12 months",
                 customText : null

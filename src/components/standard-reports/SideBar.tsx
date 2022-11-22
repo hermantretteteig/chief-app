@@ -45,7 +45,7 @@ const SideBar = ({ open, setOpen,reportName, setReportName }: sidebarProps) => {
             reportTitle : stanReport.standardName
         }]
         setnew_reports(new_reports);
-        setReportName(stanReport.standardName)
+        setReportName(stanReport.standardName + " report")
     }
 
     return (
