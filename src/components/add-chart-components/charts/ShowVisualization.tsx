@@ -15,8 +15,6 @@ interface ShowVisualizationProps {
 const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnitMock, finishTrigger, id} : ShowVisualizationProps) => {
 
 
-    console.log("show vis loading...");
-
     const mockExtraOptions = {
         dashboard: false,
         noData: {

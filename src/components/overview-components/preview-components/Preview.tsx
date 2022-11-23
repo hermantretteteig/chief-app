@@ -11,17 +11,12 @@ import { DropdownButton, Button } from "@dhis2/ui"
 
 const myMutation = (type : string, userId : string) => {
     return {
-
         resource: 'dataStore/chief-app/'+userId,
         type: type,
-        
-        //id : userId,
         partial : false,
         //params : {},
         data: (reports : IPreviousReport[]) => (
             reports
-
-//reports as []
         )
     }
 }
@@ -32,19 +27,18 @@ interface PreviewProps{
 	layers : ILayer[],
     reference : any,
     userId : string,
-    reportTitle : string,
     hideForExport : boolean,
+    reportTitleCustom : string, 
 }
 
 const updateOrCreate = (previousReports : IPreviousReport[]) => {
-    console.log(previousReports)
     if(previousReports.length === 0){
         return "create"
     }
     return "update"
 }
 
-const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : PreviewProps) => {
+const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExport} : PreviewProps) => {
 
     const { previousReports, setPreviousReports } = usePreviousContext();
     const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(previousReports), userId) as any)
@@ -65,9 +59,6 @@ const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : 
     
     }
 
-    
-
-  
 
     const convertDOMtoPNG = async () => {
         console.log(previousReports)
@@ -77,7 +68,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : 
 
         const addReport: IPreviousReport = {
             dateCreated : new Date(),
-            reportTitle : reportTitle,
+            reportTitle : reportTitleCustom,
             layers : layers
         }
 
@@ -102,7 +93,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : 
 
                     var link = document.createElement("a");
                     document.body.appendChild(link);
-                    link.download = (reportTitle.trim().replace(/ /g, '-')+".jpg");
+                    link.download = (reportTitleCustom.trim().replace(/ /g, '-')+".jpg");
                     link.href = canvas.toDataURL();
                     link.target = '_blank';
                     link.click();
@@ -138,7 +129,7 @@ const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : 
   return (
     <div id="capturereport" className='report-container'>
         <div> 
-            <h3 style={{textAlign : "center"}}>{reportTitle}</h3>
+            <h3 style={{textAlign : "center"}}>{reportTitleCustom}</h3>
             {
                 layers.map((layer : ILayer, i) => (
                     <div key={i} className="flex-preview">

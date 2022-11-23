@@ -52,9 +52,9 @@ const PageContainer = () => {
             <div>
                 <LayerContext.Provider value={{layers, setLayers}}>
                     <PreviousContext.Provider value={{previousReports, setPreviousReports}}>
-                        {modalOpen ?
+                        {/*modalOpen ?
                             <ReportOptions setModal={setModalOpen} userId={(dataMe?.results as any).id}/>
-                        :
+                        :*/}
                         <Router>
                             <Routes>
                                 <Route path="/" element={<Overview userId={(dataMe?.results as any).id as string} layers={layers} setLayers={setLayers} reportType={setreportType} report={reportType}/>}/>
@@ -62,7 +62,7 @@ const PageContainer = () => {
                                 <Route path="/main-page" element={<Mainpage/>}/>
                             </Routes>
                         </Router>
-                        }
+                        
                        
                     </PreviousContext.Provider>
                 </LayerContext.Provider>

@@ -12,11 +12,12 @@ import { PreviewText } from '../text/PreviewText';
 
 interface UsePreviousProps {
     reports: IPreviousReport[];
-    setModalOpen: (open: boolean) => void
-    skip: boolean
+    onFinish: () => void
+    skip: boolean,
+    setLastUsedReportTitle : (e : string) => void;
 }
 
-export const UsePrevious = ({ reports, setModalOpen, skip }: UsePreviousProps) => {
+export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsedReportTitle, skip }: UsePreviousProps) => {
 
     const [layersToGenerate, setLayersToGenerate] = useState<ILayer[]>([]);
     const [numOfChartGenerated, setnumOfChartGenerated] = useState(0);
@@ -33,18 +34,11 @@ export const UsePrevious = ({ reports, setModalOpen, skip }: UsePreviousProps) =
         }
     }
 
-
-
-
-
     const onCreatedChart = (blobUrl: string, id: string) => {
 
         let layersToChange = [...layersToGenerate];
 
-        console.log("on create");
-
         for (let i = 0; layersToChange.length > i; i++) {
-            console.log("running for-loop...")
             if (layersToChange[i].id === id) {
 
                 setLayersToGenerate(layersToChange);
@@ -75,9 +69,9 @@ export const UsePrevious = ({ reports, setModalOpen, skip }: UsePreviousProps) =
 
         if (numOfChartGenerated === layersThatAreImage) {
 
-
+         
             setLayers(layersToGenerate)
-            setModalOpen(false);
+            onLastUsedFinished();
         }
 
 
@@ -86,10 +80,7 @@ export const UsePrevious = ({ reports, setModalOpen, skip }: UsePreviousProps) =
 
 
     const onSelectPrevReport = (report: IPreviousReport) => {
-        console.log(report.layers);
-
-
-
+        setLastUsedReportTitle(report.reportTitle);
         setLayersToGenerate(report.layers);
     }
 
