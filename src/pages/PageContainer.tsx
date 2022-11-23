@@ -4,7 +4,6 @@ import { ILayer } from '../interfaces/Layer'
 import Overview from './overview/Overview'
 import { BrowserRouter, Route, HashRouter as Router, Routes } from 'react-router-dom'
 import { LayerContext } from '../contexts/LayerContext'
-import { fake_layers } from '../components/overview-components/summery-components/FakeData'
 import Mainpage from '../Mainpage'
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
 import { PreviousContext } from '../contexts/PreviousContext'

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
 import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
-import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
+import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, Input, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
 import { IconAdd24, IconBlock24, IconDownload24, IconTextBold24 } from "@dhis2/ui-icons"
 import ReportOptions from '../../components/report-options/ReportOptions'
 import "./overview-styles/overview.css"
