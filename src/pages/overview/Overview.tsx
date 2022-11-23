@@ -32,6 +32,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
     const [finishDownload, setfinishDownload] = useState(false)
 
     const [title, settitle] = useState("");
+    const [hideForExport, sethideForExport] = useState(false)
 
     const [helpModalOpen, setHelpModalOpen] = useState(false)
     const [openSideBar, setOpenSideBar] = useState(false)
@@ -48,8 +49,14 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
     }
 
+    const onCloseDialog = () => {
+        setshareModal(false)
+        sethideForExport(false);
+    }
+
 
     const onShareClick = () => {
+        sethideForExport(true);
         setshareModal(true);
     }
 
@@ -123,7 +130,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                         <h2 className = 'title'>
                             {reportName}
                         </h2>
-                        <Preview reportTitle={title} userId={userId} layers={layers} reference={childRef} />
+                        <Preview hideForExport={hideForExport} reportTitle={title} userId={userId} layers={layers} reference={childRef} />
                         <div className='center-button-margin'>
                             <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                                 Add new chart/text

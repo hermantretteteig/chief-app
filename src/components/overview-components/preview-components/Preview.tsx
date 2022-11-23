@@ -1,4 +1,4 @@
-import React, {useImperativeHandle, forwardRef, useRef} from 'react'
+import React, {useImperativeHandle, forwardRef, useState} from 'react'
 import { ILayer } from '../../../interfaces/Layer'
 import html2canvas from 'html2canvas';
 import "./preview-styles.css";
@@ -6,6 +6,8 @@ import { PreviewText } from '../../add-chart-components/text/PreviewText';
 import { usePreviousContext } from '../../../contexts/PreviousContext';
 import { IPreviousReport } from '../../../interfaces/PreviousReport';
 import { useDataMutation } from '@dhis2/app-runtime';
+import MoreOptions from '../summery-components/MoreOptions';
+import { DropdownButton, Button } from "@dhis2/ui"
 
 const myMutation = (type : string, userId : string) => {
     return {
@@ -30,7 +32,8 @@ interface PreviewProps{
 	layers : ILayer[],
     reference : any,
     userId : string,
-    reportTitle : string
+    reportTitle : string,
+    hideForExport : boolean,
 }
 
 const updateOrCreate = (previousReports : IPreviousReport[]) => {
@@ -41,16 +44,27 @@ const updateOrCreate = (previousReports : IPreviousReport[]) => {
     return "update"
 }
 
-const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) => {
+const Preview = ({layers, reference: ref, userId, reportTitle, hideForExport} : PreviewProps) => {
 
     const { previousReports, setPreviousReports } = usePreviousContext();
     const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(previousReports), userId) as any)
+    const [key, setClicked] = useState(0)
 
     useImperativeHandle(ref, () => ({
         getAlert() {
             convertDOMtoPNG()
         }
       }));
+
+
+
+    //used to reload button, so it
+    const increaseKey = () => {
+        setClicked(key+1)
+
+    
+    }
+
     
 
   
@@ -68,7 +82,6 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
         }
 
         if(_previousReports.length < 3){
-            console.log("len is smaler than tree, need to add.")
             _previousReports.push(addReport)
         }
         else{
@@ -128,22 +141,43 @@ const Preview = ({layers, reference: ref, userId, reportTitle} : PreviewProps) =
             <h3 style={{textAlign : "center"}}>{reportTitle}</h3>
             {
                 layers.map((layer : ILayer, i) => (
-                    <div key={i}>
-                    {
-                        (layer.imageBlobUrl === "") ?
-                        (
-                            <div className='preview-style'>
-                                <PreviewText mainTitle={layer.mainTitle} customText={layer.customText as string} theme={layer.theme as string} />
-                            </div>
-                        )
-                        :
-                        (
-                            <div className="chart-container">
-                                <p className="chart-title">{layer.mainTitle}</p>
-                                <img className='chart-size' src={layer.imageBlobUrl}/>
-                            </div>
-                        )
-                    }
+                    <div key={i} className="flex-preview">
+                        <>
+                        {
+                            (layer.imageBlobUrl === "") ?
+                                (
+                                    <div className='preview-style'>
+                                        <PreviewText mainTitle={layer.mainTitle} customText={layer.customText as string} theme={layer.theme as string} />
+                                    </div>
+                                )
+                                :
+                                (
+                                    <div className="chart-container">
+                                        <p className="chart-title">{layer.mainTitle}</p>
+                                        <img className='chart-size' src={layer.imageBlobUrl}/>
+                                    </div>
+                                )
+                        }
+                        </>
+                        {
+                            (hideForExport === true) ?
+                            (
+                                <div></div>
+                            )
+                            :
+                            (
+                                <div className='button-item'>
+                                    <DropdownButton
+                                        id={"layer-btn-"+i}
+                                        key={key}
+                                        component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={i}/>} 
+                                        name="Icon small button"
+                                        value="default"
+                                        >options
+                                    </DropdownButton>
+                                </div>
+                            )
+                        }
                     </div>  
                 ))
             }
