@@ -16,7 +16,7 @@ interface sidebarProps {
     setOpen: (open: boolean) => void;
     onChangeStandardAndSetReportTitleCustom: (customReportName : string) => void,
     userId : string,
-    dataLastUsed : any
+    dataLastUsed : any;
 }
 
 const lastUsedFromDataStore = (userId : string) => {
@@ -35,6 +35,7 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
     const {setLayers} = useLayerContext()
 
 
+    console.log(dataLastUsed);
 
     //const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
    
@@ -111,12 +112,12 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
             </div>
             {loadingModal && 
                 <Modal small>   
-                    Loading..
+                    <h4 style={{textAlign : "center"}}>Loading..</h4>
                 </Modal>
             }
             {lastUsedModal &&
                 <Modal small>
-                    <UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]} skip={false}/>
+                    <UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={dataLastUsed} skip={false}/>
                 </Modal>
             }
 

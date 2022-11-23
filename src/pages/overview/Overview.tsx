@@ -13,6 +13,7 @@ import HelpModul from './HelpModul';
 import ChangeTitle from '../../components/add-chart-components/charts/ChangeTitle';
 import SideBar from '../../components/standard-reports/SideBar';
 import { useLayerContext } from '../../contexts/LayerContext';
+import { usePreviousContext } from '../../contexts/PreviousContext';
 
 
 interface OverviewProps {
@@ -39,18 +40,13 @@ const lastUsedFromDataStore = (userId : string) => {
 const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewProps) => {
 
     
-    const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
-   
+    const { loading : loadingLastUsed, error : errorLastUsed, data : dataPreviousReport } = useDataQuery(lastUsedFromDataStore(userId))
+    
 
-    /*if(loadingLastUsed){
-        return (<p>Loading again...</p>)
-    }*/
 
-    /*useEffect(() => {
-        if(!loadingLastUsed){
-            setLayers(dataLastUsed)
-        }
-    }, [loadingLastUsed])*/
+    const { setPreviousReports } = usePreviousContext();
+
+    const [isUpdatingLastUsed, setisUpdatingLastUsed] = useState(true)
 
 
 
@@ -59,7 +55,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
     const [finishDownload, setfinishDownload] = useState(false)
 
-    const [reportTitleCustom, setReportTitleCustom] = useState("-");
+    const [reportTitleCustom, setReportTitleCustom] = useState("");
     const [hideForExport, sethideForExport] = useState(false)
 
     const [helpModalOpen, setHelpModalOpen] = useState(false)
@@ -73,10 +69,6 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
     const createNewReport = () => {
         location.reload();
-        //settitle("");
-        //setLayers([]);
-        //setshareModal(false);
-
     }
 
 
@@ -123,12 +115,12 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 <div className='top-nav-bar'  style={{
                     position : "fixed", 
                     width : "100vw", 
-                    height : "50px",
+                    height : "46px",
                     zIndex : "1"
                 }}>
 
                     <div className='button-open-menu-container'>
-                        <Button className='openbtn' primary icon={<IconFileDocument24/>} onClick={changeSideBar}>Standard reports</Button>         
+                        <Button loading={loadingLastUsed} className='openbtn' primary icon={<IconFileDocument24/>} onClick={changeSideBar}>Standard reports</Button>         
                     </div>
                 </div>
                 
@@ -143,7 +135,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                     style={{                   
                         position: "fixed",
                         height: "100vh",
-                        marginTop : "51px",
+                        marginTop : "47px",
                         maxWidth: "190px",
                         backgroundColor: "#f2f2f2",
                         borderRight: openSideBar ? ('1px solid grey') : (""),
@@ -151,16 +143,14 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 >
                     <div className="menu">
                         <div className='sidebar'>
-                            <SideBar dataLastUsed={loadingLastUsed} userId={userId} open={openSideBar} setOpen={setOpenSideBar} onChangeStandardAndSetReportTitleCustom={onChangeStandardAndSetReportTitleCustom}/>
+                            
+                            <SideBar dataLastUsed={(dataPreviousReport?.results as any).reports as any as IPreviousReport[]} userId={userId} open={openSideBar} setOpen={setOpenSideBar} onChangeStandardAndSetReportTitleCustom={onChangeStandardAndSetReportTitleCustom}/>
                         </div>
                     </div>
                 </aside>
                 </>)}
                 <section className="section-style" style={{marginTop : "50px"}}>
                     <div className='main-container'>
-                        {/*<h2 className = 'title' style={{display : (reportName === "") ? "none" : ""}}>
-                            {reportName}
-                        </h2>*/}
 
                         <div style={{display : (layers.length === 0) ? "" : "none"}}>
                             <div className="nothing-added-yet">
@@ -174,8 +164,10 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                             </Button>
                         </div>
 
-                        <Preview hideForExport={hideForExport} reportTitleCustom={reportTitleCustom} userId={userId} layers={layers} reference={childRef} />
-
+                        {
+                            (!loadingLastUsed) && <Preview setisUpdatingLastUsed={setisUpdatingLastUsed} dataPreviousReport={(dataPreviousReport?.results as any).reports as any as IPreviousReport[]} hideForExport={hideForExport} reportTitleCustom={reportTitleCustom} userId={userId} layers={layers} reference={childRef} />
+                        }
+                       
                         <div className="bottom-button-container">
                             <div className="bottom-flex-container">
                                 <div className="help-button-ove">
@@ -197,7 +189,6 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                         <HelpModul open={helpModalOpen} setOpen={setHelpModalOpen} />
 
                         {shareModal &&
-
                             <Modal small>
                                 <div className='close-button-container'>
 
@@ -205,8 +196,18 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
                                 {(finishDownload) ?
                                     <div style={{ textAlign: "center" }}>
-                                        <h2 className="report-is-ready">Your report is beeing downloaded..</h2>
-                                        <span>How to save:</span>
+                                        {
+                                            (isUpdatingLastUsed)
+                                            ?
+                                            (
+                                                <h2 className="report-is-ready">Your report is beeing downloaded..</h2>
+                                            )
+                                            :
+                                            (
+                                                <h2 className="report-is-ready" style={{color : "green"}}>Your report is ready!</h2>
+                                            )
+                                        }
+                                         <span>How to save:</span>
                                         <img className='simple-instruction' src="instructions-simple.png" />
                                         <hr />
                                         <br />

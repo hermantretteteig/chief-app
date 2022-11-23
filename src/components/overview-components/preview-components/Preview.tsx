@@ -29,19 +29,24 @@ interface PreviewProps{
     userId : string,
     hideForExport : boolean,
     reportTitleCustom : string, 
+    dataPreviousReport : IPreviousReport[],
+    setisUpdatingLastUsed : (val : boolean) => void;
 }
 
 const updateOrCreate = (previousReports : IPreviousReport[]) => {
+    console.log(previousReports);
     if(previousReports.length === 0){
+        console.log("create")
         return "create"
     }
+    console.log("update")
     return "update"
 }
 
-const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExport} : PreviewProps) => {
+const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExport, dataPreviousReport, setisUpdatingLastUsed} : PreviewProps) => {
 
-    const { previousReports, setPreviousReports } = usePreviousContext();
-    const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(previousReports), userId) as any)
+    //const { previousReports } = usePreviousContext();
+    const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(dataPreviousReport), userId) as any)
     const [key, setClicked] = useState(0)
 
     useImperativeHandle(ref, () => ({
@@ -55,15 +60,14 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
     //used to reload button, so it
     const increaseKey = () => {
         setClicked(key+1)
-
-    
     }
 
 
     const convertDOMtoPNG = async () => {
-        console.log(previousReports)
+        setisUpdatingLastUsed(true);
+        console.log(dataPreviousReport)
 
-        let _previousReports = [...previousReports];
+        let _previousReports = [...dataPreviousReport];
         console.log(indexToUpdateInPreviousReport());
 
         const addReport: IPreviousReport = {
@@ -84,13 +88,11 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
         //previousReports[indexToUpdate].reportTitle = "A report";
         //previousReports[indexToUpdate].layers = layers;
         //const newMut = myMutation("update", addReport);
-        await mutate({reports : _previousReports
-        }
-              )
+        
+        await mutate({reports : _previousReports})
 
         var container: any = document.getElementById("capturereport"); /* full page */
                 html2canvas(container, { allowTaint: true, useCORS : true }).then(function (canvas) {
-
                     var link = document.createElement("a");
                     document.body.appendChild(link);
                     link.download = (reportTitleCustom.trim().replace(/ /g, '-')+".jpg");
@@ -98,6 +100,8 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
                     link.target = '_blank';
                     link.click();
                 });
+
+        setisUpdatingLastUsed(false);
         
         /*html2canvas(document.body).then(function(canvas) {
             const img = document.body.appendChild(canvas);
@@ -115,7 +119,7 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
         
 
 
-        previousReports.forEach((obj : IPreviousReport, index) => {
+        dataPreviousReport.forEach((obj : IPreviousReport, index) => {
 
             if(new Date(obj.dateCreated) < oldest){
                 oldest = new Date(obj.dateCreated);
@@ -173,7 +177,7 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
                 ))
             }
         </div>
-        <hr/>    
+       
     </div>
        
 

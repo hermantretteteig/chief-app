@@ -133,7 +133,7 @@ export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsed
                     :
                     (
                         <>
-                            <p>Loading...</p>
+                            <h4 style={{textAlign : "center"}}>Loading..</h4>
 
                             {
 
