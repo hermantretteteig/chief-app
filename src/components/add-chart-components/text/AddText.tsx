@@ -61,6 +61,7 @@ const AddText = ({layers, setLayers} : AddTextProps) => {
           id='Title'
           name='Title'
           placeholder='Title...'
+          initialFocus
           onChange={onchangeIn}
           value={titleInput}
         />

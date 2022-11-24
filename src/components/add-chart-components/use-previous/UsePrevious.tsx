@@ -67,9 +67,7 @@ export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsed
                 layersThatAreImage++
         })
 
-        if (numOfChartGenerated === layersThatAreImage) {
-
-         
+        if (numOfChartGenerated === layersThatAreImage) {    
             setLayers(layersToGenerate)
             onLastUsedFinished();
         }
