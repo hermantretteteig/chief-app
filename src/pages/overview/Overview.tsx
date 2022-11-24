@@ -154,7 +154,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
                         <div style={{display : (layers.length === 0) ? "" : "none"}}>
                             <div className="nothing-added-yet">
-                                Nothing added yet, click "Add new chart/text" below,<br/> or find standard by clicking "Standrd report." above
+                                Nothing added yet, click "Add new chart/text" below,<br/> or find standards by clicking "Standrd report" above.
                             </div>
                         </div>
 
@@ -227,7 +227,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
 
                                         <ModalContent>
-                                            <InputField value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
+                                            <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
                                             
                                             <div className='button-download-container'>
                                                 <Button disabled={reportTitleCustom.length < 2} primary large icon={<IconDownload24 />} onClick={downloadImage}>
