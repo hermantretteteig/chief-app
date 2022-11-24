@@ -224,7 +224,7 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
       </div>
       {selectedChart !== 'Text' && (
         <div>
-               <div className='dropdown' style={{display : (selectedChart === "") ? "none" : "" }}>
+               <div className='dropdown'>
             <SingleSelect className='select'
               placeholder="Select organisation unit" value={selectedOrgU} selected={selectedOrgU} onChange={(e: string) => handleOrgU(e)}>
               {orgUnits.map((orgunit, index) => (
@@ -233,7 +233,7 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
               }
             </SingleSelect>
           </div>
-          <div className='dropdown' style={{display : (selectedOrgU === "") ? "none" : "" }}>
+          <div className='dropdown'>
             <SingleSelect selected={selectedData} className='select' placeholder="Select data element" value={selectedData} onChange={(e: string) => handleData(e)}>
               {dataSets.map((dataEl, index) => (
                 <SingleSelectOption key={index} label={dataEl.name} value={dataEl.id} />
@@ -241,7 +241,7 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
               }
             </SingleSelect>
           </div>
-          <div className='dropdown' style={{display : (selectedData === "") ? "none" : "" }}>
+          <div className='dropdown'>
             <SingleSelect selected={selectedPeriod} className='select'
               placeholder="Select time period" value={selectedPeriod} onChange={(e: string) => handlePeriod(e)}>
               {periode.map((pe, index) => (
@@ -286,7 +286,7 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
 
           <div className="button-container">
 
-            <Button secondary icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
+            <Button destructive icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
                 Go back
             </Button>
             <Button disabled={svg === ""} primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
@@ -294,7 +294,6 @@ const ChartDropdown = ({ layers, setLayers/*, orgUnits*/ }: DropdownProps) => {
             </Button>
 
           </div>
- <div style={{height : "50px"}}></div>
 
           {isShown && (
             <div>

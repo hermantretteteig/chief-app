@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { ILayer } from '../../../interfaces/Layer'
 import "./summery-layer-styles.css"
 import { IconMore24 } from "@dhis2/ui-icons";
-import { DropdownButton, Button } from "@dhis2/ui"
+
 import MoreOptions from './MoreOptions';
 import {convertText, convertToIcon} from "./ConvertHelper";
 
@@ -14,15 +14,7 @@ interface SummerLayerProps {
 const SummeryLayer = ({layer, index} : SummerLayerProps) => {
 
     const [showMore, setShowMore] = useState<boolean>(!false);
-    const [key, setClicked] = useState(0)
-
-    //used to reload button, so it
-    const increaseKey = () => {
-        setClicked(key+1)
-
     
-    }
-
   return (
     <div className='layer-container'>
         <div className='layer-innter-container'>
@@ -59,17 +51,7 @@ const SummeryLayer = ({layer, index} : SummerLayerProps) => {
             
 
     
-            <DropdownButton
-            
-                id={"layer-btn-"+index}
-                key={key}
-                /*icon={<IconMore24/>}*/
-                component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={index}/>} 
-                name="Icon small button"
-                value="default"
-                >options
-            </DropdownButton>
-   
+           
       
             
         </div>

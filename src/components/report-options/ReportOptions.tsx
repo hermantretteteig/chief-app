@@ -101,7 +101,7 @@ const ReportOptions = ({/*setSelectedType, selectedType, selectedReport, setRepo
                                 )
                                     :
                                 (
-                                    <UsePrevious setModalOpen={setModal} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]} skip={false}/>
+                                    <UsePrevious onFinish={setModal} reports={(dataLastUsed?.results as any).reports as IPreviousReport[]} skip={false}/>
                                 )
                         }       
                             <div style={{marginTop : "15px"}}>
