@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { IPreviousReport } from '../../../interfaces/PreviousReport';
 import { Button } from "@dhis2/ui";
-import { IconArrowRight24 } from "@dhis2/ui-icons"
+import { IconArrowRight24, IconCross24 } from "@dhis2/ui-icons"
 import "./use-previous.css";
 import ShowVisualization from '../charts/ShowVisualization';
 import { ILayer } from '../../../interfaces/Layer';
@@ -15,9 +15,10 @@ interface UsePreviousProps {
     onFinish: () => void
     skip: boolean,
     setLastUsedReportTitle : (e : string) => void;
+    setModal? : (e : boolean) => void;
 }
 
-export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsedReportTitle, skip }: UsePreviousProps) => {
+export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, setLastUsedReportTitle, skip }: UsePreviousProps) => {
 
     const [layersToGenerate, setLayersToGenerate] = useState<ILayer[]>([]);
     const [numOfChartGenerated, setnumOfChartGenerated] = useState(0);
@@ -93,7 +94,14 @@ export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsed
                     (
                         
                         (skip != true) ? (
-                            <><b className='title-last-three'>Last three reports:</b><table style={{ width: "100%" }}>
+                            <>
+                                <div className='flex-use-previous-header'>
+                                    <b className='title-last-three'>Last three reports:</b>
+                                    <Button small destructive onClick={() => setModal!(false)}icon={<IconCross24/>}/>
+                                </div> 
+
+
+                                <table style={{ width: "100%" }}>
                                     <thead className='table-head'>
                                         <tr>
                                             <td className='use-prev-cells'>

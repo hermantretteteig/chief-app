@@ -4,6 +4,11 @@
 
 }
 
+.flex-use-previous-header{
+    display: flex;
+    justify-content: space-between;
+}
+
 .use-prev-cells{
     padding : 2px;
 }
