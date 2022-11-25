@@ -109,7 +109,7 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
             }
             {lastUsedModal &&
                 <Modal small>
-                    <UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={dataLastUsed} skip={false}/>
+                    <UsePrevious setModal={setLastUsedModal} setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={dataLastUsed} skip={false}/>
                 </Modal>
             }
 
