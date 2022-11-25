@@ -10,6 +10,7 @@ import { IStandard } from '../../interfaces/Standard';
 import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
 import { useLayerContext } from '../../contexts/LayerContext';
 import { useDataQuery } from '@dhis2/app-runtime';
+import "./side-bar-styles.css"  
 
 interface sidebarProps {
     open: boolean,
@@ -87,9 +88,7 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
                 {open && (
                     <>
                         <div>
-                            <Menu>
-                                <MenuItem label="Last generated" onClick={() => setLastUsedModal(true)} icon={<IconArchive24/>}/>
-
+                       
                                 <hr style={{margin : "0px"}}/>
 
                                 {
@@ -97,15 +96,25 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
                                         <div key={i}><MenuItem label={obj.standardName} onClick={() => generateReport(obj)} /></div>
                                     ))
                                 }
-                                <hr style={{margin : "0px"}}/>
-                                <MenuItem label="Empty chart" onClick={() => emptyLayers()} icon={<IconDelete24/>}/>
-                              
+                      
                             </Menu>
-
-                              {
-                                loadingModal && 
-                                    (<div style={{display : "none"}}><UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLoadingFinished} reports={new_reports} skip={true}/></div>)
-                              }
+                            <hr style={{margin : "0px"}}/>
+                            <Menu>
+                                <MenuItem label="Last generated" onClick={() => setLastUsedModal(true)} icon={<IconArchive24/>}/>
+                           
+                            </Menu>
+                               
+                                
+                          
+                            <div className='fixed-bottom-empty-chart'>
+                                <Menu>
+                                    <MenuItem destructive label="Empty chart" onClick={() => emptyLayers()} icon={<IconDelete24/>}/>
+                                </Menu>
+                            </div>
+                                {
+                                    loadingModal && 
+                                        (<div style={{display : "none"}}><UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLoadingFinished} reports={new_reports} skip={true}/></div>)
+                                }
                         </div>
                     </>)
                 }
@@ -117,7 +126,7 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
             }
             {lastUsedModal &&
                 <Modal small>
-                    <UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={dataLastUsed} skip={false}/>
+                    <UsePrevious setModal={setLastUsedModal} setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLastUsedFinished} reports={dataLastUsed} skip={false}/>
                 </Modal>
             }
 
