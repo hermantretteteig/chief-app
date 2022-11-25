@@ -4,13 +4,22 @@
 
 }
 
+.use-prev-table{
+    border-spacing: 0 10px;
+}
+
 .flex-use-previous-header{
     display: flex;
     justify-content: space-between;
 }
 
+
 .use-prev-cells{
     padding : 2px;
+}
+
+.margin-left-open-button{
+    margin-left: 3px;
 }
 
 .float-button-right{
