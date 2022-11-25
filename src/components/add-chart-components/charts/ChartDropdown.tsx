@@ -248,7 +248,6 @@ const ChartDropdown = ({ layers, setLayers, orgUnits}: DropdownProps) => {
                 <SingleSelectOption key={index} label={pe.name} value={pe.id} />
               ))
               }
-
             </SingleSelect>
             {!buttonNotClicked && (selectedChart !== '' || 'Text') && (
               <div style={{ color: 'red', fontSize: 'small' }}>

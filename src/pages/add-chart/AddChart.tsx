@@ -19,7 +19,7 @@ const AddChart = ({ layers, setLayers, orgUnits }: AddChartProps) => {
     <div className='container'>
       <div className='flex'>
         <Button secondary icon={<IconArrowLeft24 />} className='btn' onClick={() => navigate("/")}>
-          {}
+          
         </Button>
         <h2 className='add'>
           Add new chart to report
