@@ -6,8 +6,11 @@ import { PreviewText } from '../../add-chart-components/text/PreviewText';
 import { usePreviousContext } from '../../../contexts/PreviousContext';
 import { IPreviousReport } from '../../../interfaces/PreviousReport';
 import { useDataMutation } from '@dhis2/app-runtime';
-import MoreOptions from '../summery-components/MoreOptions';
-import { DropdownButton, Button } from "@dhis2/ui"
+import MoveUpDown from '../summery-components/MoveUpDown';
+import { DropdownButton, Button, Menu, MenuItem } from "@dhis2/ui"
+import AreYouSureModal from '../summery-components/AreYouSureModal';
+import {IconDelete24, IconArrowDown24, IconArrowUp24} from "@dhis2/ui-icons";
+import { LayerContext, useLayerContext } from '../../../contexts/LayerContext';
 
 const myMutation = (type : string, userId : string) => {
     return {
@@ -46,6 +49,9 @@ const updateOrCreate = (previousReports : IPreviousReport[]) => {
 const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExport, dataPreviousReport, setisUpdatingLastUsed} : PreviewProps) => {
 
     //const { previousReports } = usePreviousContext();
+
+
+
     const [mutate, { called, loading, error, data }] = useDataMutation(myMutation(updateOrCreate(dataPreviousReport), userId) as any)
     const [key, setClicked] = useState(0)
 
@@ -54,6 +60,9 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
             convertDOMtoPNG()
         }
       }));
+
+
+      const [modalOpen, setModalOpen] = useState(false)
 
 
 
@@ -112,12 +121,14 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
     }
 
 
+
+
+
+
+
     const indexToUpdateInPreviousReport = () : number => {
         let oldest = new Date();
         let indexToReplace: number = -1;
-
-        
-
 
         dataPreviousReport.forEach((obj : IPreviousReport, index) => {
 
@@ -136,44 +147,57 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
             <h3 style={{textAlign : "center"}}>{reportTitleCustom}</h3>
             {
                 layers.map((layer : ILayer, i) => (
-                    <div key={i} className="flex-preview">
-                        <>
-                        {
-                            (layer.imageBlobUrl === "") ?
+                    <div style={{backgroundColor : (i % 2 == 0) ? "" : "",  }}>
+                        <div key={i} className="flex-preview">
+                            
+                            <span className='move-up-down-container'>
+                                <MoveUpDown layerName={layer.mainTitle} index={i}/>
+                            </span>
+                            <>
+                            {
+                                (layer.imageBlobUrl === "") ?
+                                    (
+                                        <div className='preview-style'>
+                                            <PreviewText mainTitle={layer.mainTitle} customText={layer.customText as string} theme={layer.theme as string} />
+                                        </div>
+                                    )
+                                    :
+                                    (
+                                        <div className="chart-container">
+                                            <p className="chart-title">{layer.mainTitle}</p>
+                                            <img className='chart-size' src={layer.imageBlobUrl}/>
+                                        </div>
+                                    )
+                            }
+                            </>
+                            {
+                                (hideForExport === true) ?
                                 (
-                                    <div className='preview-style'>
-                                        <PreviewText mainTitle={layer.mainTitle} customText={layer.customText as string} theme={layer.theme as string} />
-                                    </div>
+                                    <div></div>
                                 )
                                 :
                                 (
-                                    <div className="chart-container">
-                                        <p className="chart-title">{layer.mainTitle}</p>
-                                        <img className='chart-size' src={layer.imageBlobUrl}/>
+                                    <div className='button-item'>
+                                        {/*<DropdownButton
+                                            id={"layer-btn-"+i}
+                                            key={key}
+                                            component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={i}/>} 
+                                            name="Icon small button"
+                                            value="default"
+                                            >options
+                                        </DropdownButton>*/}
+
+                                        <AreYouSureModal index={i} layerName={layer.mainTitle}/>
+
+                                    
+                                        
                                     </div>
                                 )
-                        }
-                        </>
-                        {
-                            (hideForExport === true) ?
-                            (
-                                <div></div>
-                            )
-                            :
-                            (
-                                <div className='button-item'>
-                                    <DropdownButton
-                                        id={"layer-btn-"+i}
-                                        key={key}
-                                        component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={i}/>} 
-                                        name="Icon small button"
-                                        value="default"
-                                        >options
-                                    </DropdownButton>
-                                </div>
-                            )
-                        }
-                    </div>  
+                            }
+                          
+                        </div>  
+                      
+                    </div>
                 ))
             }
         </div>

@@ -3,7 +3,7 @@ import { ILayer } from '../../../interfaces/Layer'
 import "./summery-layer-styles.css"
 import { IconMore24 } from "@dhis2/ui-icons";
 
-import MoreOptions from './MoreOptions';
+import MoveUpDown from './MoveUpDown';
 import {convertText, convertToIcon} from "./ConvertHelper";
 
 interface SummerLayerProps {

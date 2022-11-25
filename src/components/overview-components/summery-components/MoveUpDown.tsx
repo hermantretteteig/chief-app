@@ -1,19 +1,19 @@
 import React, {useState} from 'react'
-import {FlyoutMenu, Button, ButtonStrip, MenuItem, Modal, ModalTitle, ModalContent, ModalActions} from "@dhis2/ui";
+import {FlyoutMenu, Menu, Button, ButtonStrip, MenuItem, Modal, ModalTitle, ModalContent, ModalActions} from "@dhis2/ui";
 import {IconDelete24, IconArrowDown24, IconArrowUp24} from "@dhis2/ui-icons";
 import { useLayerContext } from '../../../contexts/LayerContext';
 import { ILayer } from '../../../interfaces/Layer';
 import AreYouSureModal from './AreYouSureModal';
-
+import "./move-up-down.css"
 
 interface MoreOptionsProps{
     index : number,
     layerName : string,
-    increaseKey : () => void
+    
 }
 
 
-const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
+const MoveUpDown = ({index, layerName} : MoreOptionsProps) => {
 
     const { layers, setLayers } = useLayerContext()
 
@@ -30,7 +30,6 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
         console.log(newItems);
 
         setLayers(newItems);
-        increaseKey();
     }
 
     const openDialog = () => {
@@ -56,23 +55,17 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
         }
 
         setLayers(lay);
-        increaseKey();
+
         return;
 
     }
     
     return (
         <div>
-        <FlyoutMenu dense={false}>
-            <MenuItem disabled={index === 0} onClick={() => swapLayers("up")} label="Move up" icon={<IconArrowUp24/>}/>
-            <MenuItem disabled={index === layers.length-1}  onClick={() => swapLayers("down")} label="Move down" icon={<IconArrowDown24/>}/>
-            <MenuItem onClick={openDialog} label="Delete chart" icon={<IconDelete24/>}/>
-        </FlyoutMenu>
-
-        <AreYouSureModal layerName={layerName} setOpen={setModalOpen} open={modalOpen} onDelete={onDeleteItem}/>
-
-
-        
+           
+                <Button className="up-down-button" disabled={index === 0} onClick={() => swapLayers("up")} icon={<IconArrowUp24/>}/>
+                <Button className="up-down-button" disabled={index === layers.length-1}  onClick={() => swapLayers("down")}  icon={<IconArrowDown24/>}/>
+           
         </div>
         
     )
@@ -80,4 +73,4 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
             
     
 
-export default MoreOptions
+export default MoveUpDown
