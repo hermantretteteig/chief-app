@@ -8,6 +8,7 @@ import { IPreviousReport } from '../../../interfaces/PreviousReport';
 import { useDataMutation } from '@dhis2/app-runtime';
 import MoreOptions from '../summery-components/MoreOptions';
 import { DropdownButton, Button } from "@dhis2/ui"
+import { IconAdd16, IconEdit24 } from '@dhis2/ui-icons';
 
 const myMutation = (type : string, userId : string) => {
     return {
@@ -163,12 +164,13 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
                             (
                                 <div className='button-item'>
                                     <DropdownButton
+                                        icon={<IconEdit24/>}
                                         id={"layer-btn-"+i}
                                         key={key}
                                         component={<MoreOptions layerName={layer.mainTitle} increaseKey={increaseKey} index={i}/>} 
                                         name="Icon small button"
                                         value="default"
-                                        >options
+                                        >
                                     </DropdownButton>
                                 </div>
                             )

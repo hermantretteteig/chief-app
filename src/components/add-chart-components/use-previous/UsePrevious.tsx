@@ -101,7 +101,7 @@ export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, s
                                 </div> 
 
 
-                                <table style={{ width: "100%" }}>
+                                <table className='use-prev-table'>
                                     <thead className='table-head'>
                                         <tr>
                                             <td className='use-prev-cells'>
@@ -115,10 +115,11 @@ export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, s
                                     </thead>
                                     <tbody>
                                         {reports.sort(function (a, b) { return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(); }).map((obj: IPreviousReport, i) => (
-                                            <tr key={i}>
+                                            
+                                            <tr key={i} className="td-margin">
                                                 <td className='use-prev-cells'>{obj.reportTitle}</td>
                                                 <td className='use-prev-cells'>{obj.dateCreated.toString().slice(0, 10)}</td>
-                                                <td className='use-prev-cells float-button-right'><Button onClick={() => onSelectPrevReport(obj)} primary icon={<IconArrowRight24 />}></Button></td>
+                                                <td className='use-prev-cells float-button-right margin-left-open-button'><Button onClick={() => onSelectPrevReport(obj)} icon={<IconArrowRight24 />}>open</Button></td>
                                             </tr>
                                         ))}
                                     </tbody>
