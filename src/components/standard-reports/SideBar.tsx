@@ -10,6 +10,7 @@ import { IStandard } from '../../interfaces/Standard';
 import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
 import { useLayerContext } from '../../contexts/LayerContext';
 import { useDataQuery } from '@dhis2/app-runtime';
+import "./side-bar-styles.css"  
 
 interface sidebarProps {
     open: boolean,
@@ -68,10 +69,7 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
                 {open && 
                  
                         <div>
-                            <Menu>
-                                <MenuItem label="Last generated" onClick={() => setLastUsedModal(true)} icon={<IconArchive24/>}/>
-                           
-                            </Menu>
+                            
                                 <hr style={{margin : "0px"}}/>
                             <Menu>
                                 {
@@ -82,17 +80,24 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
                                     ))
                                 }
                             </Menu>
-                               
-                                <hr style={{margin : "0px"}}/>
-                          
+                            <hr style={{margin : "0px"}}/>
                             <Menu>
-                                <MenuItem label="Empty chart" onClick={() => emptyLayers()} icon={<IconDelete24/>}/>
+                                <MenuItem label="Last generated" onClick={() => setLastUsedModal(true)} icon={<IconArchive24/>}/>
+                           
                             </Menu>
+                               
+                                
+                          
+                            <div className='fixed-bottom-empty-chart'>
+                                <Menu>
+                                    <MenuItem destructive label="Empty chart" onClick={() => emptyLayers()} icon={<IconDelete24/>}/>
+                                </Menu>
+                            </div>
 
-                              {
-                                loadingModal && 
-                                    (<div style={{display : "none"}}><UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLoadingFinished} reports={new_reports} skip={true}/></div>)
-                            }
+                                {
+                                    loadingModal && 
+                                        (<div style={{display : "none"}}><UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLoadingFinished} reports={new_reports} skip={true}/></div>)
+                                }
                         </div>
                         
                     }
