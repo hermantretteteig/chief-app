@@ -25,7 +25,7 @@ const ShowVisualization = ({selectedChart, dataElementMock, periodeMock, orgUnit
      
 
   const [chartProps] = useState({
-    style: { maxHeight: 600, maxWidth: 550, width: "100vw" },
+    style: { maxHeight: 600, maxWidth: 600, width: "100vw" },
     id: 1,
     responses: [],
     extraOptions: mockExtraOptions,

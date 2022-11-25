@@ -1,0 +1,13 @@
+.empty-chart {
+    align-self: flex-end;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.reports {
+    display: ;
+}

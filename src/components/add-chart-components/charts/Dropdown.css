@@ -4,14 +4,9 @@
 }
 .dropdown {
     padding: 5px;
+    max-width: 600px;
 }
 
-.chartBtn {
-    margin-top: 35px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 20px;
-}
 
 .flex-container {
     display: flex;
@@ -25,21 +20,22 @@
 }
 
 .textfield {
-    padding: 0.5%;
+    padding: 5px;
+    max-width: 600px;
 }
 
 .title {
-    padding: 0.5%;
+    padding: 5px;
+    max-width: 600px;
 }
 
 .button-container{
     display : flex;
-    justify-content: space-between;
+    justify-content:center;
+    padding: 10px;
+    margin-top: 20px;
 }
-.btn-place {
-    justify-content: right;
-    display: flex;
-}
+
 .titleChart {
     padding: 0.5%;
     margin-top: 5%;

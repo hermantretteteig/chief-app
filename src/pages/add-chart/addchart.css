@@ -1,0 +1,22 @@
+
+
+.btn {
+    margin-top: 20px;
+    max-width: 120px;
+    margin-left: 10px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    min-width: 36px;
+}
+
+.add-container {
+    margin: auto;
+    max-width: 600px;
+}

@@ -248,6 +248,7 @@ const ChartDropdown = ({ layers, setLayers, orgUnits}: DropdownProps) => {
                 <SingleSelectOption key={index} label={pe.name} value={pe.id} />
               ))
               }
+
             </SingleSelect>
             {!buttonNotClicked && (selectedChart !== '' || 'Text') && (
               <div style={{ color: 'red', fontSize: 'small' }}>
@@ -285,10 +286,6 @@ const ChartDropdown = ({ layers, setLayers, orgUnits}: DropdownProps) => {
 
 
           <div className="button-container">
-
-            <Button destructive icon={<IconArrowLeft24 />} className='chartBtn' onClick={() => navigate("/")}>
-                Go back
-            </Button>
             <Button disabled={svg === ""} primary icon={<IconAdd24 />} className='chartBtn' onClick={checkValues}>
               Add chart to report
             </Button>

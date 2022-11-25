@@ -19,14 +19,33 @@ interface sidebarProps {
     dataLastUsed : any;
 }
 
+const lastUsedFromDataStore = (userId : string) => {
+    return {
+        results: {
+            resource: 'dataStore/chief-app/'+userId,
+            params: {
+                fields: ['dataViewOrganisationUnits'],
+            },
+        }
+    }
+}
+
 const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataLastUsed, userId }: sidebarProps) => {
 
     const {setLayers} = useLayerContext()
 
+
+    console.log(dataLastUsed);
+
+    //const { loading : loadingLastUsed, error : errorLastUsed, data : dataLastUsed } = useDataQuery(lastUsedFromDataStore(userId))
+   
+
+
     const onLastUsedFinished = () => {
         console.log("last used is finished loading");
         onChangeStandardAndSetReportTitleCustom(lastUsedReportTitle)
-        setLastUsedModal(false); 
+        setLastUsedModal(false);
+        
     }
 
     const onLoadingFinished = () => {
@@ -65,37 +84,31 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
     return (
         <div>
             <div className='sidebar'>
-                {open && 
-                 
+                {open && (
+                    <>
                         <div>
                             <Menu>
                                 <MenuItem label="Last generated" onClick={() => setLastUsedModal(true)} icon={<IconArchive24/>}/>
-                           
-                            </Menu>
+
                                 <hr style={{margin : "0px"}}/>
-                            <Menu>
+
                                 {
                                     allStandard.map((obj : IStandard, i) => (
-                                    
-                                        <MenuItem key={i} label={obj.standardName} onClick={() => generateReport(obj)} />
-                                   
+                                        <div key={i}><MenuItem label={obj.standardName} onClick={() => generateReport(obj)} /></div>
                                     ))
                                 }
-                            </Menu>
-                               
                                 <hr style={{margin : "0px"}}/>
-                          
-                            <Menu>
                                 <MenuItem label="Empty chart" onClick={() => emptyLayers()} icon={<IconDelete24/>}/>
+                              
                             </Menu>
 
                               {
                                 loadingModal && 
                                     (<div style={{display : "none"}}><UsePrevious setLastUsedReportTitle={setLastUsedReportTitle} onFinish={onLoadingFinished} reports={new_reports} skip={true}/></div>)
-                            }
+                              }
                         </div>
-                        
-                    }
+                    </>)
+                }
             </div>
             {loadingModal && 
                 <Modal small>   

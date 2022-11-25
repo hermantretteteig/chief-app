@@ -4,7 +4,7 @@ import Preview from '../../components/overview-components/preview-components/Pre
 import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, Input, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
-import { IconAdd24, IconBlock24, IconDownload24, IconFileDocument24 } from "@dhis2/ui-icons"
+import { IconAdd24, IconCross24, IconDownload24, IconFileDocument24, IconQuestion24 } from "@dhis2/ui-icons"
 import ReportOptions from '../../components/report-options/ReportOptions'
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
@@ -25,10 +25,10 @@ interface OverviewProps {
     reportType: (report: string) => void
 }
 
-const lastUsedFromDataStore = (userId : string) => {
+const lastUsedFromDataStore = (userId: string) => {
     return {
         results: {
-            resource: 'dataStore/chief-app/'+userId,
+            resource: 'dataStore/chief-app/' + userId,
             params: {
                 fields: ['dataViewOrganisationUnits'],
             },
@@ -39,9 +39,9 @@ const lastUsedFromDataStore = (userId : string) => {
 
 const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewProps) => {
 
-    
-    const { loading : loadingLastUsed, error : errorLastUsed, data : dataPreviousReport } = useDataQuery(lastUsedFromDataStore(userId))
-    
+
+    const { loading: loadingLastUsed, error: errorLastUsed, data: dataPreviousReport } = useDataQuery(lastUsedFromDataStore(userId))
+
 
 
     const { setPreviousReports } = usePreviousContext();
@@ -103,7 +103,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
         }
     }
 
-    const onChangeStandardAndSetReportTitleCustom = (reportStandardName : string) => {
+    const onChangeStandardAndSetReportTitleCustom = (reportStandardName: string) => {
         setOpenSideBar(false);
         console.log(reportStandardName);
         setReportTitleCustom(reportStandardName);
@@ -111,31 +111,45 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
 
     return (
-            <div>
-                <div className='top-nav-bar'  style={{
-                    position : "fixed", 
-                    width : "100vw", 
-                    height : "46px",
-                    zIndex : "1"
-                }}>
-
+        <div>
+            <div className='top-nav-bar' style={{
+                position: "fixed",
+                width: "100vw",
+                minHeight: "46px",
+                zIndex: "1"
+            }}>
                     <div className='button-open-menu-container'>
-                        <Button loading={loadingLastUsed} className='openbtn' primary icon={<IconFileDocument24/>} onClick={changeSideBar}>Standard reports</Button>         
+                        <Button loading={loadingLastUsed} className='openbtn' secondary icon={<IconFileDocument24 />} onClick={changeSideBar}>Standard reports</Button>
+                    </div>
+                    <div className='center-button-margin'>
+                        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
+                            Add new chart/text
+                        </Button>
+                    </div>
+
+                <div className='place-right'>
+                    <div className="share-button-ove">
+                        <Button disabled={layers.length === 0} primary onClick={onShareClick}>
+                            Share report
+                        </Button>
+                    </div>
+                    <div className="help-button-ove">
+                        <Button onClick={changeStatus} icon={<IconQuestion24 />} small></Button>
                     </div>
                 </div>
-                
-            <main 
+            </div>
+            <main
                 style={{
                     display: 'flex',
                     height: '100%',
-                    
+
                 }}
             >
                 {openSideBar && (<><aside
-                    style={{                   
+                    style={{
                         position: "fixed",
                         height: "100vh",
-                        marginTop : "47px",
+                        marginTop: "47px",
                         maxWidth: "190px",
                         backgroundColor: "#f2f2f2",
                         borderRight: openSideBar ? ('1px solid grey') : (""),
@@ -143,49 +157,25 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 >
                     <div className="menu">
                         <div className='sidebar'>
-                            
-                            <SideBar dataLastUsed={(dataPreviousReport?.results as any).reports as any as IPreviousReport[]} userId={userId} open={openSideBar} setOpen={setOpenSideBar} onChangeStandardAndSetReportTitleCustom={onChangeStandardAndSetReportTitleCustom}/>
+
+                            <SideBar dataLastUsed={(dataPreviousReport?.results as any).reports as any as IPreviousReport[]} userId={userId} open={openSideBar} setOpen={setOpenSideBar} onChangeStandardAndSetReportTitleCustom={onChangeStandardAndSetReportTitleCustom} />
                         </div>
                     </div>
                 </aside>
                 </>)}
-                <section className="section-style" style={{marginTop : "50px"}}>
+                <section className="section-style" style={{ marginTop: "50px" }}>
                     <div className='main-container'>
 
-                        <div style={{display : (layers.length === 0) ? "" : "none"}}>
+                        <div style={{ display: (layers.length === 0) ? "" : "none" }}>
                             <div className="nothing-added-yet">
-                                Nothing added yet, click "Add new chart/text" below,<br/> or find standards by clicking "Standrd report" above.
+                                Nothing added yet, click "Add new chart/text" below,<br /> or find standards by clicking "Standard reports" above.
                             </div>
-                        </div>
-
-                        <div className='center-button-margin'>
-                            <Button primary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
-                                Add new chart/text
-                            </Button>
                         </div>
 
                         {
                             (!loadingLastUsed) && <Preview setisUpdatingLastUsed={setisUpdatingLastUsed} dataPreviousReport={(dataPreviousReport?.results as any).reports as any as IPreviousReport[]} hideForExport={hideForExport} reportTitleCustom={reportTitleCustom} userId={userId} layers={layers} reference={childRef} />
                         }
-                       
-                        <div className="bottom-button-container">
-                            <div className="bottom-flex-container">
-                                <div className="help-button-ove">
 
-                                </div>
-                                <div className="share-button-ove">
-                                    <Button disabled={layers.length === 0} large={true} primary onClick={onShareClick}>
-                                        Share report!
-                                    </Button>
-                                </div>
-                                <div className="help-button-ove">
-                                    <Button onClick={changeStatus}>
-                                        Help
-                                    </Button>
-                                </div>
-                            </div>
-
-                        </div>
                         <HelpModul open={helpModalOpen} setOpen={setHelpModalOpen} />
 
                         {shareModal &&
@@ -198,16 +188,16 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                                     <div style={{ textAlign: "center" }}>
                                         {
                                             (isUpdatingLastUsed)
-                                            ?
-                                            (
-                                                <h2 className="report-is-ready">Your report is beeing downloaded..</h2>
-                                            )
-                                            :
-                                            (
-                                                <h2 className="report-is-ready" style={{color : "green"}}>Your report is ready!</h2>
-                                            )
+                                                ?
+                                                (
+                                                    <h2 className="report-is-ready">Your report is beeing downloaded..</h2>
+                                                )
+                                                :
+                                                (
+                                                    <h2 className="report-is-ready" style={{ color: "green" }}>Your report is ready!</h2>
+                                                )
                                         }
-                                         <span>How to save:</span>
+                                        <span>How to save:</span>
                                         <img className='simple-instruction' src="instructions-simple.png" />
                                         <hr />
                                         <br />
@@ -221,16 +211,16 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                                                 Type in a title for the report
                                             </span>
                                             <div className='close-button-inner-container'>
-                                                <Button onClick={() => {setshareModal(false), sethideForExport(false)}} destructive icon={<IconBlock24 />} small></Button>
+                                                <Button onClick={() => { setshareModal(false), sethideForExport(false) }} destructive icon={<IconCross24 />} small></Button>
                                             </div>
                                         </div>
 
 
                                         <ModalContent>
                                             <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
-                                            
+
                                             <div className='button-download-container'>
-                                                <Button disabled={reportTitleCustom.length < 2} primary large icon={<IconDownload24 />} onClick={downloadImage}>
+                                                <Button disabled={reportTitleCustom.length < 1} primary large icon={<IconDownload24 />} onClick={downloadImage}>
                                                     Download
                                                 </Button>
                                             </div>
