@@ -1,0 +1,9 @@
+.fixed-bottom-empty-chart{
+    position: fixed;
+    bottom: 67px;
+    width: 187.41px;
+}
+
+.sidebar {
+    display: flex;
+}

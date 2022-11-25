@@ -82,6 +82,7 @@
 .close-button-container{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
     width: 100%;
 }
 
@@ -119,9 +120,7 @@
 .modalBtn{
     padding-left: 85%;
 }
-.sidebar {
-display: flex;
-  }
+
 
 .title {
     text-align: center;
