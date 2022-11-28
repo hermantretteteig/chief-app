@@ -35,12 +35,9 @@ interface PreviewProps{
 }
 
 const updateOrCreate = (previousReports : IPreviousReport[]) => {
-    console.log(previousReports);
     if(previousReports.length === 0){
-        console.log("create")
         return "create"
     }
-    console.log("update")
     return "update"
 }
 
@@ -66,10 +63,8 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
 
     const convertDOMtoPNG = async () => {
         setisUpdatingLastUsed(true);
-        console.log(dataPreviousReport)
 
         let _previousReports = [...dataPreviousReport];
-        console.log(indexToUpdateInPreviousReport());
 
         const addReport: IPreviousReport = {
             dateCreated : new Date(),
@@ -102,14 +97,7 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
                     link.click();
                 });
 
-        setisUpdatingLastUsed(false);
-        
-        /*html2canvas(document.body).then(function(canvas) {
-            const img = document.body.appendChild(canvas);
-            console.log(img);
-
-        });*/
-      
+        setisUpdatingLastUsed(false);      
     }
 
 

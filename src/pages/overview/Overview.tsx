@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
-import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, Input, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
 import { IconAdd24, IconCross24, IconDownload24, IconFileDocument24, IconQuestion24 } from "@dhis2/ui-icons"
-import ReportOptions from '../../components/report-options/ReportOptions'
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
@@ -105,7 +103,6 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
     const onChangeStandardAndSetReportTitleCustom = (reportStandardName: string) => {
         setOpenSideBar(false);
-        console.log(reportStandardName);
         setReportTitleCustom(reportStandardName);
     }
 
@@ -217,13 +214,8 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
 
                                         <ModalContent>
-<<<<<<< HEAD
-                                            <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
-
-=======
                                             <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} />
                                             
->>>>>>> 9c8604c (Completed several tasks)
                                             <div className='button-download-container'>
                                                 <Button disabled={reportTitleCustom.length < 1} primary large icon={<IconDownload24 />} onClick={downloadImage}>
                                                     Download

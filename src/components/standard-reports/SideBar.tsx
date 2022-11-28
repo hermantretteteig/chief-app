@@ -25,13 +25,11 @@ const SideBar = ({ open, setOpen, onChangeStandardAndSetReportTitleCustom, dataL
     const {setLayers} = useLayerContext()
 
     const onLastUsedFinished = () => {
-        console.log("last used is finished loading");
         onChangeStandardAndSetReportTitleCustom(lastUsedReportTitle)
         setLastUsedModal(false); 
     }
 
     const onLoadingFinished = () => {
-        console.log("loading standard is finish");
         onChangeStandardAndSetReportTitleCustom(new_reports[0].reportTitle + " report")
         setLoadingModal(false);
     }

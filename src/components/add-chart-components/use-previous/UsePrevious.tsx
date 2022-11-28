@@ -60,7 +60,6 @@ export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, s
             isInitialMount.current = false;
             return;
         }
-        console.log(layersToGenerate)
 
         let layersThatAreImage = 0;
         layersToGenerate.forEach((lay: ILayer) => {
@@ -82,11 +81,7 @@ export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, s
         setLastUsedReportTitle(report.reportTitle);
         setLayersToGenerate(report.layers);
     }
-
-    /*reports.map((obj : IPreviousReport) => {
-        console.log(obj.reportTitle+" "+obj.dateCreated);
-    })*/
-
+    
     return (
         <div>
             {
