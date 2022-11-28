@@ -22,25 +22,19 @@ const MoreOptions = ({index, layerName, increaseKey} : MoreOptionsProps) => {
     //const [index_loc, setindex] = useState(index)
 
     const onDeleteItem = () => {
-        console.log(layers);
         const newItems = [...layers].filter((obj : ILayer, i) => {
-            console.log(index);
             return i !== index;
         })
-        console.log(newItems);
-
         setLayers(newItems);
         increaseKey();
     }
 
     const openDialog = () => {
-        console.log("open..");
         setModalOpen(true);
     }
 
     const swapLayers = (direction : string) => {
 
-        console.log(layers);
         let lay = [...layers];
 
 

@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Preview from '../../components/overview-components/preview-components/Preview';
-import Summery from '../../components/overview-components/summery-components/Summery';
 import { ILayer } from '../../interfaces/Layer';
 import { Menu, MenuItem, Modal, ButtonStrip, ModalTitle, Input, InputField, ModalActions, ModalContent, Button } from "@dhis2/ui";
 import { IconAdd24, IconCross24, IconDownload24, IconFileDocument24, IconQuestion24 } from "@dhis2/ui-icons"
-import ReportOptions from '../../components/report-options/ReportOptions'
 import "./overview-styles/overview.css"
 import { useDataQuery } from '@dhis2/app-runtime';
 import { IPreviousReport } from '../../interfaces/PreviousReport';
@@ -14,6 +12,7 @@ import ChangeTitle from '../../components/add-chart-components/charts/ChangeTitl
 import SideBar from '../../components/standard-reports/SideBar';
 import { useLayerContext } from '../../contexts/LayerContext';
 import { usePreviousContext } from '../../contexts/PreviousContext';
+import { IconShare24 } from '@dhis2/ui-icons';
 
 
 interface OverviewProps {
@@ -105,7 +104,6 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
     const onChangeStandardAndSetReportTitleCustom = (reportStandardName: string) => {
         setOpenSideBar(false);
-        console.log(reportStandardName);
         setReportTitleCustom(reportStandardName);
     }
 
@@ -119,22 +117,22 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 zIndex: "1"
             }}>
                     <div className='button-open-menu-container'>
-                        <Button loading={loadingLastUsed} className='openbtn' secondary icon={<IconFileDocument24 />} onClick={changeSideBar}>Standard reports</Button>
+                        <Button large loading={loadingLastUsed} className='openbtn' secondary icon={<IconFileDocument24 />} onClick={changeSideBar}>Standard reports</Button>
                     </div>
                     <div className='center-button-margin'>
-                        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
+                        <Button large secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                             Add new chart/text
                         </Button>
                     </div>
 
                 <div className='place-right'>
                     <div className="share-button-ove">
-                        <Button disabled={layers.length === 0} primary onClick={onShareClick}>
+                        <Button large icon={<IconShare24/>} disabled={layers.length === 0} primary onClick={onShareClick}>
                             Share report
                         </Button>
                     </div>
                     <div className="help-button-ove">
-                        <Button onClick={changeStatus} icon={<IconQuestion24 />} small></Button>
+                        <Button large onClick={changeStatus} icon={<IconQuestion24 />} small></Button>
                     </div>
                 </div>
             </div>
@@ -217,13 +215,8 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
 
                                         <ModalContent>
-<<<<<<< HEAD
-                                            <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
-
-=======
                                             <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} />
                                             
->>>>>>> 9c8604c (Completed several tasks)
                                             <div className='button-download-container'>
                                                 <Button disabled={reportTitleCustom.length < 1} primary large icon={<IconDownload24 />} onClick={downloadImage}>
                                                     Download

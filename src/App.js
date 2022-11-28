@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { DataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import classes from './App.module.css'
-import { Button } from '@dhis2/ui'
-import { useNavigate } from "react-router-dom";
-import Mainpage from './Mainpage';
 import PageContainer from './pages/PageContainer';
 
 
