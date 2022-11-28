@@ -208,7 +208,7 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                                     <div>
                                         <div className='close-button-container'>
                                             <span className='share-modal-main-title'>
-                                                Type in a title for the report
+                                                Report title
                                             </span>
                                             <div className='close-button-inner-container'>
                                                 <Button onClick={() => { setshareModal(false), sethideForExport(false) }} destructive icon={<IconCross24 />} small></Button>
@@ -217,8 +217,13 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
 
 
                                         <ModalContent>
+<<<<<<< HEAD
                                             <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} label="Report title:" />
 
+=======
+                                            <InputField initialFocus value={reportTitleCustom} onChange={onChangeTitle} />
+                                            
+>>>>>>> 9c8604c (Completed several tasks)
                                             <div className='button-download-container'>
                                                 <Button disabled={reportTitleCustom.length < 1} primary large icon={<IconDownload24 />} onClick={downloadImage}>
                                                     Download

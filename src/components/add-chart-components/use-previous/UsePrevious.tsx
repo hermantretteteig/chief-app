@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { IPreviousReport } from '../../../interfaces/PreviousReport';
 import { Button } from "@dhis2/ui";
-import { IconArrowRight24 } from "@dhis2/ui-icons"
+import { IconArrowRight24, IconCross24 } from "@dhis2/ui-icons"
 import "./use-previous.css";
 import ShowVisualization from '../charts/ShowVisualization';
 import { ILayer } from '../../../interfaces/Layer';
@@ -15,9 +15,10 @@ interface UsePreviousProps {
     onFinish: () => void
     skip: boolean,
     setLastUsedReportTitle : (e : string) => void;
+    setModal? : (e : boolean) => void;
 }
 
-export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsedReportTitle, skip }: UsePreviousProps) => {
+export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, setLastUsedReportTitle, skip }: UsePreviousProps) => {
 
     const [layersToGenerate, setLayersToGenerate] = useState<ILayer[]>([]);
     const [numOfChartGenerated, setnumOfChartGenerated] = useState(0);
@@ -93,7 +94,14 @@ export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsed
                     (
                         
                         (skip != true) ? (
-                            <><b className='title-last-three'>Last three reports:</b><table style={{ width: "100%" }}>
+                            <>
+                                <div className='flex-use-previous-header'>
+                                    <b className='title-last-three'>Last three reports:</b>
+                                    <Button small destructive onClick={() => setModal!(false)}icon={<IconCross24/>}/>
+                                </div> 
+
+
+                                <table className='use-prev-table'>
                                     <thead className='table-head'>
                                         <tr>
                                             <td className='use-prev-cells'>
@@ -107,10 +115,11 @@ export const UsePrevious = ({ reports, onFinish: onLastUsedFinished, setLastUsed
                                     </thead>
                                     <tbody>
                                         {reports.sort(function (a, b) { return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(); }).map((obj: IPreviousReport, i) => (
-                                            <tr key={i}>
+                                            
+                                            <tr key={i} className="td-margin">
                                                 <td className='use-prev-cells'>{obj.reportTitle}</td>
                                                 <td className='use-prev-cells'>{obj.dateCreated.toString().slice(0, 10)}</td>
-                                                <td className='use-prev-cells float-button-right'><Button onClick={() => onSelectPrevReport(obj)} primary icon={<IconArrowRight24 />}></Button></td>
+                                                <td className='use-prev-cells float-button-right margin-left-open-button'><Button onClick={() => onSelectPrevReport(obj)} icon={<IconArrowRight24 />}>open</Button></td>
                                             </tr>
                                         ))}
                                     </tbody>
