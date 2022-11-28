@@ -12,6 +12,7 @@ import ChangeTitle from '../../components/add-chart-components/charts/ChangeTitl
 import SideBar from '../../components/standard-reports/SideBar';
 import { useLayerContext } from '../../contexts/LayerContext';
 import { usePreviousContext } from '../../contexts/PreviousContext';
+import { IconShare24 } from '@dhis2/ui-icons';
 
 
 interface OverviewProps {
@@ -116,22 +117,22 @@ const Overview = ({ layers, setLayers, reportType, report, userId }: OverviewPro
                 zIndex: "1"
             }}>
                     <div className='button-open-menu-container'>
-                        <Button loading={loadingLastUsed} className='openbtn' secondary icon={<IconFileDocument24 />} onClick={changeSideBar}>Standard reports</Button>
+                        <Button large loading={loadingLastUsed} className='openbtn' secondary icon={<IconFileDocument24 />} onClick={changeSideBar}>Standard reports</Button>
                     </div>
                     <div className='center-button-margin'>
-                        <Button secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
+                        <Button large secondary onClick={() => navigate("/add-chart")} icon={<IconAdd24 />}>
                             Add new chart/text
                         </Button>
                     </div>
 
                 <div className='place-right'>
                     <div className="share-button-ove">
-                        <Button disabled={layers.length === 0} primary onClick={onShareClick}>
+                        <Button large icon={<IconShare24/>} disabled={layers.length === 0} primary onClick={onShareClick}>
                             Share report
                         </Button>
                     </div>
                     <div className="help-button-ove">
-                        <Button onClick={changeStatus} icon={<IconQuestion24 />} small></Button>
+                        <Button large onClick={changeStatus} icon={<IconQuestion24 />} small></Button>
                     </div>
                 </div>
             </div>

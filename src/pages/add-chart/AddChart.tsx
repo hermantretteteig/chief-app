@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import AddNewChart from '../../components/add-chart-components/charts/AddNewChart'
 import ChartDropdown from '../../components/add-chart-components/charts/ChartDropdown';
 import { ILayer } from '../../interfaces/Layer';
 import { Option } from '../../interfaces/OrgUnit';
@@ -22,7 +21,7 @@ const AddChart = ({ layers, setLayers, orgUnits }: AddChartProps) => {
           {}
         </Button>
         <h2 className='add'>
-          Add new chart to report
+          Add new element to report
         </h2>
         <div className='hidden'>
         
