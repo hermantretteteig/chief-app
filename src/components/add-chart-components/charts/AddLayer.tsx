@@ -9,7 +9,7 @@ import { IconAdd24, IconArrowLeft24 } from "@dhis2/ui-icons"
 import { ILayer } from '../../../interfaces/Layer'
 import { IChartElement, IITems } from '../../../interfaces/ChartElement'
 import ShowVisualization from './ShowVisualization'
-import AddText from '../../add-chart-components/text/AddText'
+import AddText from '../text/AddText'
 import ChangeTitle from './ChangeTitle'
 import { Option } from '../../../interfaces/OrgUnit'
 
@@ -18,7 +18,7 @@ interface DropdownProps {
   setLayers: any,
   orgUnits : Option[]
 }
-const ChartDropdown = ({ layers, setLayers, orgUnits}: DropdownProps) => {
+const AddLayer = ({ layers, setLayers, orgUnits}: DropdownProps) => {
 
 
    /*  const orgUnits: Option[] = [
@@ -303,4 +303,4 @@ const ChartDropdown = ({ layers, setLayers, orgUnits}: DropdownProps) => {
     </div>
   )
 }
-export default ChartDropdown
+export default AddLayer

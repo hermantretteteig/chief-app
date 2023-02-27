@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button } from '@dhis2-ui/button'
 import { TextArea, InputField } from '@dhis2/ui'
-import "../charts/ChartDropdown"
+import "../charts/AddLayer"
 import { IconAdd24 } from "@dhis2/ui-icons"
 import { ILayer } from '../../../interfaces/Layer';
 import { PreviewText } from './PreviewText';

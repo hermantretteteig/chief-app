@@ -168,7 +168,3 @@ export const UsePrevious = ({ reports, setModal, onFinish: onLastUsedFinished, s
     )
 }
 
-function useContext(): { layers: any; setlayers: any; } {
-    throw new Error('Function not implemented.');
-}
-

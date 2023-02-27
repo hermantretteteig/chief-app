@@ -9,6 +9,7 @@ import { useDataMutation } from '@dhis2/app-runtime';
 import MoreOptions from '../summery-components/MoreOptions';
 import { DropdownButton, Button } from "@dhis2/ui"
 import { IconAdd16, IconEdit24 } from '@dhis2/ui-icons';
+import PreviewChart from './PreviewChart';
 
 const myMutation = (type : string, userId : string) => {
     return {
@@ -136,10 +137,7 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
                                 )
                                 :
                                 (
-                                    <div className="chart-container">
-                                        <p className="chart-title">{layer.mainTitle}</p>
-                                        <img className='chart-size' src={layer.imageBlobUrl}/>
-                                    </div>
+                                    <PreviewChart layer={layer}/>
                                 )
                         }
                         </>

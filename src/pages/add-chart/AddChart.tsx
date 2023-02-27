@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import ChartDropdown from '../../components/add-chart-components/charts/ChartDropdown';
+import AddLayer from '../../components/add-chart-components/charts/AddLayer';
 import { ILayer } from '../../interfaces/Layer';
 import { Option } from '../../interfaces/OrgUnit';
 import { IconArrowLeft24 } from "@dhis2/ui-icons"
@@ -28,7 +28,7 @@ const AddChart = ({ layers, setLayers, orgUnits }: AddChartProps) => {
         </div>
       </div>
       <div className='add-container'>
-        <ChartDropdown orgUnits={orgUnits} layers={layers} setLayers={setLayers} />
+        <AddLayer orgUnits={orgUnits} layers={layers} setLayers={setLayers} />
       </div>
     </div>
   )
