@@ -1,7 +1,7 @@
 {
   "name": "chief-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Health Reports",
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
