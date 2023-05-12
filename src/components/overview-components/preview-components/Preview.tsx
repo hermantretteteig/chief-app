@@ -80,11 +80,7 @@ const Preview = ({layers, reference: ref, userId, reportTitleCustom, hideForExpo
             _previousReports[indexToUpdate] = addReport;
         }
 
-        //previousReports[indexToUpdate].dateCreated = new Date();
-        //previousReports[indexToUpdate].reportTitle = "A report";
-        //previousReports[indexToUpdate].layers = layers;
-        //const newMut = myMutation("update", addReport);
-        
+        //SOURCE: https://www.studentstutorial.com/javascript/convert-html-div-element
         await mutate({reports : _previousReports})
 
         var container: any = document.getElementById("capturereport"); /* full page */
